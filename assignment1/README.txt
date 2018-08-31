@@ -21,16 +21,3 @@ sudo apt-get update
 sudo apt install -y build-essential
 sudo apt-get install python3-pip
 sudo pip3 install antlr4-python3-runtime
-
-
-
-bai 1:
-ID: [a-z][0-9a-z]* ;
-bai 2:
-fragment Letter: [a-z];
-fragment Number: [0-9];
-ID: Letter(Number|Letter)* ;
-bai 3a:
-fragment Letter: [a-z];
-fragment Number: [0-9];
-REAL: Number+'.'?Number*'e'?'e-'?Number+;
