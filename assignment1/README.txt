@@ -7,5 +7,30 @@ Then type: python3 run.py test ASTGenSuite
 Then type: python3 run.py test CheckSuite
 Then type: python3 run.py test CodeGenSuite
 
+cd /usr/local/lib
 
-export ANTLR_LIB=/usr/local/lib/antlr-4.7.1-complete.jar
+
+sudo wget https://www.antlr.org/download/antlr-4.7.1-complete.jar
+thêm dòng này vào cuối file 
+nano ~/.bashrc
+
+ANTLR_LIB='/usr/local/lib/antlr-4.7.1-complete.jar'
+export ANTLR_LIB
+
+sudo apt-get update
+sudo apt install -y build-essential
+sudo apt-get install python3-pip
+sudo pip3 install antlr4-python3-runtime
+
+
+
+bai 1:
+ID: [a-z][0-9a-z]* ;
+bai 2:
+fragment Letter: [a-z];
+fragment Number: [0-9];
+ID: Letter(Number|Letter)* ;
+bai 3a:
+fragment Letter: [a-z];
+fragment Number: [0-9];
+REAL: Number+'.'?Number*'e'?'e-'?Number+;
