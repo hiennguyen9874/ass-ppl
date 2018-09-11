@@ -3,11 +3,17 @@ from TestUtils import TestLexer
 
 class LexerSuite(unittest.TestCase):
       
-    def test_identifier(self):
+    def test_1(self):
         """test identifiers"""
-        self.assertTrue(TestLexer.test("abc","abc,<EOF>",101))
-        self.assertTrue(TestLexer.test("aCBbdc","aCBbdc,<EOF>",102))
-        self.assertTrue(TestLexer.test("aAsVN","aAsVN,<EOF>",103))
-    def test_integer(self):
-        """test integers"""
-        self.assertTrue(TestLexer.test("123a123","123,a,123,<EOF>",104))
+        self.assertTrue(TestLexer.test("(* This is a block comment *)","<EOF>",101))
+    def test_2(self):
+        """test identifiers"""
+        self.assertTrue(TestLexer.test("// This is a block comment","<EOF>",102))
+    def test_3(self):
+        """test identifiers"""
+        self.assertTrue(TestLexer.test("{This is a block comment}","<EOF>",103))
+    def test_4(self):
+        """test identifiers"""
+        self.assertTrue(TestLexer.test("(* This\nis\nnbloc\ncomment *)","<EOF>",104))
+    
+    

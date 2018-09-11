@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ce030328-dc73-4584-9aa8-b640de00a93f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../MP.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/../../MP.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../assignment1.1.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/../../assignment1.1.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.vs/ProjectSettings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.vs/VSWorkspaceState.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.vs/initial/v15/.suo" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.vs/slnx.sqlite" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.vscode/settings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../README.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/launch.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/launch.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/mp/parser/.antlr/MP.interp" beforeDir="false" afterPath="$PROJECT_DIR$/main/mp/parser/.antlr/MP.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/mp/parser/.antlr/MP.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/main/mp/parser/.antlr/MP.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/mp/parser/.antlr/MPLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/main/mp/parser/.antlr/MPLexer.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/mp/parser/.antlr/MPLexer.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/mp/parser/.antlr/MPLexer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/mp/parser/.antlr/MPLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/main/mp/parser/.antlr/MPLexer.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/mp/parser/.antlr/MPParser.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/mp/parser/.antlr/MPParser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/mp/parser/MP.g4" beforeDir="false" afterPath="$PROJECT_DIR$/main/mp/parser/MP.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/LexerSuite.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/LexerSuite.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/ParserSuite.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/ParserSuite.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/TestUtils.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/TestUtils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/101.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/101.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/102.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/102.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/103.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/103.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/104.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/104.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/201.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/201.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/202.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/202.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/203.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/203.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/101.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/101.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/102.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/102.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/103.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/103.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/104.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/104.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/201.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/201.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/MP.interp" beforeDir="false" afterPath="$PROJECT_DIR$/../target/MP.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/MP.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/../target/MP.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/MPLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/../target/MPLexer.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/MPLexer.py" beforeDir="false" afterPath="$PROJECT_DIR$/../target/MPLexer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/MPLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/../target/MPLexer.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/MPParser.py" beforeDir="false" afterPath="$PROJECT_DIR$/../target/MPParser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/MPVisitor.py" beforeDir="false" afterPath="$PROJECT_DIR$/../target/MPVisitor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/main/mp/parser/MP.interp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/main/mp/parser/MP.tokens" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/main/mp/parser/MPLexer.interp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/main/mp/parser/MPLexer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/main/mp/parser/MPLexer.tokens" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/main/mp/parser/MPParser.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/main/mp/parser/MPVisitor.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../initial/src/main/mp/parser/MP.g4" beforeDir="false" afterPath="$PROJECT_DIR$/../../initial/src/main/mp/parser/MP.g4" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="1750136358">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="4" />
+          <entry key="project.open.time.0" value="3" />
+          <entry key="project.open.time.14" value="1" />
+          <entry key="project.opened" value="4" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="g4" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="ANTLR v4 grammar file" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="g4" value="20" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="ANTLR v4 grammar file" value="20" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/main/mp/parser/MP.g4">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="259">
+              <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/main/mp/parser/MP.g4" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="85" />
+    <option name="y" value="25" />
+    <option name="width" value="1750" />
+    <option name="height" value="1030" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State />
+          <State>
+            <id>Android</id>
+          </State>
+          <State>
+            <id>Class structureJava</id>
+          </State>
+          <State>
+            <id>Code maturityJava</id>
+          </State>
+          <State>
+            <id>CorrectnessLintAndroid</id>
+          </State>
+          <State>
+            <id>JUnitJava</id>
+          </State>
+          <State>
+            <id>Java</id>
+          </State>
+          <State>
+            <id>Java 5Java language level migration aidsJava</id>
+          </State>
+          <State>
+            <id>Java 7Java language level migration aidsJava</id>
+          </State>
+          <State>
+            <id>Java 8Java language level migration aidsJava</id>
+          </State>
+          <State>
+            <id>Java language level migration aidsJava</id>
+          </State>
+          <State>
+            <id>JavadocJava</id>
+          </State>
+          <State>
+            <id>LintAndroid</id>
+          </State>
+          <State>
+            <id>Numeric issuesJava</id>
+          </State>
+          <State>
+            <id>PerformanceJava</id>
+          </State>
+          <State>
+            <id>PerformanceLintAndroid</id>
+          </State>
+          <State>
+            <id>TestNGJava</id>
+          </State>
+          <State>
+            <id>Threading issuesJava</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>Android</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="AndroidView" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="src" type="b2602c69:ProjectViewProjectNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="src" type="b2602c69:ProjectViewProjectNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="src" type="b2602c69:ProjectViewProjectNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="mp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="src" type="b2602c69:ProjectViewProjectNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="mp" type="462c0819:PsiDirectoryNode" />
+              <item name="parser" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1536662585301" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ce030328-dc73-4584-9aa8-b640de00a93f" name="Default Changelist" comment="" />
+      <created>1536659403694</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1536659403694</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.52214766" visible="true" weight="0.13892618" />
+      <window_info id="Structure" order="1" sideWeight="0.47785234" side_tool="true" visible="true" weight="0.13892618" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" sideWeight="0.50067115" side_tool="true" weight="0.13892618" />
+      <window_info anchor="bottom" id="Messages" order="0" />
+      <window_info anchor="bottom" id="Message" order="1" />
+      <window_info anchor="bottom" id="Find" order="2" />
+      <window_info anchor="bottom" id="Run" order="3" weight="0.30201343" />
+      <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32885906" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Tool Output" order="11" weight="0.32885906" />
+      <window_info anchor="bottom" id="ANTLR Preview" order="12" weight="0.43087247" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.24966443" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Palette&#9;" order="6" />
+      <window_info anchor="right" id="Maven Projects" order="7" weight="0.3295302" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/main/mp/parser/MP.g4">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>10</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

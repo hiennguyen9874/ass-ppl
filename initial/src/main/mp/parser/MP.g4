@@ -24,8 +24,6 @@ VOIDTYPE: 'void'  ;
 
 ID: [a-zA-Z]+ ;
 
-INTLIT: [0-9]+;
-
 LB: '(' ;
 
 RB: ')' ;
@@ -38,6 +36,11 @@ SEMI: ';' ;
 
 WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
 
+INTLIT: [0-9]+;
+
+FLOATLIT: INTLIT '.' INTLIT? EP? | '.' INTLIT EP? | INTLIT EP;
+
+fragment EP: [eE] [+-]? INTLIT;
 
 ERROR_CHAR: .;
 UNCLOSE_STRING: .;
