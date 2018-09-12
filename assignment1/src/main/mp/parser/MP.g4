@@ -4,7 +4,7 @@
 grammar MP;
 
 @lexer::header {
-    from lexererr import *
+from lexererr import *
 }
 
 options {
@@ -12,54 +12,55 @@ options {
 }
 
 // Parser
-program: (declaration)* EOF;
+program: (declaration)+ EOF;
 
-declaration: vardec | fundec | prodec;
+declaration: varDec | funDec | proDec;
 
 // Variable declaration
 
-vardec: VAR onevardec+;
+varDec: VAR onevarDec+;
 
-onevardec: IDENT (COMMA IDENT)* COLON functionType SEMI;
+onevarDec: IDENT (COMMA IDENT)* COLON functionType SEMI;
 
 functionType:
-	primitivetype
-	| arraytype; // [1 .. 4] -> dung ; [1..5] -> sai
+	primitiveType
+	| arrayType; // [1 .. 4] -> dung ; [1..5] -> sai
 
-arraytype: ARRAY LSB INTLIT DOTDOT INTLIT RSB OF primitivetype;
+arrayType:
+	ARRAY (LSB expression DOTDOT expression RSB)? OF primitiveType;
 
-primitivetype: REAL | BOOLEAN | INTEGER | STRING;
+primitiveType: REAL | BOOLEAN | INTEGER | STRING;
 
 // Function declaration
 
-fundec:
-	FUNCTION IDENT LB paralist RB COLON functionType SEMI vardec compoundstate;
+funDec:
+	FUNCTION IDENT LB paraList RB COLON functionType SEMI varDec? compoundState;
 
-paralist: (paradec (SEMI paradec)*)?;
+paraList: (paradec (SEMI paradec)*)?;
 
 paradec: IDENT (COMMA IDENT)* COLON functionType;
 
 // Procedure  declaration
 
-prodec:
-	PROCEDURE IDENT LB paralist RB SEMI vardec compoundstate;
+proDec:
+	PROCEDURE IDENT LB paraList RB SEMI varDec? compoundState;
 
-compoundstate: BEGIN state* END;
 
 // Statement
-state:
+statement:
 	assignState
 	| ifState
-	| forState
 	| whileState
+	| forState
 	| breakState
 	| contiSate
 	| returnState
+	| compoundState
 	| callState
-	| compoundstate
+	| expressionStatement
 	| withState;
 
-assignState: lsh (COLON EQUAL lsh)* COLON EQUAL expression;
+assignState: lsh (ASSIGNOP lsh)* ASSIGNOP expression SEMI;
 
 lsh: scalarvar | indenxexp;
 
@@ -67,12 +68,12 @@ scalarvar: IDENT;
 
 indenxexp: expression LSB expression RSB;
 
-ifState: IF expression THEN state (ELSE state)?;
+ifState: IF expression THEN statement (ELSE statement)?;
 
-whileState: WHILE expression DO state;
+whileState: WHILE expression DO statement;
 
 forState:
-	FOR IDENT COLON EQUAL expression (TO | DOWNTO) expression DO state;
+	FOR IDENT ASSIGNOP expression (TO | DOWNTO) expression DO statement;
 
 breakState: BREAK SEMI;
 
@@ -80,9 +81,13 @@ contiSate: CONTINUE SEMI;
 
 returnState: RETURN expression? SEMI;
 
-withState: WITH onevardec+ DO state;
+withState: WITH onevarDec+ DO statement;
 
-callState: IDENT LB expression (COMMA expression)? RB SEMI;
+callState: IDENT LB IDENT (COMMA expression)* RB SEMI;
+
+compoundState: BEGIN statement*? END;
+
+expressionStatement: expression SEMI;
 
 // Expression
 expression:
@@ -94,13 +99,15 @@ expression:
 	| expression (EQUAL | NOT_EQUAL | LT | LE | GT | GE) expression
 	| expression (AND THEN | OR ELSE) expression;
 
-primary: LB expression RB | literal | funcall | IDENT;
+primary: LB expression RB | literal | funCall | IDENT;
 
 literal: INTLIT | STRINGLIT | FLOATLIT | BOOLLIT;
 
-funcall: IDENT LB expressionList RB;
+funCall: IDENT LB expressionList? RB;
 
 expressionList: expression (COMMA expression)*;
+
+
 
 // "ABC"="abc"
 
@@ -220,6 +227,8 @@ WITH: W I T H;
 
 // Operators
 
+ASSIGNOP: ':=';
+
 ADDOP: '+';
 
 SUBOP: '-';
@@ -239,6 +248,7 @@ GT: '>';
 LE: '<=';
 
 GE: '>=';
+
 
 // Separators
 
@@ -276,13 +286,30 @@ IDENT: [_a-zA-Z][_a-zA-Z0-9]*;
 
 INTLIT: [0-9]+;
 
-FLOATLIT: (INTLIT '.' INTLIT? | '.' INTLIT) ExponentPart?;
+FLOATLIT: (INTLIT '.' INTLIT? | '.' INTLIT | INTLIT) ExponentPart?;
 
 fragment ExponentPart: [eE] [-]? INTLIT;
 
 BOOLLIT: TRUE | FALSE;
 
-STRINGLIT: '"' (~["\\\n\r\b\f\t] | EscapeSequence)* '"';
+STRINGLIT:
+	'"' STRINGCHAR* '"' {
+	self.text=self.text[1:-1]
+};
+
+fragment STRINGCHAR: ~["\\\n\r] | EscapeSequence;
 
 fragment EscapeSequence: '\\' [btnfr"'\\];
 
+ILLEGAL_ESCAPE:
+	'"' STRINGCHAR* '\\' ~[btnfr"'\\] {
+	raise IllegalEscape(self.text[1:])
+};
+UNCLOSE_STRING:
+	'"' STRINGCHAR* {
+	raise UncloseString(self.text[1:])
+};
+ERROR_CHAR:
+	.{
+	raise ErrorToken(self.text)
+};

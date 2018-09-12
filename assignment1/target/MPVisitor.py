@@ -19,13 +19,13 @@ class MPVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MPParser#vardec.
-    def visitVardec(self, ctx:MPParser.VardecContext):
+    # Visit a parse tree produced by MPParser#varDec.
+    def visitVarDec(self, ctx:MPParser.VarDecContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MPParser#onevardec.
-    def visitOnevardec(self, ctx:MPParser.OnevardecContext):
+    # Visit a parse tree produced by MPParser#onevarDec.
+    def visitOnevarDec(self, ctx:MPParser.OnevarDecContext):
         return self.visitChildren(ctx)
 
 
@@ -34,23 +34,23 @@ class MPVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MPParser#arraytype.
-    def visitArraytype(self, ctx:MPParser.ArraytypeContext):
+    # Visit a parse tree produced by MPParser#arrayType.
+    def visitArrayType(self, ctx:MPParser.ArrayTypeContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MPParser#primitivetype.
-    def visitPrimitivetype(self, ctx:MPParser.PrimitivetypeContext):
+    # Visit a parse tree produced by MPParser#primitiveType.
+    def visitPrimitiveType(self, ctx:MPParser.PrimitiveTypeContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MPParser#fundec.
-    def visitFundec(self, ctx:MPParser.FundecContext):
+    # Visit a parse tree produced by MPParser#funDec.
+    def visitFunDec(self, ctx:MPParser.FunDecContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MPParser#paralist.
-    def visitParalist(self, ctx:MPParser.ParalistContext):
+    # Visit a parse tree produced by MPParser#paraList.
+    def visitParaList(self, ctx:MPParser.ParaListContext):
         return self.visitChildren(ctx)
 
 
@@ -59,18 +59,13 @@ class MPVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MPParser#prodec.
-    def visitProdec(self, ctx:MPParser.ProdecContext):
+    # Visit a parse tree produced by MPParser#proDec.
+    def visitProDec(self, ctx:MPParser.ProDecContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MPParser#compoundstate.
-    def visitCompoundstate(self, ctx:MPParser.CompoundstateContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MPParser#state.
-    def visitState(self, ctx:MPParser.StateContext):
+    # Visit a parse tree produced by MPParser#statement.
+    def visitStatement(self, ctx:MPParser.StatementContext):
         return self.visitChildren(ctx)
 
 
@@ -134,6 +129,16 @@ class MPVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MPParser#compoundState.
+    def visitCompoundState(self, ctx:MPParser.CompoundStateContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MPParser#expressionStatement.
+    def visitExpressionStatement(self, ctx:MPParser.ExpressionStatementContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MPParser#expression.
     def visitExpression(self, ctx:MPParser.ExpressionContext):
         return self.visitChildren(ctx)
@@ -149,8 +154,8 @@ class MPVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MPParser#funcall.
-    def visitFuncall(self, ctx:MPParser.FuncallContext):
+    # Visit a parse tree produced by MPParser#funCall.
+    def visitFunCall(self, ctx:MPParser.FunCallContext):
         return self.visitChildren(ctx)
 
 

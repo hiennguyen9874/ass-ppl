@@ -1,1 +1,12 @@
-var i : array [ 1 . . 5 ] of integer ; {}
+
+        function inc(y:integer):integer;
+        var x:integer;
+        begin
+            a := b [ 10 ] := foo ( ) [ 3 ] := x := 1 ;
+        end
+
+        procedure main();
+        begin
+    
+        end
+        

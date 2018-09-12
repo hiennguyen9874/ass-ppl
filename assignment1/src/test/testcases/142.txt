@@ -1,0 +1,4 @@
+return a;
+return;
+beak;
+continue;
