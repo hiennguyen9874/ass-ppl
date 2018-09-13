@@ -60,3 +60,14 @@ version 1.2 sửa file MP.g4 đặc tả mới của MP
 
 javac -cp $ANTLR_LIB ../target/main/mc/parser/*.java
 grun 
+
+input="123\k123" -> output=?
+1:=1 -> đúng hay sai
+
+var i : array [ 1-1 .. 1+1 ] of integer;
+
+var a , b , c : integer ;
+
+            d : array [ 1 .. 5 ] of integer ;
+
+            e , f : real ;

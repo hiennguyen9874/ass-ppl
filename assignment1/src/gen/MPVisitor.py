@@ -69,11 +69,6 @@ class MPVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MPParser#assignState.
-    def visitAssignState(self, ctx:MPParser.AssignStateContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by MPParser#lsh.
     def visitLsh(self, ctx:MPParser.LshContext):
         return self.visitChildren(ctx)
@@ -81,11 +76,6 @@ class MPVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by MPParser#scalarvar.
     def visitScalarvar(self, ctx:MPParser.ScalarvarContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MPParser#indenxexp.
-    def visitIndenxexp(self, ctx:MPParser.IndenxexpContext):
         return self.visitChildren(ctx)
 
 
@@ -139,13 +129,23 @@ class MPVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MPParser#assignState.
+    def visitAssignState(self, ctx:MPParser.AssignStateContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MPParser#expression.
     def visitExpression(self, ctx:MPParser.ExpressionContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MPParser#primary.
-    def visitPrimary(self, ctx:MPParser.PrimaryContext):
+    # Visit a parse tree produced by MPParser#indenxexp.
+    def visitIndenxexp(self, ctx:MPParser.IndenxexpContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MPParser#operands.
+    def visitOperands(self, ctx:MPParser.OperandsContext):
         return self.visitChildren(ctx)
 
 

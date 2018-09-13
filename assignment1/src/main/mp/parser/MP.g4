@@ -1,5 +1,5 @@
 /*
- Studen name: Nguyễn XUân Hiến Studen Id: 1652192
+ Studen name: Nguyễn Xuân Hiến Studen Id: 1652192
  */
 grammar MP;
 
@@ -12,7 +12,7 @@ options {
 }
 
 // Parser
-program: (declaration)+ EOF;
+program: (declaration)* EOF;
 
 declaration: varDec | funDec | proDec;
 
@@ -21,10 +21,6 @@ declaration: varDec | funDec | proDec;
 varDec: VAR onevarDec+;
 
 onevarDec: IDENT (COMMA IDENT)* COLON functionType SEMI;
-
-functionType:
-	primitiveType
-	| arrayType; // [1 .. 4] -> dung ; [1..5] -> sai
 
 arrayType:
 	ARRAY (LSB expression DOTDOT expression RSB)? OF primitiveType;
@@ -40,16 +36,18 @@ paraList: (paradec (SEMI paradec)*)?;
 
 paradec: IDENT (COMMA IDENT)* COLON functionType;
 
+functionType:
+	primitiveType
+	| arrayType; // [1 .. 4] -> dung ; [1..5] -> sai
+
 // Procedure  declaration
 
 proDec:
 	PROCEDURE IDENT LB paraList RB SEMI varDec? compoundState;
 
-
 // Statement
 statement:
-	assignState
-	| ifState
+	ifState
 	| whileState
 	| forState
 	| breakState
@@ -57,16 +55,12 @@ statement:
 	| returnState
 	| compoundState
 	| callState
-	| expressionStatement
+	| assignState
 	| withState;
-
-assignState: lsh (ASSIGNOP lsh)* ASSIGNOP expression SEMI;
 
 lsh: scalarvar | indenxexp;
 
 scalarvar: IDENT;
-
-indenxexp: expression LSB expression RSB;
 
 ifState: IF expression THEN statement (ELSE statement)?;
 
@@ -83,31 +77,31 @@ returnState: RETURN expression? SEMI;
 
 withState: WITH onevarDec+ DO statement;
 
-callState: IDENT LB IDENT (COMMA expression)* RB SEMI;
+callState: IDENT LB expressionList* RB SEMI;
 
 compoundState: BEGIN statement*? END;
 
-expressionStatement: expression SEMI;
+assignState: lsh (ASSIGNOP lsh)* ASSIGNOP expression SEMI;
 
 // Expression
 expression:
-	primary
-	| expression '[' expression ']'
+	operands
+	| expression LSB expression RSB
 	| <assoc = right> (SUBOP | NOT) expression
 	| expression (DIVOP | MULOP | DIV | MOD | AND) expression
 	| expression (ADDOP | SUBOP | OR) expression
 	| expression (EQUAL | NOT_EQUAL | LT | LE | GT | GE) expression
 	| expression (AND THEN | OR ELSE) expression;
 
-primary: LB expression RB | literal | funCall | IDENT;
+indenxexp: expression LSB expression RSB;
+
+operands: LB expression RB | literal | funCall | IDENT;
 
 literal: INTLIT | STRINGLIT | FLOATLIT | BOOLLIT;
 
 funCall: IDENT LB expressionList? RB;
 
 expressionList: expression (COMMA expression)*;
-
-
 
 // "ABC"="abc"
 
@@ -249,7 +243,6 @@ LE: '<=';
 
 GE: '>=';
 
-
 // Separators
 
 LSB: '[';
@@ -301,14 +294,17 @@ fragment STRINGCHAR: ~["\\\n\r] | EscapeSequence;
 
 fragment EscapeSequence: '\\' [btnfr"'\\];
 
+// Error
 ILLEGAL_ESCAPE:
 	'"' STRINGCHAR* '\\' ~[btnfr"'\\] {
 	raise IllegalEscape(self.text[1:])
 };
+
 UNCLOSE_STRING:
 	'"' STRINGCHAR* {
 	raise UncloseString(self.text[1:])
 };
+
 ERROR_CHAR:
 	.{
 	raise ErrorToken(self.text)

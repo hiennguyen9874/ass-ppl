@@ -109,30 +109,23 @@ class LexerSuite(unittest.TestCase):
     def test_35(self):
         self.assertTrue(TestLexer.test("(*abcd def*)", "<EOF>", 135))
 
-
     def test_36(self):
         self.assertTrue(TestLexer.test("_ _name _Name _1 name_1","_,_name,_Name,_1,name_1,<EOF>", 136))
-
 
     def test_37(self):
         self.assertTrue(TestLexer.test("$name #name", "Error Token $", 137))
 
-
     def test_38(self):
         self.assertTrue(TestLexer.test("boolean break continue else for float if int return void do while true false string", "boolean,break,continue,else,for,float,if,int,return,void,do,while,true,false,string,<EOF>", 138))
-
 
     def test_39(self):
         self.assertTrue(TestLexer.test(" boolean check; ","boolean,check,;,<EOF>", 139))
 
-
     def test_40(self):
         self.assertTrue(TestLexer.test("int age1, age2; ","int,age1,,,age2,;,<EOF>", 140))
 
-
     def test_41(self):
         self.assertTrue(TestLexer.test(" void main(){}\n\tstring[] getName(){}", "void,main,(,),string,[,],getName,(,),<EOF>", 141))
-
 
     def test_42(self):
         self.assertTrue(TestLexer.test("return a;\nreturn;\nbeak;\ncontinue;", "return,a,;,return,;,beak,;,continue,;,<EOF>", 142))
@@ -217,4 +210,32 @@ class LexerSuite(unittest.TestCase):
 
     def test_68(self):
         self.assertTrue(TestLexer.test("begin\ny:=x+1\nend;","begin,y,:=,x,+,1,end,;,<EOF>",168))
+
+    def test_69(self):
+        self.assertTrue(TestLexer.test("\"123\f45\"","12345,<EOF>",169))
+
+    def test_70(self):
+        self.assertTrue(TestLexer.test("\"123\r45\"","Unclosed String: 123",170))
+
+    def test_71(self):
+        self.assertTrue(TestLexer.test("\"abc\nxyz\"","Unclosed String: abc",171))
+
+    def test_72(self):
+        self.assertTrue(TestLexer.test("var a , b , c : integer ;","var,a,,,b,,,c,:,integer,;,<EOF>",172))
+
+    def test_73(self):
+        self.assertTrue(TestLexer.test("d : array [ 1 .. 5 ] of integer ;","d,:,array,[,1,..,5,],of,integer,;,<EOF>",173))
+
+    def test_74(self):
+        self.assertTrue(TestLexer.test("abcd_1234","abcd_1234,<EOF>",174))
+    
+    def test_75(self):
+        self.assertTrue(TestLexer.test("+-*/notmodorand<>=<=>=div","+,-,*,/,notmodorand,<>,=,<=,>=,div,<EOF>",175))
+
+    def test_76(self):
+        self.assertTrue(TestLexer.test("\"this a string\"","this a string,<EOF>",176))
+        
+    def test_77(self):
+        self.assertTrue(TestLexer.test("int main()","int,main,(,),<EOF>",177))
+    
 

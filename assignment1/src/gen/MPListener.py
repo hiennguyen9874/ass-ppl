@@ -116,15 +116,6 @@ class MPListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by MPParser#assignState.
-    def enterAssignState(self, ctx:MPParser.AssignStateContext):
-        pass
-
-    # Exit a parse tree produced by MPParser#assignState.
-    def exitAssignState(self, ctx:MPParser.AssignStateContext):
-        pass
-
-
     # Enter a parse tree produced by MPParser#lsh.
     def enterLsh(self, ctx:MPParser.LshContext):
         pass
@@ -140,15 +131,6 @@ class MPListener(ParseTreeListener):
 
     # Exit a parse tree produced by MPParser#scalarvar.
     def exitScalarvar(self, ctx:MPParser.ScalarvarContext):
-        pass
-
-
-    # Enter a parse tree produced by MPParser#indenxexp.
-    def enterIndenxexp(self, ctx:MPParser.IndenxexpContext):
-        pass
-
-    # Exit a parse tree produced by MPParser#indenxexp.
-    def exitIndenxexp(self, ctx:MPParser.IndenxexpContext):
         pass
 
 
@@ -242,6 +224,15 @@ class MPListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by MPParser#assignState.
+    def enterAssignState(self, ctx:MPParser.AssignStateContext):
+        pass
+
+    # Exit a parse tree produced by MPParser#assignState.
+    def exitAssignState(self, ctx:MPParser.AssignStateContext):
+        pass
+
+
     # Enter a parse tree produced by MPParser#expression.
     def enterExpression(self, ctx:MPParser.ExpressionContext):
         pass
@@ -251,12 +242,21 @@ class MPListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by MPParser#primary.
-    def enterPrimary(self, ctx:MPParser.PrimaryContext):
+    # Enter a parse tree produced by MPParser#indenxexp.
+    def enterIndenxexp(self, ctx:MPParser.IndenxexpContext):
         pass
 
-    # Exit a parse tree produced by MPParser#primary.
-    def exitPrimary(self, ctx:MPParser.PrimaryContext):
+    # Exit a parse tree produced by MPParser#indenxexp.
+    def exitIndenxexp(self, ctx:MPParser.IndenxexpContext):
+        pass
+
+
+    # Enter a parse tree produced by MPParser#operands.
+    def enterOperands(self, ctx:MPParser.OperandsContext):
+        pass
+
+    # Exit a parse tree produced by MPParser#operands.
+    def exitOperands(self, ctx:MPParser.OperandsContext):
         pass
 
 

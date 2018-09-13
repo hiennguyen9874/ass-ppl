@@ -9,3 +9,4 @@ Then type: python3 run.py test CodeGenSuite
 
 
 export ANTLR_LIB=/usr/local/lib/antlr-4.7.1-complete.jar
+
