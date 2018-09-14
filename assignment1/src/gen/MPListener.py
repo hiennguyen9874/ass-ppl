@@ -26,57 +26,57 @@ class MPListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by MPParser#varDec.
-    def enterVarDec(self, ctx:MPParser.VarDecContext):
+    # Enter a parse tree produced by MPParser#vardec.
+    def enterVardec(self, ctx:MPParser.VardecContext):
         pass
 
-    # Exit a parse tree produced by MPParser#varDec.
-    def exitVarDec(self, ctx:MPParser.VarDecContext):
-        pass
-
-
-    # Enter a parse tree produced by MPParser#onevarDec.
-    def enterOnevarDec(self, ctx:MPParser.OnevarDecContext):
-        pass
-
-    # Exit a parse tree produced by MPParser#onevarDec.
-    def exitOnevarDec(self, ctx:MPParser.OnevarDecContext):
+    # Exit a parse tree produced by MPParser#vardec.
+    def exitVardec(self, ctx:MPParser.VardecContext):
         pass
 
 
-    # Enter a parse tree produced by MPParser#arrayType.
-    def enterArrayType(self, ctx:MPParser.ArrayTypeContext):
+    # Enter a parse tree produced by MPParser#onevardec.
+    def enterOnevardec(self, ctx:MPParser.OnevardecContext):
         pass
 
-    # Exit a parse tree produced by MPParser#arrayType.
-    def exitArrayType(self, ctx:MPParser.ArrayTypeContext):
-        pass
-
-
-    # Enter a parse tree produced by MPParser#primitiveType.
-    def enterPrimitiveType(self, ctx:MPParser.PrimitiveTypeContext):
-        pass
-
-    # Exit a parse tree produced by MPParser#primitiveType.
-    def exitPrimitiveType(self, ctx:MPParser.PrimitiveTypeContext):
+    # Exit a parse tree produced by MPParser#onevardec.
+    def exitOnevardec(self, ctx:MPParser.OnevardecContext):
         pass
 
 
-    # Enter a parse tree produced by MPParser#funDec.
-    def enterFunDec(self, ctx:MPParser.FunDecContext):
+    # Enter a parse tree produced by MPParser#arraytype.
+    def enterArraytype(self, ctx:MPParser.ArraytypeContext):
         pass
 
-    # Exit a parse tree produced by MPParser#funDec.
-    def exitFunDec(self, ctx:MPParser.FunDecContext):
+    # Exit a parse tree produced by MPParser#arraytype.
+    def exitArraytype(self, ctx:MPParser.ArraytypeContext):
         pass
 
 
-    # Enter a parse tree produced by MPParser#paraList.
-    def enterParaList(self, ctx:MPParser.ParaListContext):
+    # Enter a parse tree produced by MPParser#primitivetype.
+    def enterPrimitivetype(self, ctx:MPParser.PrimitivetypeContext):
         pass
 
-    # Exit a parse tree produced by MPParser#paraList.
-    def exitParaList(self, ctx:MPParser.ParaListContext):
+    # Exit a parse tree produced by MPParser#primitivetype.
+    def exitPrimitivetype(self, ctx:MPParser.PrimitivetypeContext):
+        pass
+
+
+    # Enter a parse tree produced by MPParser#fundec.
+    def enterFundec(self, ctx:MPParser.FundecContext):
+        pass
+
+    # Exit a parse tree produced by MPParser#fundec.
+    def exitFundec(self, ctx:MPParser.FundecContext):
+        pass
+
+
+    # Enter a parse tree produced by MPParser#paralist.
+    def enterParalist(self, ctx:MPParser.ParalistContext):
+        pass
+
+    # Exit a parse tree produced by MPParser#paralist.
+    def exitParalist(self, ctx:MPParser.ParalistContext):
         pass
 
 
@@ -89,21 +89,21 @@ class MPListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by MPParser#functionType.
-    def enterFunctionType(self, ctx:MPParser.FunctionTypeContext):
+    # Enter a parse tree produced by MPParser#functiontype.
+    def enterFunctiontype(self, ctx:MPParser.FunctiontypeContext):
         pass
 
-    # Exit a parse tree produced by MPParser#functionType.
-    def exitFunctionType(self, ctx:MPParser.FunctionTypeContext):
+    # Exit a parse tree produced by MPParser#functiontype.
+    def exitFunctiontype(self, ctx:MPParser.FunctiontypeContext):
         pass
 
 
-    # Enter a parse tree produced by MPParser#proDec.
-    def enterProDec(self, ctx:MPParser.ProDecContext):
+    # Enter a parse tree produced by MPParser#prodec.
+    def enterProdec(self, ctx:MPParser.ProdecContext):
         pass
 
-    # Exit a parse tree produced by MPParser#proDec.
-    def exitProDec(self, ctx:MPParser.ProDecContext):
+    # Exit a parse tree produced by MPParser#prodec.
+    def exitProdec(self, ctx:MPParser.ProdecContext):
         pass
 
 
@@ -125,12 +125,12 @@ class MPListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by MPParser#indexExpr.
-    def enterIndexExpr(self, ctx:MPParser.IndexExprContext):
+    # Enter a parse tree produced by MPParser#indexexpr.
+    def enterIndexexpr(self, ctx:MPParser.IndexexprContext):
         pass
 
-    # Exit a parse tree produced by MPParser#indexExpr.
-    def exitIndexExpr(self, ctx:MPParser.IndexExprContext):
+    # Exit a parse tree produced by MPParser#indexexpr.
+    def exitIndexexpr(self, ctx:MPParser.IndexexprContext):
         pass
 
 
@@ -143,39 +143,39 @@ class MPListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by MPParser#ifState.
-    def enterIfState(self, ctx:MPParser.IfStateContext):
+    # Enter a parse tree produced by MPParser#ifstate.
+    def enterIfstate(self, ctx:MPParser.IfstateContext):
         pass
 
-    # Exit a parse tree produced by MPParser#ifState.
-    def exitIfState(self, ctx:MPParser.IfStateContext):
-        pass
-
-
-    # Enter a parse tree produced by MPParser#whileState.
-    def enterWhileState(self, ctx:MPParser.WhileStateContext):
-        pass
-
-    # Exit a parse tree produced by MPParser#whileState.
-    def exitWhileState(self, ctx:MPParser.WhileStateContext):
+    # Exit a parse tree produced by MPParser#ifstate.
+    def exitIfstate(self, ctx:MPParser.IfstateContext):
         pass
 
 
-    # Enter a parse tree produced by MPParser#forState.
-    def enterForState(self, ctx:MPParser.ForStateContext):
+    # Enter a parse tree produced by MPParser#whilestate.
+    def enterWhilestate(self, ctx:MPParser.WhilestateContext):
         pass
 
-    # Exit a parse tree produced by MPParser#forState.
-    def exitForState(self, ctx:MPParser.ForStateContext):
+    # Exit a parse tree produced by MPParser#whilestate.
+    def exitWhilestate(self, ctx:MPParser.WhilestateContext):
         pass
 
 
-    # Enter a parse tree produced by MPParser#breakState.
-    def enterBreakState(self, ctx:MPParser.BreakStateContext):
+    # Enter a parse tree produced by MPParser#forstate.
+    def enterForstate(self, ctx:MPParser.ForstateContext):
         pass
 
-    # Exit a parse tree produced by MPParser#breakState.
-    def exitBreakState(self, ctx:MPParser.BreakStateContext):
+    # Exit a parse tree produced by MPParser#forstate.
+    def exitForstate(self, ctx:MPParser.ForstateContext):
+        pass
+
+
+    # Enter a parse tree produced by MPParser#breakstate.
+    def enterBreakstate(self, ctx:MPParser.BreakstateContext):
+        pass
+
+    # Exit a parse tree produced by MPParser#breakstate.
+    def exitBreakstate(self, ctx:MPParser.BreakstateContext):
         pass
 
 
@@ -188,48 +188,48 @@ class MPListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by MPParser#returnState.
-    def enterReturnState(self, ctx:MPParser.ReturnStateContext):
+    # Enter a parse tree produced by MPParser#returnstate.
+    def enterReturnstate(self, ctx:MPParser.ReturnstateContext):
         pass
 
-    # Exit a parse tree produced by MPParser#returnState.
-    def exitReturnState(self, ctx:MPParser.ReturnStateContext):
-        pass
-
-
-    # Enter a parse tree produced by MPParser#withState.
-    def enterWithState(self, ctx:MPParser.WithStateContext):
-        pass
-
-    # Exit a parse tree produced by MPParser#withState.
-    def exitWithState(self, ctx:MPParser.WithStateContext):
+    # Exit a parse tree produced by MPParser#returnstate.
+    def exitReturnstate(self, ctx:MPParser.ReturnstateContext):
         pass
 
 
-    # Enter a parse tree produced by MPParser#callState.
-    def enterCallState(self, ctx:MPParser.CallStateContext):
+    # Enter a parse tree produced by MPParser#withstate.
+    def enterWithstate(self, ctx:MPParser.WithstateContext):
         pass
 
-    # Exit a parse tree produced by MPParser#callState.
-    def exitCallState(self, ctx:MPParser.CallStateContext):
-        pass
-
-
-    # Enter a parse tree produced by MPParser#compoundState.
-    def enterCompoundState(self, ctx:MPParser.CompoundStateContext):
-        pass
-
-    # Exit a parse tree produced by MPParser#compoundState.
-    def exitCompoundState(self, ctx:MPParser.CompoundStateContext):
+    # Exit a parse tree produced by MPParser#withstate.
+    def exitWithstate(self, ctx:MPParser.WithstateContext):
         pass
 
 
-    # Enter a parse tree produced by MPParser#assignState.
-    def enterAssignState(self, ctx:MPParser.AssignStateContext):
+    # Enter a parse tree produced by MPParser#callstate.
+    def enterCallstate(self, ctx:MPParser.CallstateContext):
         pass
 
-    # Exit a parse tree produced by MPParser#assignState.
-    def exitAssignState(self, ctx:MPParser.AssignStateContext):
+    # Exit a parse tree produced by MPParser#callstate.
+    def exitCallstate(self, ctx:MPParser.CallstateContext):
+        pass
+
+
+    # Enter a parse tree produced by MPParser#compoundstate.
+    def enterCompoundstate(self, ctx:MPParser.CompoundstateContext):
+        pass
+
+    # Exit a parse tree produced by MPParser#compoundstate.
+    def exitCompoundstate(self, ctx:MPParser.CompoundstateContext):
+        pass
+
+
+    # Enter a parse tree produced by MPParser#assignstate.
+    def enterAssignstate(self, ctx:MPParser.AssignstateContext):
+        pass
+
+    # Exit a parse tree produced by MPParser#assignstate.
+    def exitAssignstate(self, ctx:MPParser.AssignstateContext):
         pass
 
 
@@ -320,6 +320,15 @@ class MPListener(ParseTreeListener):
 
     # Exit a parse tree produced by MPParser#expressionList.
     def exitExpressionList(self, ctx:MPParser.ExpressionListContext):
+        pass
+
+
+    # Enter a parse tree produced by MPParser#boolit.
+    def enterBoolit(self, ctx:MPParser.BoolitContext):
+        pass
+
+    # Exit a parse tree produced by MPParser#boolit.
+    def exitBoolit(self, ctx:MPParser.BoolitContext):
         pass
 
 

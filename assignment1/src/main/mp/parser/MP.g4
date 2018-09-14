@@ -15,76 +15,76 @@ options {
 // Parser
 program: (declaration)+ EOF;
 
-declaration: varDec | funDec | proDec;
+declaration: vardec | fundec | prodec;
 
 // Variable declaration
 
-varDec: VAR onevarDec+;
+vardec: VAR onevardec+;
 
-onevarDec: IDENT (COMMA IDENT)* COLON functionType SEMI;
+onevardec: IDENT (COMMA IDENT)* COLON functiontype SEMI;
 
-arrayType:
-	ARRAY LSB expression DOTDOT expression RSB OF primitiveType;
+arraytype:
+	ARRAY LSB expression DOTDOT expression RSB OF primitivetype;
 
-primitiveType: REAL | BOOLEAN | INTEGER | STRING;
+primitivetype: REAL | BOOLEAN | INTEGER | STRING;
 
 // Function declaration
 
-funDec:
-	FUNCTION IDENT LB paraList RB COLON functionType SEMI varDec? compoundState;
+fundec:
+	FUNCTION IDENT LB paralist RB COLON functiontype SEMI vardec? compoundstate;
 
-paraList: (paradec (SEMI paradec)*)?;
+paralist: (paradec (SEMI paradec)*)?;
 
-paradec: IDENT (COMMA IDENT)* COLON functionType;
+paradec: IDENT (COMMA IDENT)* COLON functiontype;
 
-functionType:
-	primitiveType
-	| arrayType; // [1 .. 4] -> dung ; [1..5] -> sai
+functiontype:
+	primitivetype
+	| arraytype; // [1 .. 4] -> dung ; [1..5] -> sai
 
 // Procedure  declaration
 
-proDec:
-	PROCEDURE IDENT LB paraList RB SEMI varDec? compoundState;
+prodec:
+	PROCEDURE IDENT LB paralist RB SEMI vardec? compoundstate;
 
-// Statement
+// statement
 statement:
-	ifState
-	| whileState
-	| forState
-	| breakState
+	ifstate
+	| whilestate
+	| forstate
+	| breakstate
 	| contiSate
-	| returnState
-	| compoundState
-	| callState
-	| assignState
-	| withState;
+	| returnstate
+	| compoundstate
+	| callstate
+	| assignstate
+	| withstate;
 
-lsh: scalarvar | indexExpr;
+lsh: scalarvar | indexexpr;
 
-indexExpr:	expression LSB expression RSB;
+indexexpr:	expression LSB expression RSB;
 
 scalarvar: IDENT;
 
-ifState: IF expression THEN statement (ELSE statement)?;
+ifstate: IF expression THEN statement (ELSE statement)?;
 
-whileState: WHILE expression DO statement;
+whilestate: WHILE expression DO statement;
 
-forState:
+forstate:
 	FOR IDENT ASSIGNOP expression (TO | DOWNTO) expression DO statement;
 
-breakState: BREAK SEMI;
+breakstate: BREAK SEMI;
 
 contiSate: CONTINUE SEMI;
 
-returnState: RETURN expression? SEMI;
+returnstate: RETURN expression? SEMI;
 
-withState: WITH onevarDec+ DO statement;
+withstate: WITH onevardec+ DO statement;
 
-callState: IDENT LB expressionList* RB SEMI;
+callstate: IDENT LB expressionList* RB SEMI;
 
-compoundState: BEGIN statement*? END;
+compoundstate: BEGIN statement*? END;
 
-assignState: lsh (ASSIGNOP lsh)* ASSIGNOP expression SEMI;
+assignstate: lsh (ASSIGNOP lsh)* ASSIGNOP expression SEMI;
 
 // Expression
 expression: expression (AND THEN | OR ELSE) expression1 | expression1;
@@ -101,7 +101,7 @@ expression5: operands LSB expression RSB | operands;
 
 operands: LB expression RB | literal | funCall | IDENT 	;
 
-literal: INTLIT  | (TRUE | FALSE) | STRINGLIT | FLOATLIT ;
+literal: INTLIT  | boollit | STRINGLIT | FLOATLIT ;
 
 funCall: IDENT LB expressionList? RB;
 
@@ -287,7 +287,7 @@ FLOATLIT: (INTLIT '.' INTLIT? | '.' INTLIT ) ExponentPart? | INTLIT ExponentPart
 
 fragment ExponentPart: E [-]? INTLIT;
 
-BOOLLIT: TRUE | FALSE;
+boollit: TRUE | FALSE;
 
 STRINGLIT:
 	'"' STRINGCHAR* '"' {
