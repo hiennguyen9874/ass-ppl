@@ -1,1 +1,1 @@
-var,a,,,b,,,c,:,integer,;,d,:,array,[,1,..,2,],of,integer,;,<EOF>
+128e-42,<EOF>

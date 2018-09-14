@@ -1,0 +1,6 @@
+
+           var  A_rot_1: reAl;
+           var  B_rot_1:reaL;
+        //        B_rot_2:integer
+        
+        

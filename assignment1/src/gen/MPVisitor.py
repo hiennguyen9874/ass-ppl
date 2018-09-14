@@ -29,11 +29,6 @@ class MPVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MPParser#functionType.
-    def visitFunctionType(self, ctx:MPParser.FunctionTypeContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by MPParser#arrayType.
     def visitArrayType(self, ctx:MPParser.ArrayTypeContext):
         return self.visitChildren(ctx)
@@ -59,6 +54,11 @@ class MPVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MPParser#functionType.
+    def visitFunctionType(self, ctx:MPParser.FunctionTypeContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MPParser#proDec.
     def visitProDec(self, ctx:MPParser.ProDecContext):
         return self.visitChildren(ctx)
@@ -71,6 +71,11 @@ class MPVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by MPParser#lsh.
     def visitLsh(self, ctx:MPParser.LshContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MPParser#indexExpr.
+    def visitIndexExpr(self, ctx:MPParser.IndexExprContext):
         return self.visitChildren(ctx)
 
 
@@ -124,11 +129,6 @@ class MPVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MPParser#expressionStatement.
-    def visitExpressionStatement(self, ctx:MPParser.ExpressionStatementContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by MPParser#assignState.
     def visitAssignState(self, ctx:MPParser.AssignStateContext):
         return self.visitChildren(ctx)
@@ -139,8 +139,28 @@ class MPVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MPParser#indenxexp.
-    def visitIndenxexp(self, ctx:MPParser.IndenxexpContext):
+    # Visit a parse tree produced by MPParser#expression1.
+    def visitExpression1(self, ctx:MPParser.Expression1Context):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MPParser#expression2.
+    def visitExpression2(self, ctx:MPParser.Expression2Context):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MPParser#expression3.
+    def visitExpression3(self, ctx:MPParser.Expression3Context):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MPParser#expression4.
+    def visitExpression4(self, ctx:MPParser.Expression4Context):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MPParser#expression5.
+    def visitExpression5(self, ctx:MPParser.Expression5Context):
         return self.visitChildren(ctx)
 
 

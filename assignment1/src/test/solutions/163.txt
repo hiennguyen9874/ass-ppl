@@ -1,1 +1,1 @@
-12.3,e,+,2,1.23,E,+,2,<EOF>
+function,foo,(,a,,,b,,,integer,;,c,:,real,),:,array,[,1,..,4,],of,integer,;,<EOF>

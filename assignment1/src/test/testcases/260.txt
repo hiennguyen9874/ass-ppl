@@ -1,0 +1,11 @@
+
+                Function foo():real;
+                Var flag :boolean;
+                i :Integer;
+                Begin
+                    a:=a+1;
+                    b:=b*a;
+                    c:=a+b*a;
+                    if a=a then return;
+                End
+                

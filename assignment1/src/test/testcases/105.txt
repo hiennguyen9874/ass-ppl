@@ -1,1 +1,1 @@
-"123\k123"
+// This (*is*) a comment

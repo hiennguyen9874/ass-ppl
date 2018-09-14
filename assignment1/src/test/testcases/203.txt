@@ -1,1 +1,8 @@
-int main( {}
+
+        procedure main();
+            begin
+                return;
+                foo(x);
+                goo(yy);
+            end
+        

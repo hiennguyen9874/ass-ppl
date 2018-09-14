@@ -1,1 +1,1 @@
-int,age1,,,age2,;,<EOF>
+9.0,<EOF>

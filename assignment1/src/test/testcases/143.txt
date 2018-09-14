@@ -1,2 +1,1 @@
-var a,b,c:integer;
-d:array [1 .. 2] of integer;
+128e-42

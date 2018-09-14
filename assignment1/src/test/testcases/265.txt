@@ -1,0 +1,7 @@
+
+                Procedure Daoso(n: integer);
+                Begin
+                 Assign(f,fo);
+                 Close(f);
+                End
+                

@@ -1,1 +1,1 @@
-this a string,<EOF>
+True,TRUE,False,FALSE,<EOF>

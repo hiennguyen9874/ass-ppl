@@ -1,0 +1,9 @@
+
+                function real_array(a: array[0 .. m-1] of real;n:integer):real;
+                var i:integer;s:real;
+                begin
+                    s:=0.;
+                    for i:=n-1 downto 0 do s:=s+a[i];
+                    return s;
+                end
+                

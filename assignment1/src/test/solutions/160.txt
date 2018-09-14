@@ -1,1 +1,1 @@
-0,x24EF39,<EOF>
+void,main,(,),string,[,],getName,(,),<EOF>

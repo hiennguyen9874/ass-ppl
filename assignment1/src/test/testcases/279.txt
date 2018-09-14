@@ -1,0 +1,6 @@
+
+            var a, b, c: integer;
+                e,f: real;
+                i: boolean;
+        
+        

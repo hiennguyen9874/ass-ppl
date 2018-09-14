@@ -1,0 +1,8 @@
+
+        var a:integer;
+        procedure main();
+            a,d:integer;
+             b,c real;
+        begin
+        end
+        

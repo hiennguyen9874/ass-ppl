@@ -1,1 +1,1 @@
-function foo(a,b,integer;c:real):array [1 .. 4] of integer;
+e-12

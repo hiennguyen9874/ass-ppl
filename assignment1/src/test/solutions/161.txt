@@ -1,1 +1,1 @@
-123.,.123,1.23,<EOF>
+return,a,;,return,;,beak,;,continue,;,<EOF>

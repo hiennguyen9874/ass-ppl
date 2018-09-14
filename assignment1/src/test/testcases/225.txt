@@ -1,0 +1,8 @@
+
+        procedure main();
+        var x,y:real;
+            a,b,c:array [1 .. 2] integer;
+        begin
+            break;
+        end
+        

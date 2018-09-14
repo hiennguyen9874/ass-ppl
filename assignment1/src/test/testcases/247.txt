@@ -1,0 +1,9 @@
+
+                Var PD, Dname, Cmodel : String;
+                CostPD, TCostPD, Distance : Real;
+                {real is a decimal (described later on)}
+                Procedure main();
+                Begin
+                	textbackground(brown); {background colour}
+                End
+        

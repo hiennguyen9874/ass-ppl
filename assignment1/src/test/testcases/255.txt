@@ -1,0 +1,7 @@
+
+                Function foo():integer;
+                Var Count : Integer;
+                Begin
+                 Count := Count+1;
+                End
+                

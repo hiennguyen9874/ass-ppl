@@ -1,0 +1,11 @@
+
+                pROCEDURE main() ;
+                Var a,b,x:real;
+                Begin
+                Clrscr();
+                a:=1;
+                b:=a;
+                c:=a*a*a*a+b*b*b*b+c*c*c*c;
+                Readln();
+                End
+                

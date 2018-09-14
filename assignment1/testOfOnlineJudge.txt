@@ -1,0 +1,302 @@
+/*
+Student Name: Le Duc Manh
+Student ID: 1611985
+*/
+
+grammar MP;
+
+@lexer::header {
+from lexererr import *
+}
+
+options{
+	language=Python3;
+}
+
+
+/*
+ ######   ########     ###    ##     ## ##     ##    ###    ########  
+##    ##  ##     ##   ## ##   ###   ### ###   ###   ## ##   ##     ## 
+##        ##     ##  ##   ##  #### #### #### ####  ##   ##  ##     ## 
+##   #### ########  ##     ## ## ### ## ## ### ## ##     ## ########  
+##    ##  ##   ##   ######### ##     ## ##     ## ######### ##   ##   
+##    ##  ##    ##  ##     ## ##     ## ##     ## ##     ## ##    ##  
+ ######   ##     ## ##     ## ##     ## ##     ## ##     ## ##     ## 
+*/
+
+
+program: EVERY;
+EVERY: .+ {print(self.text)} ;Compiling 
+Running 
+ANTLR runtime and generated code versions disagree: 4.7.1!=4.6
+procedure main(); 
+var main:Integer;
+begin
+	 main := f();
+	 return ;
+end
+
+Test 1 failed
+Output:
+procedure main(); 
+
+Expect:
+procedure
+
+ANTLR runtime and generated code versions disagree: 4.7.1!=4.6
+return ireturn RETURNi RETURN
+
+Test 2 failed
+Output:
+return ireturn RETURNi RETURN
+
+Expect:
+return
+
+ANTLR runtime and generated code versions disagree: 4.7.1!=4.6
+<+>
+
+Test 3 failed
+Output:
+<+>
+
+Expect:
+<
+
+ANTLR runtime and generated code versions disagree: 4.7.1!=4.6
+begin BEGIN ebegin begine
+
+Test 4 failed
+Output:
+begin BEGIN ebegin begine
+
+Expect:
+begin
+
+ANTLR runtime and generated code versions disagree: 4.7.1!=4.6
+_abc abc_123 a_1_c_2
+
+Test 5 failed
+Output:
+_abc abc_123 a_1_c_2
+
+Expect:
+_abc
+
+ANTLR runtime and generated code versions disagree: 4.7.1!=4.6
+4e2
+
+Test 6 failed
+Output:
+
+
+Expect:
+<EOF>
+ANTLR runtime and generated code versions disagree: 4.7.1!=4.6
+"sfsa \b" \t\""
+
+Test 7 failed
+Output:
+"sfsa \b" \t\""
+
+Expect:
+sfsa \b
+
+ANTLR runtime and generated code versions disagree: 4.7.1!=4.6
+(********* \r\n \t \' \" \f \b \x  '
+**********
+**********) this
+
+Test 8 failed
+Output:
+(********* \r\n \t \' \" \f \b \x  '
+
+Expect:
+this
+
+ANTLR runtime and generated code versions disagree: 4.7.1!=4.6
+_if
+
+Test 9 failed
+Output:
+
+
+Expect:
+<EOF>
+ANTLR runtime and generated code versions disagree: 4.7.1!=4.6
+a<===>=b
+
+Test 10 failed
+Output:
+a<===>=b
+
+Expect:
+a
+
+Number of passed testcases: 0
+ANTLR runtime and generated code versions disagree: 4.7.1!=4.6
+ANTLR runtime and generated code versions disagree: 4.7.1!=4.6
+		var i:integer;
+			j,:real;
+		procedure main();
+		begin
+		end
+
+Test 1 failed
+Output:
+successful
+Expect:
+Error on line 2 col 7: :
+
+ANTLR runtime and generated code versions disagree: 4.7.1!=4.6
+ANTLR runtime and generated code versions disagree: 4.7.1!=4.6
+		var i:array [-3 .. -2] of integer;
+			j,x:array [-1 .. -2] of;
+		procedure main();
+		begin
+		end
+
+Test 2 failed
+Output:
+successful
+Expect:
+Error on line 2 col 28: ;
+
+ANTLR runtime and generated code versions disagree: 4.7.1!=4.6
+ANTLR runtime and generated code versions disagree: 4.7.1!=4.6
+		procedure main(a:INTEGER;b:REAL);
+		begin
+		end
+		procedure foo();
+		begin
+
+Test 3 failed
+Output:
+successful
+Expect:
+Error on line 6 col 1: <EOF>
+
+ANTLR runtime and generated code versions disagree: 4.7.1!=4.6
+ANTLR runtime and generated code versions disagree: 4.7.1!=4.6
+		function main(a,b:real):integer;
+		begin
+		end
+		function foo():;
+		begin
+		end
+
+Test 4 failed
+Output:
+successful
+Expect:
+Error on line 4 col 16: ;
+
+ANTLR runtime and generated code versions disagree: 4.7.1!=4.6
+ANTLR runtime and generated code versions disagree: 4.7.1!=4.6
+		var a:integer;
+		procedure main(); 
+			a,d:integer;
+				b,c real;
+			begin 
+			end
+
+Test 5 failed
+Output:
+successful
+Expect:
+Error on line 3 col 3: a
+
+ANTLR runtime and generated code versions disagree: 4.7.1!=4.6
+ANTLR runtime and generated code versions disagree: 4.7.1!=4.6
+procedure main(); 
+	begin
+		with a,c:REAl;b,d,y:INTeger;m:BOOLean; do with a:integer; do a := 1; 
+		with a:integer; do with b:integer do a := 1;
+	end
+
+Test 6 failed
+Output:
+successful
+Expect:
+Error on line 4 col 37: do
+
+ANTLR runtime and generated code versions disagree: 4.7.1!=4.6
+ANTLR runtime and generated code versions disagree: 4.7.1!=4.6
+procedure main(); 
+	begin
+	a := b[2]  := foo();
+	a := b := c : 1;
+	end
+
+Test 7 failed
+Output:
+successful
+Expect:
+Error on line 4 col 14: :
+
+ANTLR runtime and generated code versions disagree: 4.7.1!=4.6
+ANTLR runtime and generated code versions disagree: 4.7.1!=4.6
+procedure main(); 
+	begin
+	with a:integer; do begin a:= 1; while a > 1 do while a < 1 do a := 1; end
+	while a >= 1 do 
+	end
+
+Test 8 failed
+Output:
+successful
+Expect:
+Error on line 5 col 2: end
+
+ANTLR runtime and generated code versions disagree: 4.7.1!=4.6
+ANTLR runtime and generated code versions disagree: 4.7.1!=4.6
+procedure main(); 
+	begin
+	for a := 1 to 3 do with a:integer; do for a := 1 downto 1 do a := a + 1;
+	for a := 1 to 10 do for b := to 10 do a:= 1;
+	end
+
+Test 9 failed
+Output:
+successful
+Expect:
+Error on line 4 col 31: to
+
+ANTLR runtime and generated code versions disagree: 4.7.1!=4.6
+ANTLR runtime and generated code versions disagree: 4.7.1!=4.6
+	procedure main(); 
+		begin
+		foo(5,foo(),a[3+a]);
+		foo(5,a;b);
+		end
+
+Test 10 failed
+Output:
+successful
+Expect:
+Error on line 4 col 9: ;
+
+Number of passed testcases: 0
+Testing lexer 
+Testcase 1: FAILED
+Testcase 2: FAILED
+Testcase 3: FAILED
+Testcase 4: FAILED
+Testcase 5: FAILED
+Testcase 6: FAILED
+Testcase 7: FAILED
+Testcase 8: FAILED
+Testcase 9: FAILED
+Testcase 10: FAILED
+Testing recognizer 
+Testcase 1: FAILED
+Testcase 2: FAILED
+Testcase 3: FAILED
+Testcase 4: FAILED
+Testcase 5: FAILED
+Testcase 6: FAILED
+Testcase 7: FAILED
+Testcase 8: FAILED
+Testcase 9: FAILED
+Testcase 10: FAILED
+Total:  0

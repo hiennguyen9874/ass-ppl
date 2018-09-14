@@ -1,0 +1,8 @@
+
+                Function foo ( A:array[0 .. 10] of REAL) : Boolean;
+                Var flag : Boolean;
+                 i :Integer;
+                begin
+                    return 0;
+                End
+                

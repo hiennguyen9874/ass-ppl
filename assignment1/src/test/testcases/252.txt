@@ -1,0 +1,10 @@
+
+                Procedure foo(A : array[0 .. 10] of integer;N:Integer);
+                Var i: Integer;
+                Begin
+                Write("So luong phan tu:");
+                Readln( N);
+                For i:=0 to N do
+                    a:=a+1;
+                End
+                

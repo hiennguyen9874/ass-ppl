@@ -1,0 +1,8 @@
+
+                Procedure foo(a:integer;b:real)
+                begin
+                if (a=b and b mod a = 2 )
+                    then 
+                    return;
+                End
+                

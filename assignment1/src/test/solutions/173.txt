@@ -1,1 +1,1 @@
-d,:,array,[,1,..,5,],of,integer,;,<EOF>
+a,>,b,<,c,>=,5,<=,2,<EOF>

@@ -1,0 +1,14 @@
+
+                var i: integer ;
+                function f(): integer ;
+                begin
+	               return 200;
+                end
+                procedure main() ;
+                var
+	               main: integer ;
+                begin
+	               main := f() ;
+                end
+                var g: real ;
+                

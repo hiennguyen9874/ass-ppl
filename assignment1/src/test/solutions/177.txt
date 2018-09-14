@@ -1,1 +1,1 @@
-int,main,(,),<EOF>
+This is a string,<EOF>

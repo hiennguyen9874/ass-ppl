@@ -1,0 +1,10 @@
+
+                Var
+                    Num1, Num2, Sum : Integer;
+                Procedure concaheo(a, c:Real);
+                Begin
+                    Sum := Num1 + Num2; {phep cong}
+                    Write(Sum);
+                    Readln();
+                End
+        

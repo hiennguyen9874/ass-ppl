@@ -1,2 +1,7 @@
-var i:integer {}
-var i:real;
+
+        function inc(y:real):real;
+             var x:boolean;
+            begin
+                y := x+1;
+            end
+        

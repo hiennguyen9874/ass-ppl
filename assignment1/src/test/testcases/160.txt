@@ -1,1 +1,2 @@
-0x24EF39
+ void main(){}
+	string[] getName(){}

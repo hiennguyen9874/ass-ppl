@@ -2,30 +2,202 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="331bbbf5-3102-4da4-adc5-87bdeb2e9cc1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../README.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../README.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../MP.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/../../MP.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gen/MPLexer.py" beforeDir="false" afterPath="$PROJECT_DIR$/gen/MPLexer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gen/MPListener.py" beforeDir="false" afterPath="$PROJECT_DIR$/gen/MPListener.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gen/MPParser.py" beforeDir="false" afterPath="$PROJECT_DIR$/gen/MPParser.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gen/MPVisitor.py" beforeDir="false" afterPath="$PROJECT_DIR$/gen/MPVisitor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main/mp/parser/MP.g4" beforeDir="false" afterPath="$PROJECT_DIR$/main/mp/parser/MP.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/mp/parser/MP.interp" beforeDir="false" afterPath="$PROJECT_DIR$/main/mp/parser/MP.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/mp/parser/MPLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/main/mp/parser/MPLexer.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/mp/parser/MPLexer.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/mp/parser/MPLexer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/mp/parser/MPParser.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/mp/parser/MPParser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/mp/parser/MPVisitor.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/mp/parser/MPVisitor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/LexerSuite.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/LexerSuite.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/ParserSuite.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/ParserSuite.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/102.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/102.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/104.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/104.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/105.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/105.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/106.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/106.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/107.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/107.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/109.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/109.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/110.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/110.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/111.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/111.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/112.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/112.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/113.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/113.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/114.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/114.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/115.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/115.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/116.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/116.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/117.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/117.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/118.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/118.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/119.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/119.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/120.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/120.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/121.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/121.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/122.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/122.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/123.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/123.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/124.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/124.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/125.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/125.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/126.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/126.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/127.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/127.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/128.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/128.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/129.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/129.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/130.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/130.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/131.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/131.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/132.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/132.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/133.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/133.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/134.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/134.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/135.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/135.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/136.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/136.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/137.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/137.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/138.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/138.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/139.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/139.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/140.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/140.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/141.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/141.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/142.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/142.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/143.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/143.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/144.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/144.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/145.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/145.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/146.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/146.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/147.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/147.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/148.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/148.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/149.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/149.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/150.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/150.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/151.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/151.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/152.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/152.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/153.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/153.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/154.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/154.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/155.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/155.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/156.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/156.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/157.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/157.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/158.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/158.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/159.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/159.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/160.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/160.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/161.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/161.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/162.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/162.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/163.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/163.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/164.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/164.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/165.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/165.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/166.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/166.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/167.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/167.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/168.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/168.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/169.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/169.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/170.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/170.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/171.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/171.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/172.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/172.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/173.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/173.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/174.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/174.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/175.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/175.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/176.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/176.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/177.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/177.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/202.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/202.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/203.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/203.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/300.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/300.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/301.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/302.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/400.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/401.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/402.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/403.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/404.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/405.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/500.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/500.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/solutions/501.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/solutions/501.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/101.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/101.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/102.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/102.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/103.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/103.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/testcases/104.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/104.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/105.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/105.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/106.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/106.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/107.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/107.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/108.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/108.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/testcases/109.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/109.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/110.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/110.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/111.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/111.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/112.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/112.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/113.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/113.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/114.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/114.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/115.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/115.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/116.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/116.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/117.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/117.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/118.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/118.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/119.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/119.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/120.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/120.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/121.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/121.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/122.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/122.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/123.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/123.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/124.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/124.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/125.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/125.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/126.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/126.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/127.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/127.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/128.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/128.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/129.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/129.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/130.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/130.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/131.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/131.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/132.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/132.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/133.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/133.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/134.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/134.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/135.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/135.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/136.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/136.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/137.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/137.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/138.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/138.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/139.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/139.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/140.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/140.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/testcases/141.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/141.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/testcases/142.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/142.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/testcases/143.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/143.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/144.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/144.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/145.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/145.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/146.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/146.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/147.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/147.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/148.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/148.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/149.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/149.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/150.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/150.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/151.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/151.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/152.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/152.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/153.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/153.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/154.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/154.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/155.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/155.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/156.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/156.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/157.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/157.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/158.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/158.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/159.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/159.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/160.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/160.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/161.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/161.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/162.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/162.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/163.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/163.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/164.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/164.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/165.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/165.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/166.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/166.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/167.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/167.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/testcases/168.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/168.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/169.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/169.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/170.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/170.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/171.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/171.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/172.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/172.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/173.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/173.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/174.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/174.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/175.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/175.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/176.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/176.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/177.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/177.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/testcases/201.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/201.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/202.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/202.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/203.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/203.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/300.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/300.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/400.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/400.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/500.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/500.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testcases/501.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcases/501.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/MP.interp" beforeDir="false" afterPath="$PROJECT_DIR$/../target/MP.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/MPLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/../target/MPLexer.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/MPLexer.py" beforeDir="false" afterPath="$PROJECT_DIR$/../target/MPLexer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/MPParser.py" beforeDir="false" afterPath="$PROJECT_DIR$/../target/MPParser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/MPVisitor.py" beforeDir="false" afterPath="$PROJECT_DIR$/../target/MPVisitor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../target/main/mp/parser/MP.interp" beforeDir="false" afterPath="$PROJECT_DIR$/../target/main/mp/parser/MP.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../target/main/mp/parser/MP.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/../target/main/mp/parser/MP.tokens" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../target/main/mp/parser/MPLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/../target/main/mp/parser/MPLexer.interp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../target/main/mp/parser/MPLexer.py" beforeDir="false" afterPath="$PROJECT_DIR$/../target/main/mp/parser/MPLexer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../target/main/mp/parser/MPLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/../target/main/mp/parser/MPLexer.tokens" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../target/main/mp/parser/MPParser.py" beforeDir="false" afterPath="$PROJECT_DIR$/../target/main/mp/parser/MPParser.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../target/main/mp/parser/MPVisitor.py" beforeDir="false" afterPath="$PROJECT_DIR$/../target/main/mp/parser/MPVisitor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../testparser.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../testparser.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,17 +209,22 @@
     <session id="1750136358">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="8" />
+          <entry key="project.closed" value="15" />
           <entry key="project.open.time.1" value="1" />
-          <entry key="project.open.time.12" value="1" />
+          <entry key="project.open.time.10" value="1" />
+          <entry key="project.open.time.11" value="1" />
+          <entry key="project.open.time.12" value="2" />
+          <entry key="project.open.time.23" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.31" value="1" />
           <entry key="project.open.time.32" value="1" />
           <entry key="project.open.time.34" value="1" />
           <entry key="project.open.time.40" value="1" />
+          <entry key="project.open.time.42" value="1" />
           <entry key="project.open.time.65" value="1" />
+          <entry key="project.open.time.69" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="9" />
+          <entry key="project.opened" value="15" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -62,14 +239,15 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="ANTLR v4 grammar file" value="26" />
+          <entry key="ANTLR v4 grammar file" value="31" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="g4" value="26" />
+          <entry key="g4" value="31" />
         </counts>
       </usages-collector>
+      <usages-collector id="statistics.vcs.git.usages" />
     </session>
   </component>
   <component name="FileEditorManager">
@@ -77,11 +255,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main/mp/parser/MP.g4">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="96" column="9" selection-start-line="96" selection-end-line="96" selection-end-column="9" />
-              <folding>
-                <element signature="e#70#111#1" expanded="true" />
-              </folding>
+            <state relative-caret-position="216">
+              <caret line="80" column="22" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -175,8 +350,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -211,11 +384,13 @@
           <select />
         </subPane>
       </pane>
+      <pane id="AndroidView" />
+      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1536823257565" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1536941341650" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/main/mp/parser/MP (2).g4" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
@@ -251,8 +426,8 @@
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5154867" visible="true" weight="0.15704697" />
-      <window_info id="Structure" order="1" sideWeight="0.48451328" side_tool="true" visible="true" weight="0.15704697" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5022124" visible="true" weight="0.1704698" />
+      <window_info id="Structure" order="1" sideWeight="0.49778762" side_tool="true" visible="true" weight="0.1704698" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
@@ -288,11 +463,8 @@
     <entry file="file://$PROJECT_DIR$/main/mp/parser/MP (2).g4" />
     <entry file="file://$PROJECT_DIR$/main/mp/parser/MP.g4">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="96" column="9" selection-start-line="96" selection-end-line="96" selection-end-column="9" />
-          <folding>
-            <element signature="e#70#111#1" expanded="true" />
-          </folding>
+        <state relative-caret-position="216">
+          <caret line="80" column="22" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
         </state>
       </provider>
     </entry>

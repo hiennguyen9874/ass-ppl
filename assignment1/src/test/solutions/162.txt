@@ -1,1 +1,1 @@
-123.e2,.123E-2,1.23e0,<EOF>
+var,a,,,b,,,c,:,integer,;,d,:,array,[,1,..,2,],of,integer,;,<EOF>

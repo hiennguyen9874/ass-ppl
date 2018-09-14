@@ -1,0 +1,7 @@
+
+           Function foo(a:real;a:real;c:real):real;
+           // khai bao
+           var _ysh: real;
+           
+        
+        

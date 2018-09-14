@@ -1,1 +1,11 @@
-int main() {}
+
+        Function kt(n:integer):boolean;
+        var i,d:integer;
+        begin
+        kt:=false;
+        d:=0;
+        For i:=1 to n do
+            if n mod i=0 then inc(d);
+        if d=2 then kt:=true;
+        end
+        

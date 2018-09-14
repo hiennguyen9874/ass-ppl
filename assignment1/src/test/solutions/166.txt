@@ -1,1 +1,1 @@
-ab	c,<EOF>
+true,/,false,<EOF>

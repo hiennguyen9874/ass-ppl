@@ -1,0 +1,8 @@
+
+                Var r,dt,cv:real;
+                pROCEDURE main() ;
+                Begin
+                 Clrscr();
+                 Readln();
+                End
+                

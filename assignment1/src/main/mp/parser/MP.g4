@@ -1,5 +1,6 @@
 /*
- Studen name: Nguyễn Xuân Hiến Studen Id: 1652192
+ Student name: Nguyễn Xuân Hiến 
+ Student Id: 1652192
  */
 grammar MP;
 
@@ -12,7 +13,7 @@ options {
 }
 
 // Parser
-program: (declaration)* EOF;
+program: (declaration)+ EOF;
 
 declaration: varDec | funDec | proDec;
 
@@ -23,7 +24,7 @@ varDec: VAR onevarDec+;
 onevarDec: IDENT (COMMA IDENT)* COLON functionType SEMI;
 
 arrayType:
-	ARRAY (LSB expression DOTDOT expression RSB)? OF primitiveType;
+	ARRAY LSB expression DOTDOT expression RSB OF primitiveType;
 
 primitiveType: REAL | BOOLEAN | INTEGER | STRING;
 
@@ -58,7 +59,9 @@ statement:
 	| assignState
 	| withState;
 
-lsh: scalarvar | indenxexp;
+lsh: scalarvar | indexExpr;
+
+indexExpr:	expression LSB expression RSB;
 
 scalarvar: IDENT;
 
@@ -84,20 +87,21 @@ compoundState: BEGIN statement*? END;
 assignState: lsh (ASSIGNOP lsh)* ASSIGNOP expression SEMI;
 
 // Expression
-expression:
-	operands
-	| expression LSB expression RSB
-	| <assoc = right> (SUBOP | NOT) expression
-	| expression (DIVOP | MULOP | DIV | MOD | AND) expression
-	| expression (ADDOP | SUBOP | OR) expression
-	| expression (EQUAL | NOT_EQUAL | LT | LE | GT | GE) expression
-	| expression (AND THEN | OR ELSE) expression;
+expression: expression (AND THEN | OR ELSE) expression1 | expression1;
 
-indenxexp: expression LSB expression RSB;
+expression1: expression2 (EQUAL | NOT_EQUAL | LT | LE | GT | GE) expression2 | expression2;
 
-operands: LB expression RB | literal | funCall | IDENT;
+expression2: expression2 (ADDOP | SUBOP | OR) expression3 | expression3;
 
-literal: INTLIT | STRINGLIT | FLOATLIT | BOOLLIT;
+expression3: expression3 (DIVOP | MULOP | DIV | MOD | AND) expression4 | expression4;
+
+expression4: (SUBOP | NOT) expression4 | expression5;
+
+expression5: operands LSB expression RSB | operands;
+
+operands: LB expression RB | literal | funCall | IDENT 	;
+
+literal: INTLIT  | (TRUE | FALSE) | STRINGLIT | FLOATLIT ;
 
 funCall: IDENT LB expressionList? RB;
 
@@ -279,9 +283,9 @@ IDENT: [_a-zA-Z][_a-zA-Z0-9]*;
 
 INTLIT: [0-9]+;
 
-FLOATLIT: (INTLIT '.' INTLIT? | '.' INTLIT | INTLIT) ExponentPart?;
+FLOATLIT: (INTLIT '.' INTLIT? | '.' INTLIT ) ExponentPart? | INTLIT ExponentPart;
 
-fragment ExponentPart: [eE] [-]? INTLIT;
+fragment ExponentPart: E [-]? INTLIT;
 
 BOOLLIT: TRUE | FALSE;
 

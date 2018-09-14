@@ -1,0 +1,23 @@
+
+        Var n,i,x : integer;
+        a: array [1 .. 2] of integer;
+        procedure foo();
+        begin
+        clrscr();
+        write("Nhap so phan tu: ");
+        readln(n);
+        for i:=1 to n do
+        begin
+            write("Phan tu thu ',i,'= ");
+            readln(a[i]);
+        end
+        writeln("Cac so chinh phuong co trong mang:");
+        for i:=1 to n do
+        begin
+            x:=trunc(sqrt(a[i]));
+            if sqr(x)=a[i] then
+            write(a[i]=4);
+        end
+        readln();
+        END
+        

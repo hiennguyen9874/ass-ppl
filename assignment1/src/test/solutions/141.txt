@@ -1,1 +1,1 @@
-void,main,(,),string,[,],getName,(,),<EOF>
+12e8,<EOF>

@@ -1,0 +1,8 @@
+
+        pROCEDURE foo(c: real);
+                   BEGIN
+                    FOR i:=1 to m+10 do beGin
+                        x:=foo(10);
+                    end
+                   END
+        

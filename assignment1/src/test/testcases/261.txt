@@ -1,0 +1,9 @@
+
+                Procedure Chen();
+                Var i :Integer;
+                Begin
+                 For i:=N downto k+ 1 do
+                  A[i] := A[i-1];
+                 A[k] := X;
+                End
+                

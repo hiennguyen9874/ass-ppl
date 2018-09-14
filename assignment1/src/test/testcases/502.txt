@@ -1,0 +1,3 @@
+
+        function main() : real; begin retunr 5; end
+        
