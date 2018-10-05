@@ -1,0 +1,5 @@
+procedure main(); 
+	begin
+	if a > 3 then if a < 6 then a := 1; 
+	else a := 3; else a := 6;
+	end 

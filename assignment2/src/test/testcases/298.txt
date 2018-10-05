@@ -1,0 +1,10 @@
+
+           function sphere(radius: real): array [1 .. 20] of real;
+                {$ifdef CPUx86_64}
+                
+                {$asmMode intel}
+                var
+                    r: real;
+                begin end
+        
+        

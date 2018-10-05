@@ -1,0 +1,5 @@
+
+           (*khai bao mot array string va 2 bien integer*)
+           var  a_1,b_1:integer;
+                arr_string: array [1 .. 12] oF String;
+        

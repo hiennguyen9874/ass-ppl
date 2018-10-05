@@ -1,0 +1,9 @@
+
+        procedure foo(c: real);
+        begin
+            for i:=1 to m+10 do 
+                begin
+                    break;
+                end
+        end
+        

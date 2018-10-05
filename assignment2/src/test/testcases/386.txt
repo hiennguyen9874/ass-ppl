@@ -1,0 +1,10 @@
+
+        function foo(): boolean;
+        begin
+            if x = 5 then 
+                x:=9;
+            else 
+            if x > 9 then 
+                x:=3/2;
+        end
+        

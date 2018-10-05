@@ -1,0 +1,10 @@
+
+                Var name, surname: String;
+                Procedure Main();
+                Begin
+	               write("Nhap ten cua ban:");
+	               readln(name);
+	               writeln("Ten day du cua ban la : ",name);
+	               readln();
+                End
+                

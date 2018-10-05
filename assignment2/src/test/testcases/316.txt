@@ -1,0 +1,7 @@
+
+        procedure foo();
+        var i,j: array [1 .. 2] of integer;
+        begin
+            
+        end
+        

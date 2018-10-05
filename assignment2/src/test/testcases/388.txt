@@ -1,0 +1,11 @@
+
+        function foo(): integer;
+        begin
+            with a,b:integer; c: array [1 .. 2] of real; do
+                begin
+                    a := 1;
+                    b := 2;
+                    d := c[a] + c[b];
+                end
+        end
+        

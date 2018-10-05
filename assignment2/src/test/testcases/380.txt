@@ -1,0 +1,7 @@
+
+        var i:array [-3 .. -2] of integer;
+			j,x:array [-1 .. -2] of integer;
+		procedure main();
+		begin
+		end
+        

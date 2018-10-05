@@ -1,0 +1,11 @@
+
+           
+            Function main():integer;
+                begin
+                    if ((v1 > v2) and (v1 > v3)) then
+                    begin
+                        result := v1;
+                    end 
+                end
+        
+        

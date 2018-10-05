@@ -1,0 +1,7 @@
+
+            var c: integer;
+            procedure main();
+                begin
+                    with a: integer; do with b : real do a = 1;
+                end
+        

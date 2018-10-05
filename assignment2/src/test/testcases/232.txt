@@ -1,0 +1,5 @@
+pROCEDURE foo(c: real);
+                   BEGIN
+                    while (a=1) do continuE ;
+                   END
+                

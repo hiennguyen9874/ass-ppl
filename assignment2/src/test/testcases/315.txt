@@ -1,0 +1,9 @@
+
+        procedure foo();
+        begin
+            if x > 1 then
+                print("x lon hon 1");
+            else
+                print("x nho hon hoac bang 1");
+        end
+        

@@ -1,0 +1,4 @@
+procedure main(); 
+            begin 
+                if (a>2) and (b=4) then a:=2;b:=3;
+            end

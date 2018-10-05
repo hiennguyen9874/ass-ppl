@@ -1,0 +1,6 @@
+
+        function main() : real;
+            begin
+               return 5 ;
+            end
+        

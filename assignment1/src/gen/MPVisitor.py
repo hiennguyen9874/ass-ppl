@@ -1,4 +1,4 @@
-# Generated from D:/Nam3/PPL/Ass1/assignment1/src/main/mp/parser\MP.g4 by ANTLR 4.7
+# Generated from D:/Nam3/PPL/Assignment/assignment1/src/main/mp/parser\MP.g4 by ANTLR 4.7
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .MPParser import MPParser
@@ -184,8 +184,8 @@ class MPVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MPParser#boolit.
-    def visitBoolit(self, ctx:MPParser.BoolitContext):
+    # Visit a parse tree produced by MPParser#boollit.
+    def visitBoollit(self, ctx:MPParser.BoollitContext):
         return self.visitChildren(ctx)
 
 

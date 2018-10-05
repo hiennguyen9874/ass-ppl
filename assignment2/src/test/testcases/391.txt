@@ -1,0 +1,16 @@
+
+        procedure main(); 
+        begin 
+            with a:real;b,c:boolean;d:integer; do 
+                begin
+                    with a:integer; do 
+                        begin
+                            print(a);
+                        end
+                    with b:real;c,d:integer; do 
+                        begin
+                            print(b + c/d);
+                        end
+            end
+        end
+        

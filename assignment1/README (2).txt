@@ -8,8 +8,6 @@ Then type: python3 run.py test CheckSuite
 Then type: python3 run.py test CodeGenSuite
 
 cd /usr/local/lib
-
-
 sudo wget https://www.antlr.org/download/antlr-4.7.1-complete.jar
 thêm dòng này vào cuối file 
 nano ~/.bashrc

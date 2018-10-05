@@ -1,0 +1,1 @@
+Program([FuncDecl(Id(fibo),[VarDecl(Id(x),IntType)],IntType,[VarDecl(Id(f1),IntType),VarDecl(Id(f2),IntType)],[If(BinaryOp(<=,Id(x),IntLiteral(2)),[Return(Some(IntLiteral(1)))],[Return(Some(BinaryOp(+,CallExpr(Id(fibo),[BinaryOp(-,Id(x),IntLiteral(2))]),CallExpr(Id(fibo),[BinaryOp(-,Id(x),IntLiteral(1))]))))])])])

@@ -1,0 +1,13 @@
+
+        procedure Daoso(n: integer);
+        begin
+            Assign(f,fo);
+            Rewrite(f);
+            If n > 0 then
+            begin
+                Write(f,n mod 10);
+                Daoso(n div 10);
+            end
+            Close(f);
+        end
+        

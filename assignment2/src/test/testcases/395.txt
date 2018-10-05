@@ -1,0 +1,4 @@
+procedure main(); 
+            begin 
+                for a:=1 to 10 do break;
+            end

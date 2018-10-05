@@ -1,0 +1,1 @@
+Program([FuncDecl(Id(Daoso),[VarDecl(Id(n),IntType)],VoidType(),[],[CallStmt(Id(Assign),[Id(f),Id(fo)]),CallStmt(Id(Rewrite),[Id(f)]),If(BinaryOp(>,Id(n),IntLiteral(0)),[CallStmt(Id(Write),[Id(f),BinaryOp(mod,Id(n),IntLiteral(10))]),CallStmt(Id(Daoso),[BinaryOp(div,Id(n),IntLiteral(10))])],[]),CallStmt(Id(Close),[Id(f)])])])

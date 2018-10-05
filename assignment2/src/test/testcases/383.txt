@@ -1,0 +1,16 @@
+
+        function foo(): integer;
+        begin
+            if true
+            then
+            begin
+                b := 1;
+                a := b;
+            end
+            else
+            begin
+                b := 2;
+                a := b;
+            end
+        end
+        

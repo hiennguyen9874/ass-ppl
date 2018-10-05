@@ -1,0 +1,8 @@
+
+            FuncTion foo(): string;
+            // khong khai bao
+                begin
+                begin
+                end
+                end
+        

@@ -1,0 +1,8 @@
+
+        procedure foo() ;
+        var x,y: real ;
+        begin
+            a := "conga";
+            b := func(1,a+1) ;
+        end
+        

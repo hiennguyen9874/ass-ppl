@@ -1,0 +1,7 @@
+
+        function foo(c: real): integer;
+        begin
+            while (1) do
+                return foo(a+1);
+        end
+        

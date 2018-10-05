@@ -1,0 +1,14 @@
+
+        Var PD, Dname, Cmodel : String;
+        CostPD, TCostPD, Distance : Real;
+        procedure main();
+        begin
+            textbackground(brown);
+            Clrsr();
+            TextColor(lightgreen);
+            TCostPD := 0;
+            Clrsr();
+            GotoXy(28,3);
+            Readln();
+        end
+        

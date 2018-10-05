@@ -1,0 +1,1 @@
+Program([FuncDecl(Id(foo),[VarDecl(Id(N),IntType)],IntType,[VarDecl(Id(i),IntType)],[For(Id(i),IntLiteral(2),BinaryOp(-,Id(N),IntLiteral(1)),True,[If(BinaryOp(=,BinaryOp(mod,Id(N),Id(i)),IntLiteral(0)),[Return(Some(IntLiteral(0)))],[Return(Some(IntLiteral(1)))])])])])

@@ -1,0 +1,6 @@
+
+        function foo():real;
+        begin
+        if a=true then a:=1;
+        end
+        

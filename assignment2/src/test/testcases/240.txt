@@ -1,0 +1,7 @@
+
+        function foo(c: real): integer;
+                   BEGIN
+                    textbackground(brown); {background colour}
+                    return func(a(1,2));
+                   END
+        

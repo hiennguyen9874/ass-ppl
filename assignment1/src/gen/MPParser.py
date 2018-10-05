@@ -1,4 +1,4 @@
-# Generated from D:/Nam3/PPL/Ass1/assignment1/src/main/mp/parser\MP.g4 by ANTLR 4.7
+# Generated from D:/Nam3/PPL/Assignment/assignment1/src/main/mp/parser\MP.g4 by ANTLR 4.7
 # encoding: utf-8
 from antlr4 import *
 from io import StringIO
@@ -234,7 +234,7 @@ class MPParser ( Parser ):
     RULE_literal = 32
     RULE_funCall = 33
     RULE_expressionList = 34
-    RULE_boolit = 35
+    RULE_boollit = 35
 
     ruleNames =  [ "program", "declaration", "vardec", "onevardec", "arraytype", 
                    "primitivetype", "fundec", "paralist", "paradec", "functiontype", 
@@ -243,7 +243,7 @@ class MPParser ( Parser ):
                    "returnstate", "withstate", "callstate", "compoundstate", 
                    "assignstate", "expression", "expression1", "expression2", 
                    "expression3", "expression4", "expression5", "operands", 
-                   "literal", "funCall", "expressionList", "boolit" ]
+                   "literal", "funCall", "expressionList", "boollit" ]
 
     EOF = Token.EOF
     BREAK=1
@@ -2789,8 +2789,8 @@ class MPParser ( Parser ):
         def INTLIT(self):
             return self.getToken(MPParser.INTLIT, 0)
 
-        def boolit(self):
-            return self.getTypedRuleContext(MPParser.BoolitContext,0)
+        def boollit(self):
+            return self.getTypedRuleContext(MPParser.BoollitContext,0)
 
 
         def STRINGLIT(self):
@@ -2835,7 +2835,7 @@ class MPParser ( Parser ):
             elif token in [MPParser.TRUE, MPParser.FALSE]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 328
-                self.boolit()
+                self.boollit()
                 pass
             elif token in [MPParser.STRINGLIT]:
                 self.enterOuterAlt(localctx, 3)
@@ -2994,7 +2994,7 @@ class MPParser ( Parser ):
             self.exitRule()
         return localctx
 
-    class BoolitContext(ParserRuleContext):
+    class BoollitContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -3007,29 +3007,29 @@ class MPParser ( Parser ):
             return self.getToken(MPParser.FALSE, 0)
 
         def getRuleIndex(self):
-            return MPParser.RULE_boolit
+            return MPParser.RULE_boollit
 
         def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterBoolit" ):
-                listener.enterBoolit(self)
+            if hasattr( listener, "enterBoollit" ):
+                listener.enterBoollit(self)
 
         def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitBoolit" ):
-                listener.exitBoolit(self)
+            if hasattr( listener, "exitBoollit" ):
+                listener.exitBoollit(self)
 
         def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitBoolit" ):
-                return visitor.visitBoolit(self)
+            if hasattr( visitor, "visitBoollit" ):
+                return visitor.visitBoollit(self)
             else:
                 return visitor.visitChildren(self)
 
 
 
 
-    def boolit(self):
+    def boollit(self):
 
-        localctx = MPParser.BoolitContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 70, self.RULE_boolit)
+        localctx = MPParser.BoollitContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 70, self.RULE_boollit)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)

@@ -1,0 +1,1 @@
+Program([FuncDecl(Id(foo),[VarDecl(Id(c),FloatType)],IntType,[],[CallStmt(Id(textbackground),[Id(brown)]),CallStmt(Id(Clrsr),[]),Return(Some(CallExpr(Id(func),[CallExpr(Id(a),[IntLiteral(1),IntLiteral(2)])])))])])

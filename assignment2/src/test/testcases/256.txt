@@ -1,0 +1,8 @@
+
+                Procedure foo();
+                Var i:Integer;
+                Begin
+                 For i:=0 to N do
+                    a:=1;
+                End
+                

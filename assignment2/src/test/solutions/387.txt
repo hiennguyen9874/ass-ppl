@@ -1,0 +1,1 @@
+Program([FuncDecl(Id(foo),[],IntType,[VarDecl(Id(a),ArrayType(1,10,IntType))],[AssignStmt(ArrayCell(Id(a),IntLiteral(1)),IntLiteral(1)),AssignStmt(ArrayCell(Id(a),IntLiteral(5)),BinaryOp(orelse,IntLiteral(0),ArrayCell(Id(a),IntLiteral(1))))])])

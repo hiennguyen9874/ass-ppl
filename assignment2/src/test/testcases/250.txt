@@ -1,0 +1,12 @@
+
+                procedure main() ;
+                var a: array[0 .. -1] of integer;
+                 i,j,temp: integer;
+                beGin
+                    for i := 0 to n - 2 do
+                        temp := a[i];
+                                a[i] := a[j];
+                                a[j] := temp;
+                    print(a);
+                eND
+                

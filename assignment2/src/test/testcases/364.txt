@@ -1,0 +1,11 @@
+
+        function mod5(A:array[0 .. 10] of integer ; N:integer):integer;
+        Var S,i :integer;
+        begin
+            S:=0;
+            For i:=0 to N do
+            If(A[i] mod 5=0) then
+                S := S+A[i];
+                return S;
+        end
+        

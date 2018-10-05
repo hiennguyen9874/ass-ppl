@@ -1,0 +1,9 @@
+
+        procedure foo(c: real) ;
+        var x:real ;
+        begin
+            while(a<>1) do 
+                begin 
+                end
+        end
+        

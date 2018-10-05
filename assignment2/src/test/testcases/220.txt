@@ -1,0 +1,7 @@
+
+            procedure main();
+                begin
+                    var c: integer;
+                    a := a + b;
+                end
+        

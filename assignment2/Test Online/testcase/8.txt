@@ -1,0 +1,4 @@
+procedure main(); 
+	begin
+	a := a > b or else not c >= d;
+	end

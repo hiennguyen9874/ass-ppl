@@ -1,0 +1,22 @@
+
+            var a,b,c,s,p: real;
+            procedure main() ;
+            begin
+                clrscr();
+                writeln("tam giac:");
+                writeln("---------------------------------");
+                write("nhap a : ");readln(a);
+                write("nhap b : ");readln(b);
+                write("nhap c : ");readln(c);
+                if ((a+b)>c)and((b+c)>a)and((a+c)>b) then
+                    begin
+                        p:=(a+b+c)/2;
+                        s:=sqrt(p*(p-a)*(p-b)*(p-c));
+                        writeln("Chu vi tam giac:",2*p);
+                        writeln("Dien tich tam giac:",s);
+                    End
+                else 
+                    writeln(a,", ", b,", ", c, " khong phai la ba canh cua tam giac");
+                    readln();
+            end
+        

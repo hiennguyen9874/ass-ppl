@@ -1,4 +1,4 @@
-# Generated from D:/Nam3/PPL/Ass1/assignment1/src/main/mp/parser\MP.g4 by ANTLR 4.7
+# Generated from D:/Nam3/PPL/Assignment/assignment1/src/main/mp/parser\MP.g4 by ANTLR 4.7
 from antlr4 import *
 from io import StringIO
 from typing.io import TextIO

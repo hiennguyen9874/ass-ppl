@@ -1,0 +1,1 @@
+Program([FuncDecl(Id(main),[],VoidType(),[],[For(Id(a),IntLiteral(1),IntLiteral(10),True,[Break])])])

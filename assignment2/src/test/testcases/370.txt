@@ -1,0 +1,16 @@
+
+        function foo ( A:array[0 .. 10] of REAL; N :integer) : Boolean;
+        Var Flag : Boolean;
+            i :integer;
+        begin
+            Flag := True;
+            i:= 0;
+            while(i<n) do 
+                begin
+                    If(A[i] < A[i-1]) then
+                        Flag :=False;
+                    i:=i+1;
+                end
+            return Flag;
+        end
+                

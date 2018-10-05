@@ -1,0 +1,3 @@
+
+        var i:array [-1 .. -2] of integer;
+        

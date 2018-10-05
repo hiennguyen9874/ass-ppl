@@ -1,0 +1,7 @@
+
+                Procedure thay();
+                Var i,k:Integer;
+                Begin
+                 
+                End
+                

@@ -1,0 +1,4 @@
+function foo(c: real): integer;
+                   BEGIN
+                    while (a=1) do return foo(a+1);
+                   END

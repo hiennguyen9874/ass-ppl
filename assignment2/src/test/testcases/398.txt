@@ -1,0 +1,10 @@
+
+            var a,b: integer;
+            function f():integer; 
+            begin 
+                while a=b do 
+                foo();
+                a := b[10]:= foo()[3]:= x := 1 ;
+                if a=5 then break;
+                return a;
+            end

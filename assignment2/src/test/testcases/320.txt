@@ -1,0 +1,12 @@
+
+        procedure main(); 
+        var i:integer;
+        begin
+            i := getIntLn();
+            foo(a,i);
+            with i:integer; do
+                for i := 1 to 10 do
+                    putIntLn(a[i]);
+        end
+        var a:array[1 .. 10] of integer;
+        

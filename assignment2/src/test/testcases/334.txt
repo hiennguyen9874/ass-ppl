@@ -1,0 +1,11 @@
+
+        procedure foo(c: real) ;
+        var x:real ;
+        begin
+            whILe(a<>1) do 
+                begin
+                    if(a=1) then x:=1;
+                    foo();
+                end
+        end
+        

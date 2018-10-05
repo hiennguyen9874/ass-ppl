@@ -1,0 +1,8 @@
+
+        function foo(c: real): integer;
+        begin
+            textbackground(brown);
+            Clrsr();
+            return func(a(1,2));
+        end
+        

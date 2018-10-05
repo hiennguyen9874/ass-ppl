@@ -1,0 +1,18 @@
+
+           function Highest(v1, v2, v3: Integer): Integer;
+                begin
+                    if ((v1 > v2) and (v1 > v3)) then
+                    begin
+                        result := v1;
+                    end 
+                    else if v2 > v3 then
+                    begin
+                        result := v2;
+                    end
+                    else
+                    begin
+                        result := v3;
+                    end
+                end
+        
+        

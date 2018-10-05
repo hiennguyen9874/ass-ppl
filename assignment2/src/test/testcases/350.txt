@@ -1,0 +1,7 @@
+
+        function foo(c: real): integer;
+        begin
+            foo (3,a+1);
+            foo1();
+        end
+        

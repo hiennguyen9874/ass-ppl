@@ -1,0 +1,6 @@
+
+        procedure main();
+	        begin
+	            a := b[2]  := foo();
+	        end
+        

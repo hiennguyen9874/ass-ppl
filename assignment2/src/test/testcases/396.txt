@@ -1,0 +1,4 @@
+procedure main(); 
+            begin 
+                for a:=(6+x)*y to f(2)[2] do b:=foo();
+            end

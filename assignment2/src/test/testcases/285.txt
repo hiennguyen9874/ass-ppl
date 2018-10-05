@@ -1,0 +1,5 @@
+
+           var a,b; integer;
+           c: array [1 .. 5] of iteger;
+        
+        

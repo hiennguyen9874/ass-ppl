@@ -1,0 +1,8 @@
+
+            function CircleArea(radius: real): real;
+                var area: Real;
+                begin
+                    area := PI * radius * radius;
+                    result := area;
+                end
+        

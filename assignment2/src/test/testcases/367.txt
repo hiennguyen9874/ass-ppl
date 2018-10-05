@@ -1,0 +1,9 @@
+
+        procedure foo (A:array[0 .. 10] of integer;N, x,y:integer);
+        Var i:integer;
+        begin
+            For i:=0 to N do
+                If(A[i] = x) then
+                    A[i] := y;
+        end
+        

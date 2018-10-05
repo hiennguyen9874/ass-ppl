@@ -1,0 +1,4 @@
+procedure main(); 
+begin
+for a := 4 downto 10 do begin end
+end

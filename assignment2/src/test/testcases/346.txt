@@ -1,0 +1,7 @@
+
+        procedure foo(c: real);
+        begin
+            while (1) do 
+                continue ;
+        end
+        

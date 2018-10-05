@@ -1,0 +1,10 @@
+
+            function ReadString(message: String): String;
+                var temp: String;
+                begin
+                    Write(message );
+                    ReadLn(temp);
+                    result := temp; //result is the value returned
+                end
+        
+        

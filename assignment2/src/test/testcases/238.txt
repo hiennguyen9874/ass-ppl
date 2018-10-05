@@ -1,0 +1,5 @@
+function foo(c: real): real;
+                   BEGIN
+                    foo(3,a+1,x and then y,a[1],foo(1,2)[m+1]);
+                    return foo2();
+                   END

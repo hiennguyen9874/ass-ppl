@@ -1,0 +1,1 @@
+Program([FuncDecl(Id(foo),[],VoidType(),[],[If(BinaryOp(>,Id(x),IntLiteral(1)),[CallStmt(Id(print),[StringLiteral(x lon hon 1)])],[CallStmt(Id(print),[StringLiteral(x nho hon hoac bang 1)])])])])

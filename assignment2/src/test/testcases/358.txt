@@ -1,0 +1,14 @@
+
+        Var
+            Num1, Num2, Sum : integer;
+        procedure sum(a, c:Real);
+        begin
+            Write("nhap so 1:");
+            Readln(Num1);
+            Writeln("nhap so 2:");
+            Readln(Num2);
+            Sum := Num1 + Num2;
+            Write(Sum);
+            Readln();
+        end
+        

@@ -1,0 +1,1 @@
+Program([FuncDecl(Id(main),[],IntType,[],[Return(IntLiteral(3))])])

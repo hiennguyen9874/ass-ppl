@@ -1,0 +1,11 @@
+
+        procedure foo(c: real) ;
+        begin
+            with a , b : integer ; c : array [1 .. 2] of real ; do 
+                begin
+                    d := c [a] + b ;
+                    foo();
+                    foo1(a,b,c);
+                end
+        end
+        

@@ -1,0 +1,5 @@
+procedure main(a:INTEGER;b:real;c:real;d:boolean;e:boolean;f:boolean);
+var b:rEAL;c:boolean;d:boolean;e,f,h:array[1 .. 2] of real;
+begin
+end
+

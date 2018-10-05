@@ -1,0 +1,1 @@
+procedure foo(); begin foo(a,2)[2]:=4; begin return b; end return c; end

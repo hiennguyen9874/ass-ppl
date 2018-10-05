@@ -1,0 +1,8 @@
+
+        procedure foo();
+        var x: real; y:array[1 .. 3] of boolean;
+        begin
+            if (x <> 5 and then foo(x) ) then
+                y[0]:=x; 
+        end
+        

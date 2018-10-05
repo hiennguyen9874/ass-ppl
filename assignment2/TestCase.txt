@@ -1,0 +1,52 @@
+1         
+   procedure proc();
+                begin
+                    if a > 3 then
+                        begin
+                            if a < 7 then 
+                                b := b + 2;
+                            else 
+                                b := "toi ten";
+                            if a <> 5 then
+                                t := j:= k;
+                            else
+                                return false;
+                        end
+                end
+
+Program([FuncDecl(Id(proc),[],VoidType(),[],
+[If(BinaryOp(>,Id(a),IntLiteral(3)),
+[If(BinaryOp(<,Id(a),IntLiteral(7)),
+[AssignStmt(Id(b),BinaryOp(+,Id(b),IntLiteral(2)))],
+[AssignStmt(Id(b),StringLiteral(toi ten))]),
+If(BinaryOp(<>,Id(a),IntLiteral(5)),
+[AssignStmt(Id(j),Id(k)),AssignStmt(Id(t),Id(j))],
+[Return(Some(BooleanLiteral(False)))])],[])])])
+
+2
+procedure proc();
+                begin
+                    if a > 3 then
+                        begin
+                            
+                        end
+                end
+
+Program([FuncDecl(Id(proc),[],VoidType(),[],[If(BinaryOp(>,Id(a),IntLiteral(3)),[],[])])])
+
+3
+procedure proc();
+		        begin
+			        if a > 3 then
+				        if a < 7 then 
+				            b := b + 2;
+				        else 
+					        b := "huhuhu";
+                    else
+                        b := "ahihihi";
+		        end
+
+Program([FuncDecl(Id(proc),[],VoidType(),[],[If(BinaryOp(>,Id(a),IntLiteral(3)),[If(BinaryOp(<,Id(a),IntLiteral(7)),
+[AssignStmt(Id(b),BinaryOp(+,Id(b),IntLiteral(2)))],
+[AssignStmt(Id(b),StringLiteral(huhuhu))])],
+[AssignStmt(Id(b),StringLiteral(ahihihi))])])])

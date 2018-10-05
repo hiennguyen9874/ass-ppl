@@ -1,0 +1,9 @@
+
+        procedure foo(A:array[0 .. 10] of real;N: integer; k, X:integer);
+        var i :integer;
+        begin
+            For i:=N downto k + 1 do
+                A[i] := A[i-1];
+                A[k] := X;
+        end
+        

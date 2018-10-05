@@ -1,0 +1,8 @@
+
+        function foo(): integer;
+        begin
+            if a or foo(b,c)
+            then a:= 2;
+            else a := a+1;
+        end
+        

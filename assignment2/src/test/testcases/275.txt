@@ -1,0 +1,7 @@
+
+        procedure TGList(Item: integer);
+        begin
+            SetLength(Items, Length(Items) + 1);  
+            Items[Length(Items) - 1] := Item;
+        end
+        

@@ -1,4 +1,4 @@
-# Generated from D:/Nam3/PPL/Ass1/assignment1/src/main/mp/parser\MP.g4 by ANTLR 4.7
+# Generated from D:/Nam3/PPL/Assignment/assignment1/src/main/mp/parser\MP.g4 by ANTLR 4.7
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .MPParser import MPParser
@@ -323,12 +323,12 @@ class MPListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by MPParser#boolit.
-    def enterBoolit(self, ctx:MPParser.BoolitContext):
+    # Enter a parse tree produced by MPParser#boollit.
+    def enterBoollit(self, ctx:MPParser.BoollitContext):
         pass
 
-    # Exit a parse tree produced by MPParser#boolit.
-    def exitBoolit(self, ctx:MPParser.BoolitContext):
+    # Exit a parse tree produced by MPParser#boollit.
+    def exitBoollit(self, ctx:MPParser.BoollitContext):
         pass
 
 

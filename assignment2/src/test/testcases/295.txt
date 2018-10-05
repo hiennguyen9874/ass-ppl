@@ -1,0 +1,8 @@
+
+           funcTion 12add (a,b:integer):integer;
+           var c:interger;
+           begin 
+                c= a+b;
+            end
+        
+        

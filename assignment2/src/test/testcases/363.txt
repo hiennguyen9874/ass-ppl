@@ -1,0 +1,16 @@
+
+        procedure main() ;
+        var a: array[0 .. 9] of integer;
+            i,j,temp: integer;
+        begin
+            for i := 0 to n - 2 do
+                for j:= i+1 to n-1 do
+                    if(a[i]>a[j]) then 
+                        begin
+                            temp := a[i];
+                            a[i] := a[j];
+                            a[j] := temp;
+                        end
+            print(a);
+        end
+        

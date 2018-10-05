@@ -1,0 +1,14 @@
+
+        procedure foo(c: real) ;
+        var x:real ;
+        begin
+            if(a>1) then 
+                a:=1 ;
+            if (1<2) then 
+                begin 
+                    x:=1 ; 
+                end
+            else 
+                foo(a+1,2);
+        end
+        

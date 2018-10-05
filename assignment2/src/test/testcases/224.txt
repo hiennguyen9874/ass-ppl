@@ -1,0 +1,8 @@
+
+        procedure main();
+        begin
+            while a=1
+            do
+            foo()[2]:=a:=1;
+        end
+        

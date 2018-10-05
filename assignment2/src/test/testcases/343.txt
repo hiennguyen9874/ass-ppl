@@ -1,0 +1,14 @@
+
+        function foo(c: real): string;
+        begin
+            FOR i:=1 to m+10 do 
+                begin
+                    for j:=m+1 downto 100 do 
+                        begin
+                            s := s + 1;
+                            if(a=1) then 
+                                s:=s-1;
+                        end
+                end
+        end
+        

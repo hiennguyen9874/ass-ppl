@@ -1,0 +1,6 @@
+
+        function foo(): integer;
+        begin
+            y := x/2 + 1;
+        end
+        

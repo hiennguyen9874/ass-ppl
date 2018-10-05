@@ -1,0 +1,13 @@
+
+        procedure foo(c: real) ;
+        begin
+            while(a<>1) do 
+                begin
+                    while(1) do 
+                        x:=1;
+                    if(a=1) then 
+                    begin 
+                    end
+                end
+        end
+        

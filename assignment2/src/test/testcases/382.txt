@@ -1,0 +1,15 @@
+
+        procedure main(); 
+        begin 
+            with a:real;b,c:boolean;d:INTEGER; do 
+                begin
+                    with a:integer; do  
+                        begin 
+                            foo(); 
+                        end
+                    with b:real;c,d:integer; do 
+                        begin 
+                        end
+                end
+        end
+        
