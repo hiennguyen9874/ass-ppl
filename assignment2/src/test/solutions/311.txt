@@ -1,1 +1,1 @@
-Program([FuncDecl(Id(main),[],VoidType(),[],[For(Id(a)IntLiteral(4),IntLiteral(10),True,[])])])
+Program([FuncDecl(Id(main),[],VoidType(),[],[While(BinaryOp(<=,BinaryOp(-,BinaryOp(+,Id(a),BinaryOp(/,Id(b),Id(z))),BinaryOp(+,IntLiteral(1),BinaryOp(*,Id(b),Id(a)))),Id(z)),[While(BinaryOp(=,Id(a),Id(b)),[While(IntLiteral(1),[Return(Some(IntLiteral(1)))])])])])])

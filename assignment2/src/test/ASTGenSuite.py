@@ -1632,12 +1632,4 @@ class ASTGenSuite(unittest.TestCase):
         end
         end"""
         expect = str(Program([FuncDecl(Id("main"),[],[],[With([VarDecl(Id("a"),FloatType()),VarDecl(Id("b"),BoolType()),VarDecl(Id("c"),BoolType()),VarDecl(Id("d"),IntType())],[With([VarDecl(Id("a"),IntType())],[CallStmt(Id("foo"),[])]),With([VarDecl(Id("b"),FloatType()),VarDecl(Id("c"),IntType()),VarDecl(Id("d"),IntType())],[])])],VoidType())]))
-        self.assertTrue(TestAST.test(input,expect,400))
-    
-    def test_assign1(self):
-        input = """procedure main(); 
-        begin 
-            a :=b := c := d := 1;
-        end"""
-        expect = str(Program([FuncDecl(Id("main"),[],[],[Assign(Id("d"),IntLiteral(1)),Assign(Id("c"),Id("d")),Assign(Id("b"),Id("c")),Assign(Id("a"),Id("b"))],VoidType())]))
-        self.assertTrue(TestAST.test(input,expect,401))
+        self.assertTrue(TestAST.test(input,expect,400))   

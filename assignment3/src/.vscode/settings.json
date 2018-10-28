@@ -1,0 +1,9 @@
+{
+    "python.linting.enabled": false,
+    "python.autoComplete.extraPaths": [
+        "${workspaceRoot}/main/mp/utils",
+        "${workspaceRoot}/main/mp/checker",
+        "${workspaceRoot}/test"
+    ],
+    "git.enabled": false
+}

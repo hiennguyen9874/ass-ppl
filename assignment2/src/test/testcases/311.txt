@@ -1,4 +1,11 @@
-procedure main(); 
-                begin
-                for a := 4 to 10 do begin end
-                end
+
+            procedure main();
+            begin
+                while (a+b/z) - (1+b*a) <= z do
+                    while (a=b) do
+                        while (1) do
+                            begin
+                                return 1;
+                            end                        
+            end
+        

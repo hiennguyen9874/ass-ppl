@@ -1,0 +1,8 @@
+procedure main(); 
+                begin
+                    if a then f[a] := 4; else begin
+                        for a:= 5 downto 1 do begin
+                            if a > 3 then continue; else break;
+                        end
+                    end
+                end

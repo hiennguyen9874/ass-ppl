@@ -1,1 +1,0 @@
-procedure,main,(,),;,var,main,:,Integer,;,begin,main,:=,f,(,),;,return,;,end,<EOF>

@@ -134,9 +134,9 @@ class Assign(Stmt):
         return v.visitAssign(self, param)
 
 class If(Stmt):
-    #expr:Expr
-    #thenStmt:list(Stmt)
-    #elseStmt:list(Stmt)
+        #expr:Expr
+        #thenStmt:list(Stmt)
+        #elseStmt:list(Stmt)
     def __init__(self, expr, thenStmt, elseStmt=[]):
         self.expr = expr
         self.thenStmt = thenStmt
@@ -174,7 +174,7 @@ class For(Stmt):
         self.loop = loop
 
     def __str__(self):
-        return "For(" + str(self.id) + "," + str(self.expr1) + "," + str(self.expr2) + "," + str(self.up) + ',[' + ','.join(str(i) for i in self.loop) + "])"
+        return "For(" + str(self.id) + "" + str(self.expr1) + "," + str(self.expr2) + "," + str(self.up) + ',[' + ','.join(str(i) for i in self.loop) + "])"
 
     def accept(self, v, param):
         return v.visitFor(self, param)
