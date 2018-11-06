@@ -1,4 +1,4 @@
-# Generated from D:/Nam3/PPL/Assignment/assignment1/src/main/mp/parser\MP.g4 by ANTLR 4.7
+# Generated from main/mp/parser/MP.g4 by ANTLR 4.7.1
 from antlr4 import *
 from io import StringIO
 from typing.io import TextIO
@@ -358,25 +358,25 @@ class MPLexer(Lexer):
 
     def __init__(self, input=None, output:TextIO = sys.stdout):
         super().__init__(input, output)
-        self.checkVersion("4.7")
+        self.checkVersion("4.7.1")
         self._interp = LexerATNSimulator(self, self.atn, self.decisionsToDFA, PredictionContextCache())
         self._actions = None
         self._predicates = None
 
 
     def action(self, localctx:RuleContext, ruleIndex:int, actionIndex:int):
-    	if self._actions is None:
-    		actions = dict()
-    		actions[83] = self.STRINGLIT_action 
-    		actions[86] = self.ILLEGAL_ESCAPE_action 
-    		actions[87] = self.UNCLOSE_STRING_action 
-    		actions[88] = self.ERROR_CHAR_action 
-    		self._actions = actions
-    	action = self._actions.get(ruleIndex, None)
-    	if action is not None:
-    		action(localctx, actionIndex)
-    	else:
-    		raise Exception("No registered action for:" + str(ruleIndex))
+        if self._actions is None:
+            actions = dict()
+            actions[83] = self.STRINGLIT_action 
+            actions[86] = self.ILLEGAL_ESCAPE_action 
+            actions[87] = self.UNCLOSE_STRING_action 
+            actions[88] = self.ERROR_CHAR_action 
+            self._actions = actions
+        action = self._actions.get(ruleIndex, None)
+        if action is not None:
+            action(localctx, actionIndex)
+        else:
+            raise Exception("No registered action for:" + str(ruleIndex))
 
     def STRINGLIT_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 0:

@@ -1,1 +1,43 @@
-procedure main(); begin foo();end
+
+        var i:integer;
+        procedure foo(a, b: integer; c: real);
+        var ret: array [1 .. 2] of integer;
+        begin
+            foo1(1,2,3.2);
+            if (i > 1) then foo(1,2,3);
+            else return;
+        end
+        procedure foo1(a,b: integer; c:real);
+        begin
+            return;
+        end
+        function f():integer;
+        begin
+            foo1(1,2,3.2);
+            if (i > 1) then begin foo(1,2,3); return; end
+            else return 1;
+        end
+        procedure main();
+        var
+            main: integer;
+            foo: integer;
+            ret: array [1 .. 2] of integer;
+        begin
+            main := f();
+            putIntLn(main);
+            with
+                i:integer;
+                main:integer;
+                f:integer;
+            do begin
+                putLn();
+                main := f := i := 100;
+                putIntLn(i);
+                putIntLn(main);
+                putIntLn(f);
+            end
+            putIntLn(main);
+            return;
+        end
+        var g:integer;
+        

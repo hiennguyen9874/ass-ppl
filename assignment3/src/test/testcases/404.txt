@@ -1,0 +1,10 @@
+
+        function foo():integer;
+        begin
+        return 1;
+        end
+        procedure main();
+        begin
+        foo();
+        end
+        

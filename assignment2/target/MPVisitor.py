@@ -1,4 +1,4 @@
-# Generated from D:/Nam3/PPL/Assignment/assignment1/src/main/mp/parser\MP.g4 by ANTLR 4.7
+# Generated from main/mp/parser/MP.g4 by ANTLR 4.7.1
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .MPParser import MPParser
@@ -69,21 +69,6 @@ class MPVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MPParser#lsh.
-    def visitLsh(self, ctx:MPParser.LshContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MPParser#indexexpr.
-    def visitIndexexpr(self, ctx:MPParser.IndexexprContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MPParser#scalarvar.
-    def visitScalarvar(self, ctx:MPParser.ScalarvarContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by MPParser#ifstate.
     def visitIfstate(self, ctx:MPParser.IfstateContext):
         return self.visitChildren(ctx)
@@ -114,8 +99,8 @@ class MPVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MPParser#withstate.
-    def visitWithstate(self, ctx:MPParser.WithstateContext):
+    # Visit a parse tree produced by MPParser#compoundstate.
+    def visitCompoundstate(self, ctx:MPParser.CompoundstateContext):
         return self.visitChildren(ctx)
 
 
@@ -124,13 +109,23 @@ class MPVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MPParser#compoundstate.
-    def visitCompoundstate(self, ctx:MPParser.CompoundstateContext):
+    # Visit a parse tree produced by MPParser#assignstate.
+    def visitAssignstate(self, ctx:MPParser.AssignstateContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MPParser#assignstate.
-    def visitAssignstate(self, ctx:MPParser.AssignstateContext):
+    # Visit a parse tree produced by MPParser#withstate.
+    def visitWithstate(self, ctx:MPParser.WithstateContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MPParser#lhs.
+    def visitLhs(self, ctx:MPParser.LhsContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MPParser#scalarvar.
+    def visitScalarvar(self, ctx:MPParser.ScalarvarContext):
         return self.visitChildren(ctx)
 
 
@@ -186,6 +181,11 @@ class MPVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by MPParser#boollit.
     def visitBoollit(self, ctx:MPParser.BoollitContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MPParser#indexexpr.
+    def visitIndexexpr(self, ctx:MPParser.IndexexprContext):
         return self.visitChildren(ctx)
 
 
