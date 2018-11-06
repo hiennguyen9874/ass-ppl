@@ -1,0 +1,24 @@
+
+        var a: integer;
+        procedure main();
+        begin
+            a := f();
+        end
+        function f():integer;
+                var x,y:integer;
+                begin
+                    while(x < y) do
+                    begin
+                        if (x = 5)then begin
+                            x := 6;
+                            break;
+                        end
+                        else begin
+                            x:=5;
+                            break;
+                        end
+                        x := y;
+                    end
+                    return x;
+                end
+        

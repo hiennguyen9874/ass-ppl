@@ -40,12 +40,15 @@ class StaticChecker(BaseVisitor, Utils):
         self.ast = ast
 
     def convertToSymbol(self, decl):
+        # Ham chuyen tu mot Declare -> mot symbol
         if type(decl) == VarDecl:
             return Symbol(decl.variable.name, decl.varType)
         elif type(decl) == FuncDecl:
             return Symbol(decl.name.name, MType([i.varType for i in decl.param], decl.returnType))
 
     def toListSym(self, listDecl, listSym, kind, listGlobal = None, list_func=None):
+        # Ham chuyen mot list Declare -> list Symbol
+        # list_func: danh sach cac function/procedure trong Program
         if listGlobal is None:
             for x in listDecl:
                 sym = self.convertToSymbol(x)
@@ -83,16 +86,20 @@ class StaticChecker(BaseVisitor, Utils):
                     raise Redeclared(Variable(), sym.name)
 
     def checkNoEntryPoint(self, listSym):
+        # Ham kiem tra xem co ham main trong chuong trinh hay khong?
+        # String.lower() -> chuyen chu hoa ve chu thuong
         isMain = False
         sym = Symbol("main", MType([], VoidType()))
         for x in listSym:
-            if x.name == sym.name and x.mtype.partype == [] and type(x.mtype.rettype) == VoidType:
+            if x.name.lower() == sym.name.lower() and x.mtype.partype == [] and type(x.mtype.rettype) == VoidType:
                 isMain = True
                 break
         if isMain == False:
             raise NoEntryPoint()
 
     def checkType(self, left, right):
+        # ham kiem tra kieu co the gan
+        # chi co the gan int cho float
         if type(left) == type(right):
             if type(left) is ArrayType:
                 if type(left.eleType) == type(right.eleType) and left.lower == right.lower and left.upper == right.upper:
@@ -110,6 +117,7 @@ class StaticChecker(BaseVisitor, Utils):
         return self.visit(self.ast, StaticChecker.global_envi)
 
     def visitProgram(self, ast, c):
+        # decl:list(Decl)
         list_func = []
         list_global = []
         self.toListSym(ast.decl, list_global, None, c, list_func)
@@ -119,7 +127,7 @@ class StaticChecker(BaseVisitor, Utils):
             list_func = self.visit(x, (list_global + c, list_func))
         sym = Symbol("main", MType([], VoidType()))
         for x in list_func:
-            if not x.name == sym.name or not x.mtype.partype == sym.mtype.partype or not type(x.mtype.rettype) == type(sym.mtype.rettype):
+            if not x.name.lower() == sym.name.lower() or not x.mtype.partype == sym.mtype.partype or not type(x.mtype.rettype) == type(sym.mtype.rettype):
                 if type(x.mtype.rettype) is VoidType:
                     raise Unreachable(Procedure(), x.name)
                 else:
@@ -128,24 +136,46 @@ class StaticChecker(BaseVisitor, Utils):
 
     # Decl
     def visitVarDecl(self, ast, c):
+        # variable:Id
+        #varType: Type
         return c[1]
 
     def visitFuncDecl(self, ast, c):
+        #name: Id
+        #param: list(VarDecl)
+        # returnType: Type => VoidType for Procedure
+        # local:list(VarDecl)
+        #body: list(Stmt)
         lst = []
         self.toListSym(ast.param, lst, Parameter)
         self.toListSym(ast.local, lst, None)
         func_list = c[1]
         isReturn = False
+        isBreak = False
         for x in ast.body:
-            ret = self.visit(x, (lst + c[0], func_list, False, ast.returnType, isReturn))
-            isReturn = ret[1]
+            ret = self.visit(x, (lst + c[0], func_list, False, ast.returnType, isReturn, lst, isBreak))
             func_list = ret[0]
+            isReturn = ret[1]
+            isBreak = ret[2]
         if not isReturn and not type(ast.returnType) is VoidType:
             raise FunctionNotReturn(ast.name.name)
         return func_list
 
-    # Stmt
+    # in c
+    # c[0] -> Environment
+    # c[1] -> Danh sach ham chua duoc goi
+    # c[2] -> True neu stmt nay nam trong mot vong lap
+    # c[3] -> Kieu tra ve cua function/procedure
+    # c[4] -> True neu da goi return
+    # c[5] -> local environment
+    # c[6] -> True neu ham da goi break/continue
+    ## return:
+    # ret[0] -> Danh sach ham chua duoc goi
+    # ret[1] -> True neu da goi ham return
+    # ret[2] -> True neu da goi ham break/continue
     def visitAssign(self, ast, c):
+        # lhs:Expr
+        # exp:Expr  
         ret = self.visit(ast.lhs, (c[0], c[1]))
         lhs = ret[0]
         func_list = ret[1]
@@ -162,44 +192,62 @@ class StaticChecker(BaseVisitor, Utils):
             pass
         else:
             raise TypeMismatchInStatement(ast)
-        if c[4]:
+        if c[4] or c[6]:
             raise UnreachableStatement(ast)
-        return [func_list, c[4]]
+        return [func_list, c[4], c[6]]
 
     def visitIf(self, ast, c):
+        # expr:Expr
+        # thenStmt:list(Stmt)
+        # elseStmt:list(Stmt)
         ret = self.visit(ast.expr, (c[0], c[1]))
         expr = ret[0]
         func_list = ret[1]
         if not type(expr) is BoolType:
             raise TypeMismatchInStatement(ast)
+        # visit Stmt for thenStmt
         isReturn = False
+        isBreak = False
         for x in ast.thenStmt:
-            ret = self.visit(x, (c[0], func_list, c[2], c[3], isReturn))
+            ret = self.visit(x, (c[0], func_list, c[2], c[3], isReturn, c[5], isBreak))
             func_list = ret[0]
             isReturn = ret[1]
+            isBreak = ret[2]
+        # visit stmt for elseStmt
         isReturn1 = False
+        isBreak1 = False
         for x in ast.elseStmt:
-            ret = self.visit(x, (c[0], func_list, c[2], c[3], isReturn1))
+            ret = self.visit(x, (c[0], func_list, c[2], c[3], isReturn1, c[5], isBreak1))
             func_list = ret[0]
             isReturn1 = ret[1]
-        if c[4]:
+            isBreak1 = ret[2]
+        if c[4] or c[6]:
             raise UnreachableStatement(ast)
-        return [func_list, isReturn and isReturn1]
+        return [func_list, isReturn and isReturn1, isBreak and isBreak1]
 
     def visitWhile(self, ast, c):
+        # sl:list(Stmt)
+        #exp: Expr
         ret = self.visit(ast.exp, (c[0], c[1]))
         exp = ret[0]
         func_list = ret[1]
         if not type(exp) is BoolType:
             raise TypeMismatchInStatement(ast)
+        isBreak = c[6]
         for x in ast.sl:
-            func_list = self.visit(x, (c[0], func_list, c[2], c[3], False))[0]
-        if c[4]:
+            ret = self.visit(x, (c[0], func_list, True, c[3], False, c[5], isBreak))
+            func_list = ret[0]
+            isBreak = ret[2]
+        if c[4] or c[6]:
             raise UnreachableStatement(ast)
-        return [func_list, c[4]]
+        return [func_list, c[4], False]
 
     def visitFor(self, ast, c):
-        ret = self.visit(ast.id, (c[0], c[1]))
+        # id:Id
+        # expr1,expr2:Expr
+        # loop:list(Stmt)
+        # up:Boolean #True => increase; False => decrease
+        ret = self.visit(ast.id, (c[5], c[1]))
         id = ret[0]
         func_list = ret[1]
         if not type(id) is IntType:
@@ -215,62 +263,69 @@ class StaticChecker(BaseVisitor, Utils):
         if not type(expr2) is IntType:
             raise TypeMismatchInStatement(ast)
         isReturn = c[4]
+        isBreak = c[6]
         for x in ast.loop:
-            func_list = self.visit(x, (c[0], func_list, c[2], c[3], False))
-        if c[4]:
+            ret = self.visit(x, (c[0], func_list, True, c[3], False, c[5], isBreak))
+            func_list = ret[0]
+            isBreak = ret[2]
+        if c[4] or c[6]:
             raise UnreachableStatement(ast)
-        return [func_list, isReturn]
+        return [func_list, isReturn, False]
 
     def visitBreak(self, ast, c):
-        if c[2] is True:
-            pass
-        else:
+        if c[2] is False:
             raise BreakNotInLoop()
-        if c[4]:
+        if c[4] or c[6]:
             raise UnreachableStatement(ast)
-        return [c[1], c[4]]
+        return [c[1], c[4], True]
 
     def visitContinue(self, ast, c):
-        if c[2] is True:
-            pass
-        else:
+        if c[2] is False:
             raise ContinueNotInLoop()
-        if c[4]:
+        if c[4] or c[6]:
             raise UnreachableStatement(ast)
-        return [c[1], c[4]]
+        return [c[1], c[4], True]
 
     def visitReturn(self, ast, c):
-        if not ast.expr is None:
+        # expr:Expr
+        if ast.expr:
             ret = self.visit(ast.expr, (c[0], c[1]))
             expr = ret[0]
             func_list = ret[1]
-            if expr is None and type(c[3]) is VoidType:
-                pass
+            if type(c[3]) is VoidType:
+                raise TypeMismatchInStatement(ast)
             if not self.checkType(c[3], expr):
                 raise TypeMismatchInStatement(ast)
-            if c[4]:
+            if c[4] or c[6]:
                 raise UnreachableStatement(ast)
-            return [func_list, True]
+            return [func_list, True, c[6]]
         else:
-            if c[4]:
+            if not type(c[3]) is VoidType:
+                raise TypeMismatchInStatement(ast)
+            if c[4] or c[6]:
                 raise UnreachableStatement(ast)
-            return [c[1], True]
+            return [c[1], True, c[6]]
 
     def visitWith(self, ast, c):
+        # decl:list(VarDecl)
+        # stmt:list(Stmt)
         lst = []
         self.toListSym(ast.decl, lst, None)
-        # list(map(lambda x: self.visit(x, (lst + c[0], c[1], c[2], c[3])), ast.stmt))
         func_list = c[1]
         isReturn = c[4]
+        isBreak = c[6]
         for x in ast.stmt:
-            ret = self.visit(x, (lst + c[0], func_list, c[2], c[3], isReturn))
+            ret = self.visit(x, (lst + c[0], func_list, c[2], c[3], isReturn, lst, isBreak))
             func_list = ret[0]
             isReturn = ret[1]
-        if c[4]:
+            isBreak = ret[2]
+        if c[4] or c[6]:
             raise UnreachableStatement(ast)
-        return [func_list, isReturn]
+        return [func_list, isReturn, isBreak]
 
     def visitCallStmt(self, ast, c):
+        # method:Id
+        # param:list(Expr)
         at = []
         func_list = c[1]
         for x in ast.param:
@@ -290,12 +345,21 @@ class StaticChecker(BaseVisitor, Utils):
         for x in func_list:
             if not ast.method.name == x.name:
                 func_list_ret.append(x)
-        if c[4]:
+        if c[4] or c[6]:
             raise UnreachableStatement(ast)
-        return [func_list_ret, c[4]]
+        return [func_list_ret, c[4], c[6]]
 
     # Expression
+    # In c
+    # c[0] -> Environment
+    # c[1] -> Danh sach ham chua duoc goi
+    # Return
+    # ret[0] -> Kieu tra ve cua Expression
+    # ret[1] -> Danh sach ham chua duoc goi
     def visitBinaryOp(self, ast, c):
+        # op:string: AND THEN => andthen; OR ELSE => orelse; other => keep it
+        # left:Expr
+        # right:Expr
         ret = self.visit(ast.left, (c[0], c[1]))
         left = ret[0]
         func_list = ret[1]
@@ -329,6 +393,8 @@ class StaticChecker(BaseVisitor, Utils):
                 raise TypeMismatchInExpression(ast)
 
     def visitUnaryOp(self, ast, c):
+        # op:string
+        # body:Expr
         ret = self.visit(ast.body, (c[0], c[1]))
         expr = ret[0]
         func_list = ret[1]
@@ -342,6 +408,8 @@ class StaticChecker(BaseVisitor, Utils):
             raise TypeMismatchInExpression(ast)
 
     def visitCallExpr(self, ast, c):
+        # method:Id
+        # param:list(Expr)
         at = []
         func_list = c[1]
         for x in ast.param:
@@ -365,6 +433,7 @@ class StaticChecker(BaseVisitor, Utils):
 
     # LHS
     def visitId(self, ast, c):
+        # name:string
         res = self.lookup(ast.name, c[0], lambda x: x.name)
         if res is None:
             raise Undeclared(Identifier(), ast.name)
@@ -374,6 +443,8 @@ class StaticChecker(BaseVisitor, Utils):
             return [res.mtype, c[1]]
 
     def visitArrayCell(self, ast, c):
+        # arr:Expr
+        # idx:Expr
         ret = self.visit(ast.arr, (c[0], c[1]))
         arr = ret[0]
         func_list = ret[1]
@@ -387,13 +458,17 @@ class StaticChecker(BaseVisitor, Utils):
         return [arr.eleType, func_list]
 
     def visitIntLiteral(self, ast, c):
+        # value:int
         return [IntType(), c[1]]
 
     def visitFloatLiteral(self, ast, c):
+        # value:float
         return [FloatType(), c[1]]
 
     def visitBooleanLiteral(self, ast, c):
+        # value:boolean
         return [BoolType(), c[1]]
 
     def visitStringLiteral(self, ast, c):
+        # value:string
         return [StringType(), c[1]]

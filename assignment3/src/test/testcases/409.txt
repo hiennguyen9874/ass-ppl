@@ -1,0 +1,14 @@
+
+        function f():integer;
+        var x,y:integer;
+        begin
+            if(x>y) then
+                    return x;
+            else  return y;
+            x:=y;
+        end
+        procedure Main();
+        var a:integer;
+        begin 
+        end
+        

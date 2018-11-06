@@ -1,0 +1,16 @@
+
+        var a: integer;
+        procedure main();
+        begin
+            a := foo();
+        end
+        function foo(): integer;
+        var a: boolean;
+        begin
+            while a do
+                begin
+                    break;
+                    a := True;
+                end
+        end
+        

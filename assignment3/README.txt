@@ -24,3 +24,29 @@ int b; // dinh nghia sau van su dung duoc
 
 local và global trùng tên nhau khong có gì sảy ra
 local và local trùng nhau thì báo lỗi
+
+
+
+thầy cho em hỏi ở phần Unreachable statement, ngoài trường hợp các statement sau lệnh return là các Unreachable statement thì còn có những trường hợp  nào khác nữa không?
+
+ví dụ:
+
+function foo(): integer;
+
+var a: boolean;
+
+begin
+
+    while a do
+
+          begin
+
+               break;
+
+               <stmt>
+
+          end
+
+end
+
+=> trong trường hợp này các <stmt> sau break luôn luôn không được thực thi => có được coi là Unreachable statement không thầy? (ta có thể thay thế break thành continue sẽ cho trường hợp tương tự)

@@ -1,0 +1,25 @@
+
+        var a: integer;
+        procedure main();
+        var b: array [1 .. 10] of integer;
+            x: integer;
+        begin
+            a := foo();
+            a := b [10] := f()[ 3 ] := x := 1 ;
+        end
+        function foo(): integer;
+        var a: boolean;
+        begin
+            while a do
+                begin
+                    break;
+                end
+            return 200;
+            a := true;
+        end
+        function f(): array [1 .. 10] of integer;
+        var a: array [1 .. 10] of integer;
+        begin
+            return a;
+        end
+        

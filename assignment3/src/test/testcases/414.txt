@@ -1,0 +1,15 @@
+
+        var a: integer;
+        procedure main();
+        begin
+            a := foo();
+        end
+        function foo(): integer;
+        var a: boolean;
+        begin
+            if (1>0) then
+            return;
+            else
+            return 1;
+        end
+        

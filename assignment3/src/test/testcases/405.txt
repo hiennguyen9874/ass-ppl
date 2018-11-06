@@ -1,7 +1,7 @@
 
-        function foo():integer;
+        procedure foo();
         begin
-            return 1;
+            return;
         end
         procedure main();
         begin
