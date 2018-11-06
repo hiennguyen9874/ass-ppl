@@ -52,7 +52,7 @@ class StaticChecker(BaseVisitor, Utils):
         if listGlobal is None:
             for x in listDecl:
                 sym = self.convertToSymbol(x)
-                res = self.lookup(sym.name, listSym, lambda y: y.name)
+                res = self.lookup(sym.name.lower(), listSym, lambda y: y.name.lower())
                 if res is None:
                     listSym.insert(0, sym)
                     if not list_func is None and type(sym.mtype) is MType:
@@ -69,8 +69,8 @@ class StaticChecker(BaseVisitor, Utils):
         else:
             for x in listDecl:
                 sym = self.convertToSymbol(x)
-                res = self.lookup(sym.name, listSym, lambda y: y.name)
-                res1 = self.lookup(sym.name, listGlobal, lambda y: y.name)
+                res = self.lookup(sym.name.lower(), listSym, lambda y: y.name.lower())
+                res1 = self.lookup(sym.name.lower(), listGlobal, lambda y: y.name.lower())
                 if res is None and res1 is None:
                     listSym.insert(0, sym)
                     if not list_func is None and type(sym.mtype) is MType:
@@ -153,7 +153,7 @@ class StaticChecker(BaseVisitor, Utils):
         isReturn = False
         isBreak = False
         for x in ast.body:
-            ret = self.visit(x, (lst + c[0], func_list, False, ast.returnType, isReturn, lst, isBreak))
+            ret = self.visit(x, (lst + c[0], func_list, False, ast, isReturn, lst, isBreak))
             func_list = ret[0]
             isReturn = ret[1]
             isBreak = ret[2]
@@ -176,14 +176,14 @@ class StaticChecker(BaseVisitor, Utils):
     def visitAssign(self, ast, c):
         # lhs:Expr
         # exp:Expr  
-        ret = self.visit(ast.lhs, (c[0], c[1]))
+        ret = self.visit(ast.lhs, (c[0], c[1], c[3]))
         lhs = ret[0]
         func_list = ret[1]
         if type(lhs) == StringType:
             raise TypeMismatchInStatement(ast)
         if type(lhs) == ArrayType:
             raise TypeMismatchInStatement(ast)
-        ret = self.visit(ast.exp, (c[0], func_list))
+        ret = self.visit(ast.exp, (c[0], func_list, c[3]))
         exp = ret[0]
         func_list = ret[1]
         if type(exp) == type(lhs):
@@ -200,7 +200,7 @@ class StaticChecker(BaseVisitor, Utils):
         # expr:Expr
         # thenStmt:list(Stmt)
         # elseStmt:list(Stmt)
-        ret = self.visit(ast.expr, (c[0], c[1]))
+        ret = self.visit(ast.expr, (c[0], c[1], c[3]))
         expr = ret[0]
         func_list = ret[1]
         if not type(expr) is BoolType:
@@ -228,7 +228,7 @@ class StaticChecker(BaseVisitor, Utils):
     def visitWhile(self, ast, c):
         # sl:list(Stmt)
         #exp: Expr
-        ret = self.visit(ast.exp, (c[0], c[1]))
+        ret = self.visit(ast.exp, (c[0], c[1], c[3]))
         exp = ret[0]
         func_list = ret[1]
         if not type(exp) is BoolType:
@@ -247,17 +247,17 @@ class StaticChecker(BaseVisitor, Utils):
         # expr1,expr2:Expr
         # loop:list(Stmt)
         # up:Boolean #True => increase; False => decrease
-        ret = self.visit(ast.id, (c[5], c[1]))
+        ret = self.visit(ast.id, (c[5], c[1], c[3]))
         id = ret[0]
         func_list = ret[1]
         if not type(id) is IntType:
             raise TypeMismatchInStatement(ast)
-        ret = self.visit(ast.expr1, (c[0], func_list))
+        ret = self.visit(ast.expr1, (c[0], func_list, c[3]))
         expr1 = ret[0]
         func_list = ret[1]
         if not type(expr1) is IntType:
             raise TypeMismatchInStatement(ast)
-        ret = self.visit(ast.expr2, (c[0], func_list))
+        ret = self.visit(ast.expr2, (c[0], func_list, c[3]))
         expr2 = ret[0]
         func_list = ret[1]
         if not type(expr2) is IntType:
@@ -289,18 +289,18 @@ class StaticChecker(BaseVisitor, Utils):
     def visitReturn(self, ast, c):
         # expr:Expr
         if ast.expr:
-            ret = self.visit(ast.expr, (c[0], c[1]))
+            ret = self.visit(ast.expr, (c[0], c[1], c[3]))
             expr = ret[0]
             func_list = ret[1]
-            if type(c[3]) is VoidType:
+            if type(c[3].returnType) is VoidType:
                 raise TypeMismatchInStatement(ast)
-            if not self.checkType(c[3], expr):
+            if not self.checkType(c[3].returnType, expr):
                 raise TypeMismatchInStatement(ast)
             if c[4] or c[6]:
                 raise UnreachableStatement(ast)
             return [func_list, True, c[6]]
         else:
-            if not type(c[3]) is VoidType:
+            if not type(c[3].returnType) is VoidType:
                 raise TypeMismatchInStatement(ast)
             if c[4] or c[6]:
                 raise UnreachableStatement(ast)
@@ -329,10 +329,10 @@ class StaticChecker(BaseVisitor, Utils):
         at = []
         func_list = c[1]
         for x in ast.param:
-            ret = self.visit(x, (c[0], func_list))
+            ret = self.visit(x, (c[0], func_list, c[3]))
             at.append(ret[0])
             func_list = ret[1]
-        res = self.lookup(ast.method.name, c[0], lambda x: x.name)
+        res = self.lookup(ast.method.name.lower(), c[0], lambda x: x.name.lower())
         if res is None or not type(res.mtype) is MType or not type(res.mtype.rettype) is VoidType:
             raise Undeclared(Procedure(), ast.method.name)
         elif len(res.mtype.partype) != len(at):
@@ -341,13 +341,15 @@ class StaticChecker(BaseVisitor, Utils):
             for i in range(len(res.mtype.partype)):
                 if not self.checkType(res.mtype.partype[i], at[i]):
                     raise TypeMismatchInStatement(ast)
-        func_list_ret = []
-        for x in func_list:
-            if not ast.method.name == x.name:
-                func_list_ret.append(x)
         if c[4] or c[6]:
             raise UnreachableStatement(ast)
-        return [func_list_ret, c[4], c[6]]
+        func_list_ret = []
+        if not ast.method.name.lower() == c[3].name.name.lower():
+            for x in func_list:
+                if not ast.method.name.lower() == x.name.lower():
+                    func_list_ret.append(x)
+            return [func_list_ret, c[4], c[6]]
+        return [func_list, c[4], c[6]]
 
     # Expression
     # In c
@@ -360,10 +362,10 @@ class StaticChecker(BaseVisitor, Utils):
         # op:string: AND THEN => andthen; OR ELSE => orelse; other => keep it
         # left:Expr
         # right:Expr
-        ret = self.visit(ast.left, (c[0], c[1]))
+        ret = self.visit(ast.left, (c[0], c[1], c[2]))
         left = ret[0]
         func_list = ret[1]
-        ret = self.visit(ast.right, (c[0], func_list))
+        ret = self.visit(ast.right, (c[0], func_list, c[2]))
         right = ret[0]
         func_list = ret[1]
 
@@ -395,7 +397,7 @@ class StaticChecker(BaseVisitor, Utils):
     def visitUnaryOp(self, ast, c):
         # op:string
         # body:Expr
-        ret = self.visit(ast.body, (c[0], c[1]))
+        ret = self.visit(ast.body, (c[0], c[1], c[2]))
         expr = ret[0]
         func_list = ret[1]
         if ast.op == '-' and type(expr) is BoolType:
@@ -413,12 +415,12 @@ class StaticChecker(BaseVisitor, Utils):
         at = []
         func_list = c[1]
         for x in ast.param:
-            ret = self.visit(x, (c[0], func_list))
+            ret = self.visit(x, (c[0], func_list, c[2]))
             at.append(ret[0])
             func_list = ret[1]
-        res = self.lookup(ast.method.name, c[0], lambda x: x.name)
+        res = self.lookup(ast.method.name.lower(), c[0], lambda x: x.name.lower())
         if res is None or not type(res.mtype) is MType or type(res.mtype.rettype) is VoidType:
-            raise Undeclared(Procedure(), ast.method.name)
+            raise Undeclared(Function(), ast.method.name)
         elif len(res.mtype.partype) != len(at):
             raise TypeMismatchInExpression(ast)
         else:
@@ -426,15 +428,18 @@ class StaticChecker(BaseVisitor, Utils):
                 if not self.checkType(res.mtype.partype[i], at[i]):
                     raise TypeMismatchInExpression(ast)
         func_list_ret = []
-        for x in func_list:
-            if not ast.method.name == x.name:
-                func_list_ret.append(x)
-        return [res.mtype.rettype, func_list_ret]
+        if not ast.method.name.lower() == c[2].name.name.lower():
+            for x in func_list:
+                if not ast.method.name.lower() == x.name.lower():
+                    func_list_ret.append(x)
+            return [res.mtype.rettype, func_list_ret]
+        else:
+            return [res.mtype.rettype, func_list]
 
     # LHS
     def visitId(self, ast, c):
         # name:string
-        res = self.lookup(ast.name, c[0], lambda x: x.name)
+        res = self.lookup(ast.name.lower(), c[0], lambda x: x.name.lower())
         if res is None:
             raise Undeclared(Identifier(), ast.name)
         elif type(res.mtype) is MType:
@@ -445,12 +450,12 @@ class StaticChecker(BaseVisitor, Utils):
     def visitArrayCell(self, ast, c):
         # arr:Expr
         # idx:Expr
-        ret = self.visit(ast.arr, (c[0], c[1]))
+        ret = self.visit(ast.arr, (c[0], c[1], c[2]))
         arr = ret[0]
         func_list = ret[1]
         if not type(arr) is ArrayType:
             raise TypeMismatchInExpression(ast)
-        ret = self.visit(ast.idx, (c[0], func_list))
+        ret = self.visit(ast.idx, (c[0], func_list, c[2]))
         idx = ret[0]
         func_list = ret[1]
         if not type(idx) is IntType:

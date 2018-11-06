@@ -1,0 +1,9 @@
+
+        procedure main();
+        var i:integer;
+            j:real;
+        begin
+            if i then return; else j := j + 1;
+            return;
+        end
+        

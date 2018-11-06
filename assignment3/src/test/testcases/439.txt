@@ -1,0 +1,12 @@
+
+        var i:integer;
+        procedure main();
+        var j:integer;
+            str: string;
+            arr: array [1 .. 10] of integer;
+            arr1: array [1 .. 10] of integer;
+        begin
+            arr := arr1;
+            return;
+        end
+        

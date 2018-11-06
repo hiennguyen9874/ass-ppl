@@ -1,0 +1,10 @@
+
+        var i:integer;
+        procedure main();
+        var j:integer;
+            str: string;
+        begin
+            str := "Hello";
+            return;
+        end
+        

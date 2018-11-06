@@ -1,0 +1,9 @@
+
+        procedure main();
+        var j: integer;
+            i: real;
+        begin
+            j:=i;
+            return;
+        end
+        

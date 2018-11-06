@@ -1,0 +1,11 @@
+
+        procedure main();
+        var i: integer;
+            f: real;
+            b: boolean;
+            s: string;
+        begin
+            f:=s;
+            return;
+        end
+        

@@ -1,0 +1,12 @@
+
+        function foo(): integer;
+        begin
+            return;
+        end
+        procedure main();
+        var i: integer;
+        begin
+            i:= foo();
+            return;
+        end
+        

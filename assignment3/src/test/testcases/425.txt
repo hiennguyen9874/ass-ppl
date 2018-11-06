@@ -1,0 +1,13 @@
+
+        function putLn(): real;
+        var i: real;
+        begin
+            return 1;
+        end
+        procedure main();
+        var i:integer;
+            j:real;
+        begin
+            return;
+        end
+        

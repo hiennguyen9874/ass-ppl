@@ -1,0 +1,13 @@
+
+        function foo(): integer;
+        var i: real;
+        begin
+            i := foo();
+            return 1;
+        end
+        procedure main();
+        var i:integer;
+        begin
+            return;
+        end
+        

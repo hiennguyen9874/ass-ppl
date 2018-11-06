@@ -1,0 +1,13 @@
+
+        Procedure foo(i:integer;i:real);
+        begin
+            return;
+        end
+        procedure main();
+        var i:integer;
+            j:real;
+        begin
+            foo(i,j);
+            return;
+        end
+        

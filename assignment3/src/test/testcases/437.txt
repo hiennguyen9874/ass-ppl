@@ -1,0 +1,9 @@
+
+        var i:integer;
+        procedure main();
+        var j:integer;
+        begin
+            while j do return;
+            return;
+        end
+        

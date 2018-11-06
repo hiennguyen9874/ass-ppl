@@ -1,0 +1,12 @@
+
+        Procedure putLn();
+        begin
+            putString("\n");
+        end
+        procedure main();
+        var i:integer;
+            j:real;
+        begin
+            return;
+        end
+        

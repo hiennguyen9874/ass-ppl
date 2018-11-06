@@ -4,7 +4,6 @@
             begin 
                     if true then Main32(1);   
             end
-
         procedure Main();
         begin 
         end

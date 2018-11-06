@@ -166,7 +166,7 @@ class CheckerSuite(unittest.TestCase):
             a:= foo();
         end
         """
-        expect = "Function foo Not Return "
+        expect = "Function fooNot Return "
         self.assertTrue(TestChecker.test(input,expect,408))
 
     def test_unreachable_stmt1(self):
@@ -362,3 +362,554 @@ class CheckerSuite(unittest.TestCase):
         FuncDecl(Id("foo"),[],[VarDecl(Id("a"),ArrayType(1,10,IntType()))],[Return(Id("a"))],ArrayType(1,10,IntType()))])
         expect = "Unreachable Function: foo"
         self.assertTrue(TestChecker.test(input,expect,418))
+
+    def test_redeclare_function(self):
+        input = """
+        function foo(): integer;
+        var foo: real;
+        begin
+            foo := foo();
+            return 1;
+        end
+        procedure main();
+        var i:integer;
+        begin
+            i:=foo();
+            return;
+        end
+        """
+        expect = "Undeclared Function: foo"
+        self.assertTrue(TestChecker.test(input,expect,419))
+
+    def test_unreachable_function1(self):
+        input = """
+        function foo(): integer;
+        var i: real;
+        begin
+            i := foo();
+            return 1;
+        end
+        procedure main();
+        var i:integer;
+        begin
+            return;
+        end
+        """
+        expect = "Unreachable Function: foo"
+        self.assertTrue(TestChecker.test(input,expect,420))
+
+
+    def test_redeclare_variable(self):
+        input = """
+        procedure main();
+        var i:integer;
+            i:real;
+        begin
+            return;
+        end
+        """
+        expect = "Redeclared Variable: i"
+        self.assertTrue(TestChecker.test(input,expect,421))
+
+    def test_redeclare_function1(self):
+        input = """
+        function foo(): integer;
+        var i: real;
+        begin
+            return 1;
+        end
+        function foo(): real;
+        var i: real;
+        begin
+            return 1;
+        end
+        procedure main();
+        var i:integer;
+            j:real;
+        begin
+            return;
+        end
+        """
+        expect = "Redeclared Function: foo"
+        self.assertTrue(TestChecker.test(input,expect,422))
+
+    def test_redeclare_function2(self):
+        input = """
+        function getInt(): real;
+        var i: real;
+        begin
+            return 1;
+        end
+        procedure main();
+        var i:integer;
+            j:real;
+        begin
+            return;
+        end
+        """
+        expect = "Redeclared Function: getInt"
+        self.assertTrue(TestChecker.test(input,expect,423))
+
+    def test_redeclare_function3(self):
+        input = """
+        function putInt(): real;
+        var i: real;
+        begin
+            return 1;
+        end
+        procedure main();
+        var i:integer;
+            j:real;
+        begin
+            return;
+        end
+        """
+        expect = "Redeclared Function: putInt"
+        self.assertTrue(TestChecker.test(input,expect,424))
+
+    def test_redeclare_function4(self):
+        input = """
+        function putLn(): real;
+        var i: real;
+        begin
+            return 1;
+        end
+        procedure main();
+        var i:integer;
+            j:real;
+        begin
+            return;
+        end
+        """
+        expect = "Redeclared Function: putLn"
+        self.assertTrue(TestChecker.test(input,expect,425))
+        
+    def test_redeclare_Procedure(self):
+        input = """
+        Procedure putLn();
+        begin
+            putString("\\n");
+        end
+        procedure main();
+        var i:integer;
+            j:real;
+        begin
+            return;
+        end
+        """
+        expect = "Redeclared Procedure: putLn"
+        self.assertTrue(TestChecker.test(input,expect,426))
+    
+    def test_redeclare_Parameter(self):
+        input = """
+        Procedure foo(i:integer;i:real);
+        begin
+            return;
+        end
+        procedure main();
+        var i:integer;
+            j:real;
+        begin
+            foo(i,j);
+            return;
+        end
+        """
+        expect = "Redeclared Parameter: i"
+        self.assertTrue(TestChecker.test(input,expect,427))
+
+    def test_redeclare_Parameter1(self):
+        input = """
+        Procedure foo(i:integer;j:real);
+        var i:integer;
+        begin
+            return;
+        end
+        procedure main();
+        var i:integer;
+            j:real;
+        begin
+            foo(i,j);
+            return;
+        end
+        """
+        expect = "Redeclared Variable: i"
+        self.assertTrue(TestChecker.test(input,expect,428))
+
+    def test_Undeclare_Identifier(self):
+        input = """
+        procedure main();
+        var i:integer;
+            j:real;
+        begin
+            j := i := k := 1;
+            return;
+        end
+        """
+        expect = "Undeclared Identifier: k"
+        self.assertTrue(TestChecker.test(input,expect,429))
+
+    def test_Undeclare_Function(self):
+        input = """
+        procedure main();
+        var i:integer;
+            j:real;
+        begin
+            j := foo();
+            return;
+        end
+        """
+        expect = "Undeclared Function: foo"
+        self.assertTrue(TestChecker.test(input,expect,430))
+
+    def test_Undeclare_Procedure(self):
+        input = """
+        procedure main();
+        var i:integer;
+            j:real;
+        begin
+            foo();
+            return;
+        end
+        """
+        expect = "Undeclared Procedure: foo"
+        self.assertTrue(TestChecker.test(input,expect,431))
+
+    def test_Type_Mismatch_In_Statement_If(self):
+        """ The type of a conditional expression in an if statement must be boolean. """
+        input = """
+        procedure main();
+        var i:integer;
+            j:real;
+        begin
+            if i then return; else j := j + 1;
+            return;
+        end
+        """
+        expect = "Type Mismatch In Statement: If(Id(i),[Return(None)],[AssignStmt(Id(j),BinaryOp(+,Id(j),IntLiteral(1)))])"
+        self.assertTrue(TestChecker.test(input,expect,432))
+
+    def test_Type_Mismatch_In_Statement_If1(self):
+        """ The type of <identifier> in a for statement must be integer. """
+        input = """
+        procedure main();
+        var i:integer;
+            j:real;
+        begin
+            for j := 1 to 10 do j :=i+j;
+            return;
+        end
+        """
+        expect = "Type Mismatch In Statement: For(Id(j)IntLiteral(1),IntLiteral(10),True,[AssignStmt(Id(j),BinaryOp(+,Id(i),Id(j)))])"
+        self.assertTrue(TestChecker.test(input,expect,433))
+
+    def test_Type_Mismatch_In_Statement_If2(self):
+        """ The type of <expression 2> in a for statement must be integer. """
+        input = """
+        procedure main();
+        var i:integer;
+            j:real;
+        begin
+            for i := 1 to i < 10 do j := i+j;
+            return;
+        end
+        """
+        expect = "Type Mismatch In Statement: For(Id(i)IntLiteral(1),BinaryOp(<,Id(i),IntLiteral(10)),True,[AssignStmt(Id(j),BinaryOp(+,Id(i),Id(j)))])"
+        self.assertTrue(TestChecker.test(input,expect,434))
+
+    def test_Type_Mismatch_In_Statement_If3(self):
+        """ The type of <expression 1> in a for statement must be integer. """
+        input = """
+        procedure main();
+        var i:integer;
+            j:real;
+        begin
+            for i := 1.2 to 10 do j := i+j;
+            return;
+        end
+        """
+        expect = "Type Mismatch In Statement: For(Id(i)FloatLiteral(1.2),IntLiteral(10),True,[AssignStmt(Id(j),BinaryOp(+,Id(i),Id(j)))])"
+        self.assertTrue(TestChecker.test(input,expect,435))
+
+    def test_Undeclared_If(self):
+        """ The <identifier> must be a local integer variable. """
+        input = """
+        var i:integer;
+        procedure main();
+        var j:integer;
+        begin
+            for i := 1 to 10 do j := i+j;
+            return;
+        end
+        """
+        expect = "Undeclared Identifier: i"
+        self.assertTrue(TestChecker.test(input,expect,436))
+
+    def test_Type_Mismatch_In_Statement_while(self):
+        """ The type of condition expression in while statement must be boolean. """
+        input = """
+        var i:integer;
+        procedure main();
+        var j:integer;
+        begin
+            while j do return;
+            return;
+        end
+        """
+        expect = "Type Mismatch In Statement: While(Id(j),[Return(None)])"
+        self.assertTrue(TestChecker.test(input,expect,437))
+
+    def test_Type_Mismatch_In_Statement_assignment(self):
+        """ Left-hand side (LHS) can be in any type except string and array type. """
+        input = """
+        var i:integer;
+        procedure main();
+        var j:integer;
+            str: string;
+        begin
+            str := "Hello";
+            return;
+        end
+        """
+        expect = "Type Mismatch In Statement: AssignStmt(Id(str),StringLiteral(Hello))"
+        self.assertTrue(TestChecker.test(input,expect,438))
+
+    def test_Type_Mismatch_In_Statement_assignment1(self):
+        """ Left-hand side (LHS) can be in any type except string and array type. """
+        input = """
+        var i:integer;
+        procedure main();
+        var j:integer;
+            str: string;
+            arr: array [1 .. 10] of integer;
+            arr1: array [1 .. 10] of integer;
+        begin
+            arr := arr1;
+            return;
+        end
+        """
+        expect = "Type Mismatch In Statement: AssignStmt(Id(arr),Id(arr1))"
+        self.assertTrue(TestChecker.test(input,expect,439))
+
+    def test_Type_Mismatch_In_Statement_assignment2(self):
+        """ Just the integer can coerce to the float. """
+        input = """
+        procedure main();
+        var j: integer;
+            i: real;
+        begin
+            j:=i;
+            return;
+        end
+        """
+        expect = "Type Mismatch In Statement: AssignStmt(Id(j),Id(i))"
+        self.assertTrue(TestChecker.test(input,expect,440))
+
+    def test_Type_Mismatch_In_Statement_assignment3(self):
+        """ Just the integer can coerce to the float. """
+        input = """
+        procedure main();
+        var i: integer;
+            f: real;
+            b: boolean;
+            s: string;
+        begin
+            i:=b;
+            return;
+        end
+        """
+        expect = "Type Mismatch In Statement: AssignStmt(Id(i),Id(b))"
+        self.assertTrue(TestChecker.test(input,expect,441))
+
+    def test_Type_Mismatch_In_Statement_assignment4(self):
+        """ Just the integer can coerce to the float. """
+        input = """
+        procedure main();
+        var i: integer;
+            f: real;
+            b: boolean;
+            s: string;
+        begin
+            b:=i;
+            return;
+        end
+        """
+        expect = "Type Mismatch In Statement: AssignStmt(Id(b),Id(i))"
+        self.assertTrue(TestChecker.test(input,expect,442))
+
+    def test_Type_Mismatch_In_Statement_assignment5(self):
+        """ Just the integer can coerce to the float. """
+        input = """
+        procedure main();
+        var i: integer;
+            f: real;
+            b: boolean;
+            s: string;
+        begin
+            i:=s;
+            return;
+        end
+        """
+        expect = "Type Mismatch In Statement: AssignStmt(Id(i),Id(s))"
+        self.assertTrue(TestChecker.test(input,expect,443))
+
+    def test_Type_Mismatch_In_Statement_assignment6(self):
+        """ Just the integer can coerce to the float. """
+        input = """
+        procedure main();
+        var i: integer;
+            f: real;
+            b: boolean;
+            s: string;
+        begin
+            f:=b;
+            return;
+        end
+        """
+        expect = "Type Mismatch In Statement: AssignStmt(Id(f),Id(b))"
+        self.assertTrue(TestChecker.test(input,expect,444))
+
+    def test_Type_Mismatch_In_Statement_assignment7(self):
+        """ Just the integer can coerce to the float. """
+        input = """
+        procedure main();
+        var i: integer;
+            f: real;
+            b: boolean;
+            s: string;
+        begin
+            b:=f;
+            return;
+        end
+        """
+        expect = "Type Mismatch In Statement: AssignStmt(Id(b),Id(f))"
+        self.assertTrue(TestChecker.test(input,expect,445))
+
+    def test_Type_Mismatch_In_Statement_assignment8(self):
+        """ Just the integer can coerce to the float. """
+        input = """
+        procedure main();
+        var i: integer;
+            f: real;
+            b: boolean;
+            s: string;
+        begin
+            s:=f;
+            return;
+        end
+        """
+        expect = "Type Mismatch In Statement: AssignStmt(Id(s),Id(f))"
+        self.assertTrue(TestChecker.test(input,expect,446))
+
+    def test_Type_Mismatch_In_Statement_assignment9(self):
+        """ Just the integer can coerce to the float. """
+        input = """
+        procedure main();
+        var i: integer;
+            f: real;
+            b: boolean;
+            s: string;
+        begin
+            s:=f;
+            return;
+        end
+        """
+        expect = "Type Mismatch In Statement: AssignStmt(Id(s),Id(f))"
+        self.assertTrue(TestChecker.test(input,expect,447))
+
+    def test_Type_Mismatch_In_Statement_assignment10(self):
+        """ Just the integer can coerce to the float. """
+        input = """
+        procedure main();
+        var i: integer;
+            f: real;
+            b: boolean;
+            s: string;
+        begin
+            f:=s;
+            return;
+        end
+        """
+        expect = "Type Mismatch In Statement: AssignStmt(Id(f),Id(s))"
+        self.assertTrue(TestChecker.test(input,expect,448))
+
+    def test_Type_Mismatch_In_Statement_assignment11(self):
+        """ Just the integer can coerce to the float. """
+        input = """
+        procedure main();
+        var i: integer;
+            f: real;
+            b: boolean;
+            s: string;
+        begin
+            b:=s;
+            return;
+        end
+        """
+        expect = "Type Mismatch In Statement: AssignStmt(Id(b),Id(s))"
+        self.assertTrue(TestChecker.test(input,expect,449))
+
+    def test_Type_Mismatch_In_Statement_Return(self):
+        """ The return statement of a procedure must be without any expression. """
+        input = """
+        procedure main();
+        var i: integer;
+        begin
+            return i;
+        end
+        """
+        expect = "Type Mismatch In Statement: Return(Some(Id(i)))"
+        self.assertTrue(TestChecker.test(input,expect,450))
+
+    def test_Type_Mismatch_In_Statement_Return1(self):
+        """ The return statement of a function must be with an expression whose type can be coerced
+        to the return type of the enclosed function. """
+        input = """
+        function foo(): integer;
+        begin
+            return;
+        end
+        procedure main();
+        var i: integer;
+        begin
+            i:= foo();
+            return;
+        end
+        """
+        expect = "Type Mismatch In Statement: Return(None)"
+        self.assertTrue(TestChecker.test(input,expect,451))
+    
+    def test_Type_Mismatch_In_Statement_Return2(self):
+        """ The return statement of a function must be with an expression whose type can be coerced
+        to the return type of the enclosed function. """
+        input = """
+        function foo(): integer;
+        begin
+            return 1.2;
+        end
+        procedure main();
+        var i: real;
+        begin
+            i := foo();
+            return;
+        end
+        """
+        expect = "Type Mismatch In Statement: Return(Some(FloatLiteral(1.2)))"
+        self.assertTrue(TestChecker.test(input,expect,452))
+
+    def test_Type_Mismatch_In_Statement_Return3(self):
+        """ The return statement of a function must be with an expression whose type can be coerced
+        to the return type of the enclosed function. """
+        input = """
+        function foo(): real;
+        begin
+            return 1;
+        end
+        procedure main();
+        var i: integer;
+        begin
+            i := foo();
+            return;
+        end
+        """
+        expect = "Type Mismatch In Statement: AssignStmt(Id(i),CallExpr(Id(foo),[]))"
+        self.assertTrue(TestChecker.test(input,expect,453))
