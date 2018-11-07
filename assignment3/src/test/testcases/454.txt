@@ -1,7 +1,6 @@
 
+        var main: integer;
         procedure main();
-        var i: integer;
         begin
-            return i;
         end
         

@@ -897,19 +897,130 @@ class CheckerSuite(unittest.TestCase):
         self.assertTrue(TestChecker.test(input,expect,452))
 
     def test_Type_Mismatch_In_Statement_Return3(self):
-        """ The return statement of a function must be with an expression whose type can be coerced
-        to the return type of the enclosed function. """
         input = """
-        function foo(): real;
+        function foo(): array [1 .. 10] of integer;
+        var ret: array [1 .. 9] of integer;
         begin
-            return 1;
+            return ret;
         end
         procedure main();
-        var i: integer;
+        var i: array [1 .. 10] of integer;
         begin
             i := foo();
             return;
         end
         """
-        expect = "Type Mismatch In Statement: AssignStmt(Id(i),CallExpr(Id(foo),[]))"
+        expect = "Type Mismatch In Statement: Return(Some(Id(ret)))"
         self.assertTrue(TestChecker.test(input,expect,453))
+
+    def test_redeclare_function5(self):
+        input = """
+        var main: integer;
+        procedure main();
+        begin
+        end
+        """
+        expect = "Redeclared Procedure: main"
+        self.assertTrue(TestChecker.test(input,expect,454))
+
+    def test_Type_Mismatch_In_Statement_Return4(self):
+        input = """
+        function foo(): array [1 .. 10] of integer;
+        var ret: array [2 .. 10] of integer;
+        begin
+            return ret;
+        end
+        procedure main();
+        var i: array [1 .. 10] of integer;
+        begin
+            i := foo();
+            return;
+        end
+        """
+        expect = "Type Mismatch In Statement: Return(Some(Id(ret)))"
+        self.assertTrue(TestChecker.test(input,expect,455))
+
+    def test_Type_Mismatch_In_Statement_Return5(self):
+        input = """
+        function foo(): array [1 .. 10] of integer;
+        var ret: array [1 .. 10] of real;
+        begin
+            return ret;
+        end
+        procedure main();
+        var i: array [1 .. 10] of integer;
+        begin
+            i := foo();
+            return;
+        end
+        """
+        expect = "Type Mismatch In Statement: Return(Some(Id(ret)))"
+        self.assertTrue(TestChecker.test(input,expect,456))
+
+    def test_Type_Mismatch_In_Statement_Return6(self):
+        input = """
+        function foo(): array [1 .. 10] of real;
+        var ret: array [1 .. 10] of integer;
+        begin
+            return ret;
+        end
+        procedure main();
+        var i: array [1 .. 10] of real;
+        begin
+            i := foo();
+            return;
+        end
+        """
+        expect = "Type Mismatch In Statement: Return(Some(Id(ret)))"
+        self.assertTrue(TestChecker.test(input,expect,457))
+
+    def test_Type_Mismatch_In_Statement_Function_Call1(self):
+        input = """
+        procedure foo(x:integer;y:real);
+        var arr: array [1 .. 10] of integer;
+            i: integer;
+            b: boolean;
+            f: real;
+            str: string;
+        begin
+            return;
+        end
+        procedure main();
+        var arr: array [1 .. 10] of integer;
+            i: integer;
+            b: boolean;
+            f: real;
+            str: string;
+        begin
+            foo(i, i);
+            foo(f, i);
+            return;
+        end
+        """
+        expect = "Type Mismatch In Statement: CallStmt(Id(foo),[Id(f),Id(i)])"
+        self.assertTrue(TestChecker.test(input,expect,458))
+
+    def test_Type_Mismatch_In_Statement_Function_Call2(self):
+        input = """
+        procedure foo(x:integer;y:real; ar: array [1 .. 10] of integer);
+        var arr: array [1 .. 10] of real;
+            i: integer;
+            b: boolean;
+            f: real;
+            str: string;
+        begin
+            return;
+        end
+        procedure main();
+        var arr: array [1 .. 10] of real;
+            i: integer;
+            b: boolean;
+            f: real;
+            str: string;
+        begin
+            foo(f, i, arr);
+            return;
+        end
+        """
+        expect = "Type Mismatch In Statement: CallStmt(Id(foo),[Id(f),Id(i),Id(arr)])"
+        self.assertTrue(TestChecker.test(input,expect,459))

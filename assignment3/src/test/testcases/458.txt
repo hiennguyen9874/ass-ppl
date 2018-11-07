@@ -1,0 +1,22 @@
+
+        procedure foo(x:integer;y:real);
+        var arr: array [1 .. 10] of integer;
+            i: integer;
+            b: boolean;
+            f: real;
+            str: string;
+        begin
+            return;
+        end
+        procedure main();
+        var arr: array [1 .. 10] of integer;
+            i: integer;
+            b: boolean;
+            f: real;
+            str: string;
+        begin
+            foo(i, i);
+            foo(f, i);
+            return;
+        end
+        

@@ -1,6 +1,6 @@
 
         function foo(): array [1 .. 10] of integer;
-        var ret: array [1 .. 9] of integer;
+        var ret: array [1 .. 10] of real;
         begin
             return ret;
         end
