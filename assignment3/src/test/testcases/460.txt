@@ -1,0 +1,15 @@
+
+        Procedure main();
+        begin
+            foo();
+        end
+        Procedure foo();
+        begin
+            while true do
+            begin
+                if true then return;
+                else continue;
+                foo();
+            end
+        end
+        

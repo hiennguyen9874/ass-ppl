@@ -1024,3 +1024,23 @@ class CheckerSuite(unittest.TestCase):
         """
         expect = "Type Mismatch In Statement: CallStmt(Id(foo),[Id(f),Id(i),Id(arr)])"
         self.assertTrue(TestChecker.test(input,expect,459))
+
+    def test_combine_ReturnContinue(self):
+        input = """
+        Procedure main();
+        begin
+            foo();
+        end
+        Procedure foo();
+        begin
+            while true do
+            begin
+                if true then return;
+                else continue;
+                foo();
+            end
+        end
+        """
+        expect = "Unreachable statement: CallStmt(Id(foo),[])"
+        self.assertTrue(TestChecker.test(input,expect, 460))
+    
