@@ -3,7 +3,7 @@
         procedure main();
         var j:integer;
         begin
-            for i := 1 to 10 do j := i+j;
+            for j := 1 to 10 do j := i+j;
             return;
         end
         

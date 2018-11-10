@@ -7,7 +7,7 @@
         begin
             with a,b:real; c:array [1 .. 2] of real; do
                 begin
-                    a := c[d] +b;
+                    a := c[d] + b;
                     putIntLn(a);
                     return a;
                 end

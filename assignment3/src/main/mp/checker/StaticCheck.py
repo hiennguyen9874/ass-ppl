@@ -155,9 +155,9 @@ class StaticChecker(BaseVisitor, Utils):
         # lhs: Expr
         # exp: Expr
         lhs = self.visit(ast.lhs, (c[0], c[1], c[3]))
+        exp = self.visit(ast.exp, (c[0], c[1], c[3]))
         if type(lhs) is StringType or type(lhs) is ArrayType:
             raise TypeMismatchInStatement(ast)
-        exp = self.visit(ast.exp, (c[0], c[1], c[3]))
         if not type(exp) == type(lhs) and not (type(lhs) is FloatType and type(exp) is IntType):
             raise TypeMismatchInStatement(ast)
         if c[4] or c[5]:
@@ -169,19 +169,18 @@ class StaticChecker(BaseVisitor, Utils):
         # thenStmt: list(Stmt)
         # elseStmt: list(Stmt)
         expr = self.visit(ast.expr, (c[0], c[1], c[3]))
-        if not type(expr) is BoolType:
-            raise TypeMismatchInStatement(ast)
         # visit Stmt for thenStmt
         isReturn = False
         isBreak = False
         for x in ast.thenStmt:
-            [isReturn, isBreak] = self.visit(
-                x, (c[0], c[1], c[2], c[3], isReturn, isBreak))
+            [isReturn, isBreak] = self.visit(x, (c[0], c[1], c[2], c[3], isReturn, isBreak))
         # visit stmt for elseStmt
         isReturn1 = False
         isBreak1 = False
         for x in ast.elseStmt:
             [isReturn1, isBreak1] = self.visit(x, (c[0], c[1], c[2], c[3], isReturn1, isBreak1))
+        if not type(expr) is BoolType:
+            raise TypeMismatchInStatement(ast)
         if c[4] or c[5]:
             raise UnreachableStatement(ast)
         return [isReturn and isReturn1, (isBreak and isBreak1) or (isBreak and isReturn1) or (isReturn and isBreak1)]
@@ -190,12 +189,12 @@ class StaticChecker(BaseVisitor, Utils):
         # sl: list(Stmt)
         # exp: Expr
         exp = self.visit(ast.exp, (c[0], c[1], c[3]))
-        if type(exp) is not BoolType:
-            raise TypeMismatchInStatement(ast)
         isReturn = False
         isBreak = False
         for x in ast.sl:
             [isReturn, isBreak] = self.visit(x, (c[0], c[1], True, c[3], isReturn, isBreak))
+        if type(exp) is not BoolType:
+            raise TypeMismatchInStatement(ast)
         if c[4] or c[5]:
             raise UnreachableStatement(ast)
         return [False, False]
@@ -208,13 +207,12 @@ class StaticChecker(BaseVisitor, Utils):
         iD = self.visit(ast.id, (c[0], c[1], c[3]))
         expr1 = self.visit(ast.expr1, (c[0], c[1], c[3]))
         expr2 = self.visit(ast.expr2, (c[0], c[1], c[3]))
-        if type(iD) is not IntType or type(expr1) is not IntType or type(expr2) is not IntType:
-            raise TypeMismatchInStatement(ast)
         isReturn = False
         isBreak = False
         for x in ast.loop:
-            [isReturn, isBreak] = self.visit(
-                x, (c[0], c[1], True, c[3], isReturn, isBreak))
+            [isReturn, isBreak] = self.visit(x, (c[0], c[1], True, c[3], isReturn, isBreak))
+        if type(iD) is not IntType or type(expr1) is not IntType or type(expr2) is not IntType:
+            raise TypeMismatchInStatement(ast)
         if c[4] or c[5]:
             raise UnreachableStatement(ast)
         return [False, False]
@@ -268,8 +266,7 @@ class StaticChecker(BaseVisitor, Utils):
         # param: list(Expr)
         at = [self.visit(x, (c[0], c[1], c[3])) for x in ast.param]
 
-        res = self.lookup(ast.method.name.lower(),
-                          c[0], lambda x: x.name.lower())
+        res = self.lookup(ast.method.name.lower(),c[0], lambda x: x.name.lower())
         if res is None or type(res.mtype) is not MType or type(res.mtype.rettype) is not VoidType:
             raise Undeclared(Procedure(), ast.method.name)
         elif len(res.mtype.partype) != len(at):
@@ -313,8 +310,7 @@ class StaticChecker(BaseVisitor, Utils):
                     return FloatType()
                 elif ast.op in ['=', '<>', '<', '<=', '>', '>=']:
                     return BoolType()
-            else:
-                raise TypeMismatchInExpression(ast)
+            raise TypeMismatchInExpression(ast)
         else:
             lst = [IntType, FloatType]
             if type(left) in lst and type(right) in lst:
@@ -322,8 +318,7 @@ class StaticChecker(BaseVisitor, Utils):
                     return FloatType()
                 elif ast.op in ['=', '<>', '<', '<=', '>', '>=']:
                     return BoolType()
-            else:
-                raise TypeMismatchInExpression(ast)
+            raise TypeMismatchInExpression(ast)
 
     def visitUnaryOp(self, ast, c):
         # op: string
@@ -335,8 +330,7 @@ class StaticChecker(BaseVisitor, Utils):
             return IntType()
         elif ast.op == '-' and type(expr) is FloatType:
             return FloatType()
-        else:
-            raise TypeMismatchInExpression(ast)
+        raise TypeMismatchInExpression(ast)
 
     def visitCallExpr(self, ast, c):
         # method: Id

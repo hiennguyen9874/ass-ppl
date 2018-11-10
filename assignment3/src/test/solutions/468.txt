@@ -1,1 +1,1 @@
-Type Mismatch In Statement: AssignStmt(Id(a),BinaryOp(+,BinaryOp(/,Id(a),Id(b)),Id(f)))
+Type Mismatch In Expression: BinaryOp(/,Id(a),Id(b))

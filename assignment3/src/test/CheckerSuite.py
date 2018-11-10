@@ -81,7 +81,7 @@ class CheckerSuite(unittest.TestCase):
         begin
             with a,b:real; c:array [1 .. 2] of real; do
                 begin
-                    a := c[d] +b;
+                    a := c[d] + b;
                     putIntLn(a);
                     return a;
                 end
@@ -597,11 +597,11 @@ class CheckerSuite(unittest.TestCase):
         procedure main();
         var j:integer;
         begin
-            for i := 1 to 10 do j := i+j;
+            for j := 1 to 10 do j := i+j;
             return;
         end
         """
-        expect = "Type Mismatch In Statement: For(Id(i)IntLiteral(1),IntLiteral(10),True,[AssignStmt(Id(j),BinaryOp(+,Id(i),Id(j)))])"
+        expect = "Type Mismatch In Statement: AssignStmt(Id(j),BinaryOp(+,Id(i),Id(j)))"
         self.assertTrue(TestChecker.test(input, expect, 436))
 
     def test_Type_Mismatch_In_Statement_while(self):
@@ -1116,7 +1116,7 @@ class CheckerSuite(unittest.TestCase):
             a := a/b + f;
         end
         """
-        expect = "Type Mismatch In Statement: AssignStmt(Id(a),BinaryOp(+,BinaryOp(/,Id(a),Id(b)),Id(f)))"
+        expect = "Type Mismatch In Expression: BinaryOp(/,Id(a),Id(b))"
         self.assertTrue(TestChecker.test(input, expect, 468))
 
     def test_Type_Mismatch_In_Expression8(self):
@@ -1133,7 +1133,7 @@ class CheckerSuite(unittest.TestCase):
             a := a/b + f;
         end
         """
-        expect = "Type Mismatch In Statement: AssignStmt(Id(a),BinaryOp(+,BinaryOp(/,Id(a),Id(b)),Id(f)))"
+        expect = "Type Mismatch In Expression: BinaryOp(/,Id(a),Id(b))"
         self.assertTrue(TestChecker.test(input, expect, 469))
 
     def test_Type_Mismatch_In_Expression9(self):
@@ -1701,3 +1701,14 @@ class CheckerSuite(unittest.TestCase):
             """
         expect = "Type Mismatch In Statement: Return(Some(Id(b)))"
         self.assertTrue(TestChecker.test(input, expect, 499))
+
+    def test_Type_Mismatch_In_Statement2(self):
+        input = """
+            var a:integer;
+            procedure main();
+            begin
+                a := 1 + (1 or 1);
+            end
+            """
+        expect = "Type Mismatch In Expression: BinaryOp(or,IntLiteral(1),IntLiteral(1))"
+        self.assertTrue(TestChecker.test(input, expect, 500))
