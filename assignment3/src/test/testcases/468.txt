@@ -1,0 +1,9 @@
+
+        Procedure main();
+        var a: string;
+            b: string;
+            c: string;
+        begin
+            a := a/b + f;
+        end
+        

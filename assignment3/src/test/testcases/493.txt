@@ -1,0 +1,10 @@
+
+            procedure foo();
+            begin
+            end
+            procedure main();
+            var i: integer;
+            begin   
+                i := foo();
+            end
+            

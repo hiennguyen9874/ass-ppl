@@ -1,0 +1,14 @@
+
+            procedure foo();
+            begin
+                while true do
+                begin
+                    foo();
+                    return;
+                end
+            end
+            procedure main();
+            var i: integer;
+            begin
+            end
+            

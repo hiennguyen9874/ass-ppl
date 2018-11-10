@@ -1,5 +1,5 @@
 
-        var i:integer;
+        var i:real;
         procedure main();
         var j:integer;
         begin

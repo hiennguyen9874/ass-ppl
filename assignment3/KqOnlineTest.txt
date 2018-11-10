@@ -1,0 +1,15 @@
+Redeclared Procedure: main
+Redeclared Variable: b
+Redeclared Procedure: d
+Redeclared Variable: c
+Undeclared Identifier: n
+Undeclared Procedure: funy
+Type Mismatch In Statement: For(Id(a)IntLiteral(0),BinaryOp(=,IntLiteral(5),IntLiteral(3)),True,[AssignStmt(Id(j),IntLiteral(1))])
+Type Mismatch In Statement: Return(Some(FloatLiteral(1.0)))
+Type Mismatch In Statement: Return(Some(Id(a)))
+Type Mismatch In Expression: ArrayCell(Id(m),Id(d))
+Type Mismatch In Expression: BinaryOp(and,BinaryOp(>,Id(a),Id(b)),FloatLiteral(1.0))
+Type Mismatch In Expression: UnaryOp(-,BinaryOp(>,BinaryOp(+,ArrayCell(Id(m),IntLiteral(1)),UnaryOp(-,IntLiteral(1))),FloatLiteral(1.2)))
+Type Mismatch In Statement: AssignStmt(Id(b),UnaryOp(not,BinaryOp(=,ArrayCell(Id(m),IntLiteral(1)),IntLiteral(1))))
+Break Not In Loop
+Undeclared Function: foo2

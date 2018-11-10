@@ -6,14 +6,12 @@ class ASTGenSuite(unittest.TestCase):
     def test_simple_program(self):
         """Simple program: int main() {} """
         input = """
-        procedure main();
+        Procedure main();
+        var a:array [ -1 .. 100 ] of Real;
+            i:integer;
         begin
-            return;
-        end
-        function foo(): array [1 .. 10] of integer;
-        var a: array [1 .. 10] of integer;
-        begin
-            return a;
+            a[1]:=i; {This is ok}
+            i := a[1]; {Error}
         end
         """
         expect = str(Program([FuncDecl(Id("main"),[],[],[])]))

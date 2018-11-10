@@ -1,0 +1,9 @@
+
+        Procedure main();
+        var a: integer;
+            b: integer;
+            f: real;
+        begin
+            a := a/b + f;
+        end
+        

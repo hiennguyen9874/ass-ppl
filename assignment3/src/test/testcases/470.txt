@@ -1,0 +1,14 @@
+
+        Procedure main();
+        var a: integer;
+            b: integer;
+            c: integer;
+        begin
+            while false do
+            begin
+                a := b;
+                return;
+                c := a;
+            end
+        end
+        

@@ -1,0 +1,20 @@
+
+            procedure foo(a:array [1 .. 2] of real);
+            begin
+            end
+            procedure goo(x:array [1 .. 2] of real);
+                var 
+                    y: array [2 .. 3] of real;
+                    z: array [1 .. 2] of integer;
+                begin
+                    foo(x);
+                    foo(y);
+                    foo(z);
+                end
+            procedure main();
+                var 
+                    y: array [1 .. 2] of real;
+                begin
+                    goo(y);
+                end
+            

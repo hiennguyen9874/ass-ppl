@@ -1,0 +1,20 @@
+
+            function foo():integer;
+            var i:integer;
+            begin
+                if True then
+                    return i;
+                else
+                    i:=i+1;
+                while True do
+                begin
+                    i := i - 1;
+                end
+                return i;
+            end
+            procedure main();
+            var i: integer;
+            begin   
+                i := foo(1);
+            end
+            

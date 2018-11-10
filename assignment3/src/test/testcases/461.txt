@@ -1,2 +1,14 @@
 
+        function foo(i:integer): array [1 .. 10] of integer;
+        var arr: array [1 .. 10] of integer;
+        begin
+            return arr;
+        end
+        Procedure main();
+        var x:integer;
+            a:array [1 .. 10] of integer;
+            b:array [1 .. 10] of real;
+        begin
+            foo(2)[3+x] := a[b[2]] + 3;
+        end
         

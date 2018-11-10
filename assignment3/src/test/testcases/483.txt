@@ -1,0 +1,14 @@
+
+        var a,b: integer; m,n,x: real;
+        function main():integer;
+        begin
+            return a;
+        end
+        procedure main();
+        begin
+            if true then
+                x:=9.6;
+            else 
+                x:=6.9;
+        end
+        

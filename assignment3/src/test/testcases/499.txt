@@ -1,0 +1,21 @@
+
+            function foo(): real;
+                begin
+                    if True then return 2.3;
+                    else return 2;
+                end
+            function goo(b: array [1 .. 2] of integer): array [2 .. 3] of real;
+                var
+                    a: array [2 .. 3] of real;
+                begin
+                    if True then return a;
+                    else return b;
+                    a[2] := foo();
+                end
+            procedure main();
+                var 
+                    y: array [1 .. 2] of integer;
+                begin
+                    goo(y);
+                end
+            

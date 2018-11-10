@@ -1,0 +1,10 @@
+
+            var b: integer;
+            procedure main();
+            begin
+                putIntLn(a);
+            end
+            function a():real;
+            begin
+            end
+            

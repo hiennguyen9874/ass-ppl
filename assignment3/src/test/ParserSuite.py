@@ -5,28 +5,13 @@ class ParserSuite(unittest.TestCase):
     def test_simple_program(self):
         """Simple program: procedure main() begin end """
         input = """
-        var a: integer;
-        procedure main();
-        var b: array [1 .. 10] of integer;
-            x: integer;
+        Procedure main();
+        var a: array [ -1 .. 100 ] of Real;
+            i: integer;
         begin
-            a := foo();
-            a := b [10] := f()[ 3 ] := x := 1 ;
-        end
-        function foo(): integer;
-        var a: boolean;
-        begin
-            while a do
-                begin
-                    break;
-                end
-            a := true;
-            return 200;
-        end
-        function f(): array [1 .. 10] of integer;
-        var a: array [1 .. 10] of integer;
-        begin
-            return a;
+            while (-i div i>=i+i) and (i+i*i<=i+i*i-i/i) do
+                while i do
+                    return;
         end
         """
         expect = "successful"

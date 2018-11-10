@@ -1,0 +1,19 @@
+
+        function foo():integer;
+        begin
+            return 1;
+        end
+        Procedure main();
+        var int : integer;
+        begin
+            while true do
+            begin
+                while true do
+                begin
+                    break;
+                end
+            end
+            foo();
+            continue;
+        end
+        

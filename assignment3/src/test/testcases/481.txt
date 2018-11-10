@@ -1,0 +1,14 @@
+
+        Procedure main();
+        var int : integer;
+        begin
+            while true do
+            begin
+                while true do
+                begin
+                    break;
+                end
+            end
+            continue;
+        end
+        

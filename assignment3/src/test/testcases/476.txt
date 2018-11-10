@@ -1,0 +1,20 @@
+
+        function foo(f: real): real;
+        var arr: array [1 .. 10] of real;
+            b: boolean;
+            str: string;
+        begin
+            return arr[2];
+        end
+        procedure main();
+        var arr: array [1 .. 10] of real;
+            i: integer;
+            b: boolean;
+            f: real;
+            str: string;
+        begin
+            f := foo(i);
+            f := foo(str);
+            return;
+        end
+        

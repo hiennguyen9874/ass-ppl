@@ -1,0 +1,14 @@
+
+        function foo(): integer;
+        var a:integer;
+        begin
+            while a do return 1;
+        end
+        Procedure main();
+        var a: integer;
+            b: integer;
+            c: integer;
+        begin
+            b:= foo();
+        end
+        

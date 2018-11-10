@@ -1,0 +1,9 @@
+
+        procedure main();
+        var i:integer;
+            j:real;
+        begin
+            for i := 1 to j do j := i+j;
+            return;
+        end
+        

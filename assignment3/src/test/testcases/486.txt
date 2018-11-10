@@ -1,0 +1,14 @@
+
+            var  d:real;
+            var  e:boolean;
+            procedure main(b, a : integer;  m:array[1 .. 3] of integer); 
+            begin 
+	            for a := 1 to 10 do 
+                begin 
+                    return;
+	            end
+            end
+            procedure foo(b, a : integer);
+            begin
+            end
+            

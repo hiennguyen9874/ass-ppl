@@ -1,0 +1,13 @@
+
+        Function foo(i: integer; j: real): real;
+        begin
+            return i + j * j;
+        end
+        Procedure main();
+        var a: string;
+            b: string;
+            c: string;
+        begin
+            a := a/b + f;
+        end
+        

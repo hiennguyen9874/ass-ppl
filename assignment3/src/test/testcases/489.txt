@@ -1,0 +1,16 @@
+
+            function foo():integer;
+            var i:integer;
+            begin
+                with i:integer; do
+                    begin
+                        return i;
+                    end
+            end
+            procedure main();
+            var i:integer;
+            begin
+                i:= foo();
+                break;
+            end
+            

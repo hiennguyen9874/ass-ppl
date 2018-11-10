@@ -1,0 +1,10 @@
+
+        Procedure main();
+        var a: array [ -1 .. 100 ] of Real;
+            i: integer;
+        begin
+            while (-i div i>=i+i) and (i+i*i<=i+i*i-i/i) do
+                while i do
+                    return;
+        end
+        

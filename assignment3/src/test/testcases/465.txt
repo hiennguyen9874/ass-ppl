@@ -1,0 +1,11 @@
+
+        Procedure main();
+        var a:boolean;
+            b:boolean;
+            c:boolean;
+            i:integer;
+        begin
+            a := not b and c and then a or else a or True;
+            a := b and i;
+        end
+        

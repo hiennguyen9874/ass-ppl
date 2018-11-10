@@ -1,0 +1,12 @@
+
+        function foo(): integer;
+        var int : integer;
+        begin
+            if False then return int;
+        end
+        Procedure main();
+        var int : integer;
+        begin
+            int := foo();
+        end
+        
