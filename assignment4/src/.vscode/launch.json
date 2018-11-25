@@ -1,0 +1,68 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: gen",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/run.py",
+            "args": [
+                "gen"
+            ]
+        },
+        {
+            "name": "Python: test LexerSuite",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/run.py",
+            "args": [
+                "test",
+                "LexerSuite"
+            ]
+        },
+        {
+            "name": "Python: test ParserSuite",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/run.py",
+            "args": [
+                "test",
+                "ParserSuite"
+            ]
+        },
+        {
+            "name": "Python: test ASTGenSuite",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/run.py",
+            "args": [
+                "test",
+                "ASTGenSuite"
+            ]
+        },
+        {
+            "name": "Python: test CheckSuite",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/run.py",
+            "args": [
+                "test",
+                "CheckerSuite"
+            ],
+            "console":"integratedTerminal"
+        },
+        {
+            "name": "Python: test CodeGenSuite",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/run.py",
+            "args": [
+                "test",
+                "CodeGenSuite"
+            ]
+        }
+    ]
+}
