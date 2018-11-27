@@ -1,0 +1,3 @@
+
+        procedure main(); begin putInt(400000); end
+        

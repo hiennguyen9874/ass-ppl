@@ -111,19 +111,6 @@ class CodeGenVisitor(BaseVisitor, Utils):
         self.path = dir_
         self.emit = Emitter(self.path + "/" + self.className + ".j")
 
-    def visitProgram(self, ast, c):
-        #ast: Program
-        #c: Any
-
-        self.emit.printout(self.emit.emitPROLOG(self.className, "java.lang.Object"))
-        e = SubBody(None, self.env)
-        for x in ast.decl:
-            e = self.visit(x, e)
-        # generate default constructor
-        self.genMETHOD(FuncDecl(Id("<init>"), list(), list(), list(),None), c, Frame("<init>", VoidType))
-        self.emit.emitEPILOG()
-        return c
-
     def genMETHOD(self, consdecl, o, frame):
         #consdecl: FuncDecl
         #o: Any
@@ -163,6 +150,22 @@ class CodeGenVisitor(BaseVisitor, Utils):
         self.emit.printout(self.emit.emitENDMETHOD(frame))
         frame.exitScope();
 
+    def visitProgram(self, ast, c):
+        #ast: Program
+        #c: Any
+
+        self.emit.printout(self.emit.emitPROLOG(self.className, "java.lang.Object"))
+        e = SubBody(None, self.env)
+        for x in ast.decl:
+            e = self.visit(x, e)
+        # generate default constructor
+        ## Khi nao khong khai bao constructor
+        self.genMETHOD(FuncDecl(Id("<init>"), list(), list(), list(),None), c, Frame("<init>", VoidType))
+        self.emit.emitEPILOG() ## ket thuc mot class
+        return c
+
+    # Declaration
+    
     def visitFuncDecl(self, ast, o):
         #ast: FuncDecl
         #o: Any
@@ -171,10 +174,80 @@ class CodeGenVisitor(BaseVisitor, Utils):
         frame = Frame(ast.name, ast.returnType)
         self.genMETHOD(ast, subctxt.sym, frame)
         return SubBody(None, [Symbol(ast.name, MType(list(), ast.returnType), CName(self.className))] + subctxt.sym)
+    
+    def visitVarDecl(self, ast, o):
+        #ast: VarDecl
+        #o: Any
+        # variable: Id
+        # varType: Type
+
+        subctxt = o
+        mtype = ast.varType
+        name = ast.variable.name
+        self.emit.printout(self.emit.emitATTRIBUTE(ast.variable.name, ast.varType, False, ""))
+        return SubBody(None, [Symbol(ast.variable.name, MType(list(), ast.varType), CName(self.className))] + subctxt.sym)
+
+
+    # Statement
+    def visitAssign(self, ast, o):
+        ast: CallStmt
+        #o: Any
+        #ast.lhs: Expr
+        #ast.exp: Expr
+        ctxt = o
+        frame = ctxt.frame
+        nenv = ctxt.sym
+        
+
+        rc, rt = self.visit(ast.exp, Access(frame, nenv, False, True))
+        lc, lt = self.visit(ast.lhs, Access(frame, nenv, True, False))
+        
+        self.emit.printout(rc + lc)
+
+    def visitIf(self, ast, o):
+        #o: any
+        #ast.expr: Expr
+        #ast.thenStmt: list(Stmt)
+        #ast.elseStmt: list(Stmt)
+        pass
+
+    def visitWhile(self, ast, o):
+        #o: any
+        #ast.sl: list(Stmt)
+        #ast.exp: Expr
+        pass
+    
+    def visitFor(self, ast, o):
+        #o:any
+        #ast.id: Id
+        #ast.expr1,expr2: Expr
+        #ast.loop: list(Stmt)
+        #ast.up: Boolean #True => increase; False => decrease
+        pass
+    
+    def visitBreak(self, ast, o):
+        #o:any
+        pass
+
+    def visitContinue(self, ast, o):
+        #o:any
+        pass
+
+    def visitReturn(self, ast, o):
+        #o:any
+        #ast.expr: Expr
+        pass
+
+    def visitWith(self, ast, o):
+        #o:any
+        #ast.decl: list(VarDecl)
+        #ast.stmt: list(Stmt)
+        pass
 
     def visitCallStmt(self, ast, o):
-        #ast: CallStmt
         #o: Any
+        #ast.method: Id
+        #ast.param: list(Expr)
 
         ctxt = o
         frame = ctxt.frame
@@ -191,12 +264,140 @@ class CodeGenVisitor(BaseVisitor, Utils):
         self.emit.printout(in_[0])
         self.emit.printout(self.emit.emitINVOKESTATIC(cname + "/" + ast.method.name, ctype, frame))
 
-    def visitIntLiteral(self, ast, o):
-        #ast: IntLiteral
-        #o: Any
+    # Expression
+    def visitBinaryOp(self, ast, o):
+        #o: any
+        #op:string: AND THEN => andthen; OR ELSE => orelse; other => keep it
+        #ast.left:Expr
+        #ast.right:Expr
 
         ctxt = o
         frame = ctxt.frame
-        return self.emit.emitPUSHICONST(ast.value, frame), IntType()
+        leftOprandstr, typL = self.visit(ast.left, o)
+        rightOperandstr, typR = self.visit(ast.right, o)
 
+        if type(typL) == type(typR):
+            if type(typL) is BoolType:
+                if ast.op == 'and':
+                    return leftOprandstr + rightOperandstr + self.emit.emitANDOP(frame), BoolType()                    
+            if type(typL) is IntType:
+                if ast.op in ['+', '-']:
+                    return leftOprandstr + rightOperandstr + self.emit.emitADDOP(ast.op, IntType(), frame), IntType()
+                elif ast.op == '*':
+                    return leftOprandstr + rightOperandstr + self.emit.emitMULOP(ast.op, IntType(), frame), IntType()
+                elif ast.op == 'div':
+                    return leftOprandstr + rightOperandstr + self.emit.emitDIV(frame), IntType()
+                elif ast.op == 'mod':
+                    return leftOprandstr + rightOperandstr + self.emit.emitMOD(frame), IntType()
+                elif ast.op in ['<', '<=', '>', '>=']:
+                    return leftOprandstr + rightOperandstr + self.emit.emitREOP(ast.op, IntType(), frame), BoolType()
+                elif ast.op == '<>':
+                    return leftOprandstr + rightOperandstr + self.emit.emitREOP('!=', IntType(), frame), BoolType()
+                elif ast.op == '=':
+                    return leftOprandstr + rightOperandstr + self.emit.emitREOP('==', IntType(), frame), BoolType()
+                elif ast.op == '/':
+                    leftOprandstr += self.emit.emitI2F(frame)
+                    rightOperandstr += self.emit.emitI2F(frame)
+                    return leftOprandstr + rightOperandstr + self.emit.emitMULOP(ast.op, FloatType(), frame), FloatType()
+            elif type(typL) is FloatType:
+                if ast.op in ['+', '-']:
+                    return leftOprandstr + rightOperandstr + self.emit.emitADDOP(ast.op, FloatType(), frame), FloatType()
+                elif ast.op == '*':
+                    return leftOprandstr + rightOperandstr + self.emit.emitMULOP(ast.op, FloatType(), frame), FloatType()
+                elif ast.op == '/':
+                    return leftOprandstr + rightOperandstr + self.emit.emitMULOP(ast.op, FloatType(), frame), FloatType()
+                elif ast.op in ['<', '<=', '>', '>=']:
+                    return leftOprandstr + rightOperandstr + self.emit.emitREOP(ast.op, FloatType(), frame), BoolType()
+                elif ast.op == '<>':
+                    return leftOprandstr + rightOperandstr + self.emit.emitREOP('!=', FloatType(), frame), BoolType()
+                elif ast.op == '=':
+                    return leftOprandstr + rightOperandstr + self.emit.emitREOP('==', FloatType(), frame), BoolType()
+        else:
+            if ast.op in ['+', '-']:
+                if type(typL) is FloatType and type(typR) is IntType:
+                    return leftOprandstr + rightOperandstr + self.emit.emitI2F(frame) + self.emit.emitADDOP(ast.op, FloatType(), frame), FloatType()
+                elif type(typL) is IntType and type(typR) is FloatType:
+                    return leftOprandstr + self.emit.emitI2F(frame) + rightOperandstr + self.emit.emitADDOP(ast.op, FloatType(), frame), FloatType()
+            elif ast.op == '*':
+                if type(typL) is FloatType and type(typR) is IntType:
+                    return leftOprandstr + rightOperandstr + self.emit.emitI2F(frame) + self.emit.emitMULOP(ast.op, FloatType(), frame), FloatType()
+                elif type(typL) is IntType and type(typR) is FloatType:
+                    return leftOprandstr + self.emit.emitI2F(frame) + rightOperandstr + self.emit.emitMULOP(ast.op, FloatType(), frame), FloatType()
+            else:
+                if type(typL) is IntType: 
+                    leftOprandstr += self.emit.emitI2F(frame)
+                if type(typR) is IntType: 
+                    rightOperandstr += self.emit.emitI2F(frame)
+                if ast.op == '/':
+                    return leftOprandstr + rightOperandstr + self.emit.emitMULOP(ast.op, FloatType(), frame), FloatType()
+                elif ast.op in ['<', '<=', '>', '>=']:
+                    return leftOprandstr + rightOperandstr + self.emit.emitREOP(ast.op, FloatType(), frame), BoolType()
+                elif ast.op == '<>':
+                    return leftOprandstr + rightOperandstr + self.emit.emitREOP('!=', FloatType(), frame), BoolType()
+                elif ast.op == '=':
+                    return leftOprandstr + rightOperandstr + self.emit.emitREOP('==', FloatType(), frame), BoolType()
+
+    def visitUnaryOp(self, ast, o):
+        #o:any
+        #ast.op: string
+        #ast.body: Expr
+
+        pass
+
+    def visitCallExpr(self, ast, o):
+        #o:any
+        #ast.method: Id
+        #ast.param: list(Expr)
+        pass
+
+    # LHS
+    def visitId(self, ast, o):
+        #o:any
+        #ast.name: string
+        sym = self.lookup(ast.name.lower(), o.sym, lambda x: x.name.lower())
+        if o.isLeft:
+            if type(sym.value) is CName: # global variables
+                return self.emit.emitPUTSTATIC(sym.value.value + "/" + sym.name, sym.mtype, o.frame), sym.mtype
+            else:
+                return "", VoidType()
+        else:
+            if type(sym.value) is CName:
+                return self.emit.emitGETSTATIC(sym.value.value + "/" + sym.name, sym.mtype, o.frame)
+            else:
+                return "", VoidType()
+
+    def visitArrayCell(self, ast, o):
+        #o:any
+        #ast.arr:Expr
+        #ast.idx:Expr
+        pass
+
+    # Literal
+
+    def visitIntLiteral(self, ast, o):
+        #o: Any
+        #ast.value:int
+        ctxt = o
+        frame = ctxt.frame
+        return self.emit.emitPUSHCONST(ast.value, IntType(), frame), IntType()
     
+    def visitFloatLiteral(self, ast, o):
+        #o:any
+        #ast.value:float
+        ctxt = o
+        frame = ctxt.frame
+        return self.emit.emitPUSHFCONST(str(ast.value), frame), FloatType()
+
+    def visitBooleanLiteral(self, ast, o):
+        #o:any
+        #ast.value:boolean
+        ctxt = o
+        frame = ctxt.frame
+        return self.emit.emitPUSHCONST("true" if ast.value is True else "false", IntType(), frame), BoolType()
+    
+    def visitStringLiteral(self, ast, o):
+        #o:any
+        #ast.value:string
+        ctxt = o
+        frame = ctxt.frame
+        return self.emit.emitPUSHCONST(ast.value, StringType(), frame), StringType()

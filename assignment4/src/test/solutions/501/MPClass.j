@@ -6,10 +6,12 @@
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
 Label0:
 	iconst_5
+	iconst_1
+	iadd
 	invokestatic io/putInt(I)V
 Label1:
 	return
-.limit stack 1
+.limit stack 2
 .limit locals 1
 .end method
 

@@ -3,8 +3,7 @@ from StaticCheck import *
 from StaticError import *
 import CodeGenerator as cgen
 from MachineCode import JasminCode
-
-
+from CodeGenError import *
 
 class Emitter():
     def __init__(self, filename):
@@ -16,6 +15,10 @@ class Emitter():
         typeIn = type(inType)
         if typeIn is IntType:
             return "I"
+        elif typeIn is FloatType: 
+            return "F"
+        elif typeIn is BoolType: 
+            return "Z"
         elif typeIn is cgen.StringType:
             return "Ljava/lang/String;"
         elif typeIn is VoidType:
@@ -31,6 +34,10 @@ class Emitter():
         typeIn = type(inType)
         if typeIn is IntType:
             return "int"
+        elif typeIn is FloatType: 
+            return "float"
+        elif typeIn is BoolType: 
+            return "boolean"
         elif typeIn is cgen.StringType:
             return "java/lang/String"
         elif typeIn is VoidType:
@@ -49,6 +56,8 @@ class Emitter():
                 return self.jvm.emitBIPUSH(i)
             elif i >= -32768 and i <= 32767:
                 return self.jvm.emitSIPUSH(i)
+            else:
+                return self.jvm.emitLDC(str(i)) # sua cho nay
         elif type(in_) is str:
             if in_ == "true":
                 return self.emitPUSHICONST(1, frame)
@@ -83,7 +92,7 @@ class Emitter():
             return self.emitPUSHICONST(in_, frame)
         elif type(typ) is StringType:
             frame.push()
-            return self.jvm.emitLDC(in_)
+            return self.jvm.emitLDC("\"" + in_ + "\"") # sua cho nay
         else:
             raise IllegalOperandException(in_)
 
@@ -565,7 +574,7 @@ class Emitter():
     *   @param in the type of the returned expression.
     '''
 
-    def emitRETURN(self, in_, frame):
+    def emitRETURN(self, in_, frame):   # sua cho
         #in_: Type
         #frame: Frame
 
