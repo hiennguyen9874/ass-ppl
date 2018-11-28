@@ -6,7 +6,7 @@
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
 Label0:
 	iconst_0
-	invokestatic io/putBool(Z)V
+	invokestatic io/putBoolLn(Z)V
 Label1:
 	return
 .limit stack 2

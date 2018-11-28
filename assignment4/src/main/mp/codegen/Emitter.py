@@ -47,7 +47,7 @@ class Emitter():
         #in: Int or Sring
         #frame: Frame
         
-        frame.push();
+        frame.push()
         if type(in_) is int:
             i = in_
             if i >= -1 and i <=5:
@@ -98,7 +98,7 @@ class Emitter():
 
     ##############################################################
 
-    def emitALOAD(self, in_, frame):
+    def emitALOAD(self, in_, frame): # sua cho nay
         #in_: Type
         #frame: Frame
         #..., arrayref, index, value -> ...
@@ -106,12 +106,16 @@ class Emitter():
         frame.pop()
         if type(in_) is IntType:
             return self.jvm.emitIALOAD()
+        elif type(in_) is BoolType:
+            return self.jvm.emitBALOAD()
+        elif type(in_) is FloatType:
+            return self.jvm.emitFALOAD()
         elif type(in_) is cgen.ArrayPointerType or type(in_) is cgen.ClassType or type(in_) is StringType:
             return self.jvm.emitAALOAD()
         else:
             raise IllegalOperandException(str(in_))
 
-    def emitASTORE(self, in_, frame):
+    def emitASTORE(self, in_, frame): # sua cho nay
         #in_: Type
         #frame: Frame
         #..., arrayref, index, value -> ...
@@ -121,12 +125,16 @@ class Emitter():
         frame.pop()
         if type(in_) is IntType:
             return self.jvm.emitIASTORE()
+        elif type(in_) is BoolType:
+            return self.jvm.emitBASTORE()
+        elif type(in_) is FloatType:
+            return self.jvm.emitFASTORE()
         elif type(in_) is cgen.ArrayPointerType or type(in_) is cgen.ClassType or type(in_) is StringType:
             return self.jvm.emitAASTORE()
         else:
             raise IllegalOperandException(str(in_))
 
-    '''    generate the var directive for a local variable.
+    ''' generate the var directive for a local variable.
     *   @param in the index of the local variable.
     *   @param varName the name of the local variable.
     *   @param inType the type of the local variable.
@@ -143,7 +151,7 @@ class Emitter():
         
         return self.jvm.emitVAR(in_, varName, self.getJVMType(inType), fromLabel, toLabel)
 
-    def emitREADVAR(self, name, inType, index, frame):
+    def emitREADVAR(self, name, inType, index, frame): # sua cho nay
         #name: String
         #inType: Type
         #index: Int
@@ -151,8 +159,10 @@ class Emitter():
         #... -> ..., value
         
         frame.push()
-        if type(inType) is IntType:
+        if type(inType) in [IntType, BoolType]:
             return self.jvm.emitILOAD(index)
+        elif type(inType) is FloatType:
+            return self.jvm.emitFLOAD(index)
         elif type(inType) is cgen.ArrayPointerType or type(inType) is cgen.ClassType or type(inType) is StringType:
             return self.jvm.emitALOAD(index)
         else:
@@ -161,7 +171,7 @@ class Emitter():
     ''' generate the second instruction for array cell access
     *
     '''
-    def emitREADVAR2(self, name, typ, frame):
+    def emitREADVAR2(self, name, typ, frame): # sua cho nay
         #name: String
         #typ: Type
         #frame: Frame
@@ -174,7 +184,7 @@ class Emitter():
     *   generate code to pop a value on top of the operand stack and store it to a block-scoped variable.
     *   @param name the symbol entry of the variable.
     '''
-    def emitWRITEVAR(self, name, inType, index, frame):
+    def emitWRITEVAR(self, name, inType, index, frame): # sua cho nay
         #name: String
         #inType: Type
         #index: Int
@@ -183,8 +193,10 @@ class Emitter():
         
         frame.pop()
 
-        if type(inType) is IntType:
+        if type(inType) in [IntType, BoolType]:
             return self.jvm.emitISTORE(index)
+        elif type(inType) is FloatType:
+            return self.jvm.emitFSTORE(index)
         elif type(inType) is cgen.ArrayPointerType or type(inType) is cgen.ClassType or type(inType) is StringType:
             return self.jvm.emitASTORE(index)
         else:
@@ -193,7 +205,7 @@ class Emitter():
     ''' generate the second instruction for array cell access
     *
     '''
-    def emitWRITEVAR2(self, name, typ, frame):
+    def emitWRITEVAR2(self, name, typ, frame):  # sua cho nay
         #name: String
         #typ: Type
         #frame: Frame
@@ -213,7 +225,7 @@ class Emitter():
         #isFinal: Boolean
         #value: String
 
-        return self.jvm.emitSTATICFIELD(lexeme, self.getJVMType(in_), false)
+        return self.jvm.emitSTATICFIELD(lexeme, self.getJVMType(in_), False)
 
     def emitGETSTATIC(self, lexeme, in_, frame):
         #lexeme: String
@@ -312,19 +324,19 @@ class Emitter():
         else:
             return self.jvm.emitFNEG()
 
-    def emitNOT(self, in_, frame):
+    def emitNOT(self, in_, frame):# sua cho nay
         #in_: Type
         #frame: Frame
 
         label1 = frame.getNewLabel()
         label2 = frame.getNewLabel()
         result = list()
-        result.append(emitIFTRUE(label1, frame))
-        result.append(emitPUSHCONST("true", in_, frame))
-        result.append(emitGOTO(label2, frame))
-        result.append(emitLABEL(label1, frame))
-        result.append(emitPUSHCONST("false", in_, frame))
-        result.append(emitLABEL(label2, frame))
+        result.append(self.emitIFTRUE(label1, frame))
+        result.append(self.emitPUSHCONST("true", in_, frame))
+        result.append(self.emitGOTO(label2, frame))
+        result.append(self.emitLABEL(label1, frame))
+        result.append(self.emitPUSHCONST("false", in_, frame))
+        result.append(self.emitLABEL(label2, frame))
         return ''.join(result)
 
     '''
@@ -574,13 +586,16 @@ class Emitter():
     *   @param in the type of the returned expression.
     '''
 
-    def emitRETURN(self, in_, frame):   # sua cho
+    def emitRETURN(self, in_, frame):   # sua cho nay
         #in_: Type
         #frame: Frame
 
-        if type(in_) is IntType:
+        if type(in_) in [IntType, BoolType]:
             frame.pop()
             return self.jvm.emitIRETURN()
+        elif type(in_) is FloatType:
+            frame.pop()
+            return self.jvm.emitFRETURN()
         elif type(in_) is VoidType:
             return self.jvm.emitRETURN()
 
@@ -609,7 +624,7 @@ class Emitter():
     *   .class public MPC.CLASSNAME<p>
     *   .super java/lang/Object<p>
     '''
-    def emitPROLOG(self, name, parent):
+    def emitPROLOG(self, name, parent): # In ra .source, .class, .super
         #name: String
         #parent: String
 

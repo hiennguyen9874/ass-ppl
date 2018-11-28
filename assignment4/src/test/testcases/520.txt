@@ -1,0 +1,8 @@
+
+        procedure main();
+        var i: real;
+            begin
+                if False then i:=1; else i:=2;
+                putFloat(i);
+            end
+        

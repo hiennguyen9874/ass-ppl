@@ -51,12 +51,10 @@ class StaticChecker(BaseVisitor, Utils):
         # list_func: danh sach cac function/procedure trong Program
         for x in listDecl:
             sym = self.convertToSymbol(x)
-            res = self.lookup(sym.name.lower(), listSym,
-                              lambda y: y.name.lower())
+            res = self.lookup(sym.name.lower(), listSym, lambda y: y.name.lower())
             res1 = None
             if listGlobal:
-                res1 = self.lookup(
-                    sym.name.lower(), listGlobal, lambda y: y.name.lower())
+                res1 = self.lookup(sym.name.lower(), listGlobal, lambda y: y.name.lower())
             if res is None and res1 is None:
                 listSym.insert(0, sym)
                 if not list_func is None and type(sym.mtype) is MType:
