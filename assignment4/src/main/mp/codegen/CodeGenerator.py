@@ -66,7 +66,7 @@ class ClassType(Type):
     def accept(self, v, param):
         return None
         
-class SubBody(): # cho statement
+class SubBody():
     def __init__(self, frame, sym):
         #frame: Frame
         #sym: List[Symbol]
@@ -74,7 +74,7 @@ class SubBody(): # cho statement
         self.frame = frame
         self.sym = sym
 
-class Access(): # cho expression
+class Access():
     def __init__(self, frame, sym, isLeft, isFirst):
         #frame: Frame
         #sym: List[Symbol]
@@ -265,8 +265,8 @@ class CodeGenVisitor(BaseVisitor, Utils):
         frame = ctxt.frame
         nenv = ctxt.sym
         frame.enterLoop()
-        label1 = frame.getNewLabel()
-        label2 = frame.getNewLabel()
+        label1 = frame.getContinueLabel()
+        label2 = frame.getBreakLabel()
         self.emit.printout(self.emit.emitLABEL(label1,frame))
         expr, typ = self.visit(ast.exp, Access(frame, nenv, False, True))
         self.emit.printout(expr)
@@ -285,11 +285,46 @@ class CodeGenVisitor(BaseVisitor, Utils):
         ctxt = o
         frame = ctxt.frame
         nenv = ctxt.sym
+
         frame.enterLoop()
-        label1 = frame.getNewLabel()
-        label2 = frame.getNewLabel()
+
+        expr1, typ1 = self.visit(ast.expr1, Access(frame, nenv, False, True))
+        id1, typid1 = self.visit(ast.id, Access(frame, nenv, True, True))
+        self.emit.printout(expr1)
+        self.emit.printout(id1)
+
+        label1 = frame.getContinueLabel()
+
+        self.emit.printout(self.emit.emitLABEL(label1,frame))
+
+        if ast.up is True:
+            expr2, typ2 = self.visit(BinaryOp('<=', ast.id, ast.expr2), Access(frame, nenv, False, True))
+            self.emit.printout(expr2)
+        else:
+            expr2, typ2 = self.visit(BinaryOp('>=', ast.id, ast.expr2), Access(frame, nenv, False, True))
+            self.emit.printout(expr2)
         
-        pass
+        
+        label2 = frame.getNewLabel()
+        label3 = frame.getBreakLabel()
+
+        self.emit.printout(self.emit.emitIFFALSE(label3, frame))
+        list(map(lambda x: self.visit(x, SubBody(frame, nenv)), ast.loop))
+        self.emit.printout(self.emit.emitLABEL(label2,frame))
+
+        if ast.up is True:
+            expr, typ = self.visit(BinaryOp('+',ast.id,IntLiteral(1)), Access(frame, nenv, False, True))
+            id2, typid2 = self.visit(ast.id, Access(frame, nenv, True, True))
+            self.emit.printout(expr)
+            self.emit.printout(id2)
+        else:
+            expr, typ = self.visit(BinaryOp('-',ast.id,IntLiteral(1)), Access(frame, nenv, False, True))
+            id2, typid2 = self.visit(ast.id, Access(frame, nenv, True, True))
+            self.emit.printout(expr)
+            self.emit.printout(id2)
+        self.emit.printout(self.emit.emitGOTO(label1, frame))
+        self.emit.printout(self.emit.emitLABEL(label3,frame))
+        frame.exitLoop()
     
     def visitBreak(self, ast, o):
         #o:any
@@ -321,7 +356,25 @@ class CodeGenVisitor(BaseVisitor, Utils):
         #o:any
         #ast.decl: list(VarDecl)
         #ast.stmt: list(Stmt)
-        pass
+        ctxt = o
+        frame = ctxt.frame
+        nenv = ctxt.sym
+
+        frame.enterScope(False)
+
+        glenv = o.sym
+        
+        e = SubBody(frame, glenv)
+        for x in ast.decl:
+            e = self.visit(x, e)
+            glenv = e.sym
+        body = ast.stmt
+        self.emit.printout(self.emit.emitLABEL(frame.getStartLabel(), frame))
+
+        list(map(lambda x: self.visit(x, SubBody(frame, glenv)), body))
+
+        self.emit.printout(self.emit.emitLABEL(frame.getEndLabel(), frame))
+        frame.exitScope()
 
     def visitCallStmt(self, ast, o):
         #o: Any
@@ -352,10 +405,10 @@ class CodeGenVisitor(BaseVisitor, Utils):
         self.emit.printout(self.emit.emitINVOKESTATIC(cname + "/" + ast.method.name, ctype, frame))
 
     # Expression
-    #frame: Frame
-    #sym: List[Symbol]
-    #isLeft: Boolean
-    #isFirst: Boolean
+    #o.frame: Frame
+    #o.sym: List[Symbol]
+    #o.isLeft: Boolean
+    #o.isFirst: Boolean
     def visitBinaryOp(self, ast, o):
         #o: any
         #op:string: AND THEN => andthen; OR ELSE => orelse; other => keep it
@@ -364,14 +417,43 @@ class CodeGenVisitor(BaseVisitor, Utils):
 
         ctxt = o
         frame = ctxt.frame
+
         leftOprandstr, typL = self.visit(ast.left, o)
         rightOperandstr, typR = self.visit(ast.right, o)
 
         if type(typL) == type(typR):
             if type(typL) is BoolType:
                 if ast.op == 'and':
-                    return leftOprandstr + rightOperandstr + self.emit.emitANDOP(frame), BoolType()                    
-            if type(typL) is IntType:
+                    return leftOprandstr + rightOperandstr + self.emit.emitANDOP(frame), BoolType()   
+                elif ast.op == 'or':
+                    return leftOprandstr + rightOperandstr + self.emit.emitOROP(frame), BoolType()
+                elif ast.op == 'andthen':
+                    # right, typR1 = self.visit(BooleanLiteral(False), o)
+                    # lst = leftOprandstr + right + self.emit.emitREOP('==', IntType(), frame)
+                    lst = rightOperandstr
+                    label1 = frame.getNewLabel()
+                    label2 = frame.getNewLabel()
+                    lst += self.emit.emitIFTRUE(label1, frame)
+                    lst += leftOprandstr + rightOperandstr + self.emit.emitANDOP(frame)
+                    lst += self.emit.emitGOTO(label2, frame)
+                    lst += self.emit.emitLABEL(label1, frame)
+                    lst += leftOprandstr
+                    lst += self.emit.emitLABEL(label2, frame)
+                    return lst, BoolType()
+                elif ast.op == 'orelse':
+                    # right, typR1 = self.visit(BooleanLiteral(True), o)
+                    # lst = leftOprandstr + right + self.emit.emitREOP('==', IntType(), frame)
+                    lst = rightOperandstr
+                    label1 = frame.getNewLabel()
+                    label2 = frame.getNewLabel()
+                    lst += self.emit.emitIFTRUE(label1, frame)
+                    lst += leftOprandstr + rightOperandstr + self.emit.emitOROP(frame)
+                    lst += self.emit.emitGOTO(label2, frame)
+                    lst += self.emit.emitLABEL(label1, frame)
+                    lst += leftOprandstr
+                    lst += self.emit.emitLABEL(label2, frame)
+                    return lst, BoolType()
+            elif type(typL) is IntType:
                 if ast.op in ['+', '-']:
                     return leftOprandstr + rightOperandstr + self.emit.emitADDOP(ast.op, IntType(), frame), IntType()
                 elif ast.op == '*':
@@ -437,11 +519,11 @@ class CodeGenVisitor(BaseVisitor, Utils):
         frame = ctxt.frame
         body, typ = self.visit(ast.body, o)
         if ast.op == 'not' and type(typ) is BoolType:
-            return self.emit.emitNOT(BoolType(), frame), BoolType()
+            return body + self.emit.emitNOT(IntType(), frame), BoolType()
         elif ast.op == '-' and type(typ) is IntType:
-            return self.emit.emitNEGOP(IntType(), frame), IntType()
+            return body + self.emit.emitNEGOP(IntType(), frame), IntType()
         elif ast.op == '-' and type(typ) is FloatType:
-            return self.emit.emitNEGOP(FloatType(), frame), FloatType()
+            return body + self.emit.emitNEGOP(FloatType(), frame), FloatType()
 
     def visitCallExpr(self, ast, o):
         #o:any

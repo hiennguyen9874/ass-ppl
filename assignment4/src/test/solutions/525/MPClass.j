@@ -6,24 +6,28 @@
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
 .var 1 is i I from Label0 to Label1
 Label0:
-	bipush 10
+	iconst_1
 	istore_1
+	iconst_0
+	invokestatic io/putInt(I)V
 Label2:
 	iload_1
-	iconst_0
-	if_icmplt Label4
+	bipush 10
+	if_icmpgt Label4
 	iconst_1
 	goto Label5
 Label4:
 	iconst_0
 Label5:
 	ifle Label3
+	ldc " "
+	invokestatic io/putString(Ljava/lang/String;)V
 	iload_1
 	invokestatic io/putInt(I)V
-Label6:
+	goto Label3
 	iload_1
 	iconst_1
-	isub
+	iadd
 	istore_1
 	goto Label2
 Label3:

@@ -4,34 +4,21 @@
 
 .method public static main([Ljava/lang/String;)V
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
-.var 1 is i I from Label0 to Label1
 Label0:
-	bipush 10
-	istore_1
+	iconst_0
+	ifgt Label2
+	iconst_0
+	iconst_0
+	iand
+	goto Label3
 Label2:
-	iload_1
 	iconst_0
-	if_icmplt Label4
-	iconst_1
-	goto Label5
-Label4:
-	iconst_0
-Label5:
-	ifle Label3
-	iload_1
-	invokestatic io/putInt(I)V
-Label6:
-	iload_1
-	iconst_1
-	isub
-	istore_1
-	goto Label2
 Label3:
-	invokestatic io/putLn()V
+	invokestatic io/putBool(Z)V
 Label1:
 	return
 .limit stack 4
-.limit locals 2
+.limit locals 1
 .end method
 
 .method public <init>()V

@@ -57,7 +57,7 @@ class Emitter():
             elif i >= -32768 and i <= 32767:
                 return self.jvm.emitSIPUSH(i)
             else:
-                return self.jvm.emitLDC(str(i)) # sua cho nay
+                return self.jvm.emitLDC(str(i))
         elif type(in_) is str:
             if in_ == "true":
                 return self.emitPUSHICONST(1, frame)
@@ -72,7 +72,8 @@ class Emitter():
         
         f = float(in_)
         frame.push()
-        rst = "{0:.4f}".format(f)
+        # rst = "{0:.4f}".format(f)
+        rst = "{0:.1f}".format(f)
         if rst == "0.0" or rst == "1.0" or rst == "2.0":
             return self.jvm.emitFCONST(rst)
         else:
@@ -92,13 +93,13 @@ class Emitter():
             return self.emitPUSHICONST(in_, frame)
         elif type(typ) is StringType:
             frame.push()
-            return self.jvm.emitLDC("\"" + in_ + "\"") # sua cho nay
+            return self.jvm.emitLDC("\"" + in_ + "\"")
         else:
             raise IllegalOperandException(in_)
 
     ##############################################################
 
-    def emitALOAD(self, in_, frame): # sua cho nay
+    def emitALOAD(self, in_, frame):
         #in_: Type
         #frame: Frame
         #..., arrayref, index, value -> ...
@@ -115,7 +116,7 @@ class Emitter():
         else:
             raise IllegalOperandException(str(in_))
 
-    def emitASTORE(self, in_, frame): # sua cho nay
+    def emitASTORE(self, in_, frame):
         #in_: Type
         #frame: Frame
         #..., arrayref, index, value -> ...
@@ -151,7 +152,7 @@ class Emitter():
         
         return self.jvm.emitVAR(in_, varName, self.getJVMType(inType), fromLabel, toLabel)
 
-    def emitREADVAR(self, name, inType, index, frame): # sua cho nay
+    def emitREADVAR(self, name, inType, index, frame):
         #name: String
         #inType: Type
         #index: Int
@@ -184,7 +185,7 @@ class Emitter():
     *   generate code to pop a value on top of the operand stack and store it to a block-scoped variable.
     *   @param name the symbol entry of the variable.
     '''
-    def emitWRITEVAR(self, name, inType, index, frame): # sua cho nay
+    def emitWRITEVAR(self, name, inType, index, frame):
         #name: String
         #inType: Type
         #index: Int
@@ -324,7 +325,7 @@ class Emitter():
         else:
             return self.jvm.emitFNEG()
 
-    def emitNOT(self, in_, frame):# sua cho nay
+    def emitNOT(self, in_, frame):
         #in_: Type
         #frame: Frame
 
@@ -586,7 +587,7 @@ class Emitter():
     *   @param in the type of the returned expression.
     '''
 
-    def emitRETURN(self, in_, frame):   # sua cho nay
+    def emitRETURN(self, in_, frame):
         #in_: Type
         #frame: Frame
 

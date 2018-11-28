@@ -1,0 +1,13 @@
+
+            procedure main();
+                begin
+                    putStringLn("bat dau with");
+                    with a, b: integer; do
+                        begin
+                            a := 1;
+                            b := 2;
+                            putInt(a+b); 
+                        end
+                    putStringLn("ket thuc with");
+                end
+        
