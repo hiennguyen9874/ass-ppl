@@ -7,7 +7,7 @@
 Label0:
 	iconst_5
 	i2f
-	ldc 2.0
+	fconst_2
 	fadd
 	invokestatic io/putFloat(F)V
 Label1:

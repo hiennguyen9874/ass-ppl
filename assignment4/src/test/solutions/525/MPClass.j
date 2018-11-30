@@ -34,7 +34,7 @@ Label3:
 	invokestatic io/putLn()V
 Label1:
 	return
-.limit stack 4
+.limit stack 2
 .limit locals 2
 .end method
 

@@ -9,6 +9,7 @@
                     putString(" ");
                     putInt(i);
                     i := i + 1;
+                    continue;
                 end
                 putLn();
             end

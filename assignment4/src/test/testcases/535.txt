@@ -1,0 +1,11 @@
+
+            procedure main();
+                begin
+                    putStringLn("bat dau if");
+                    if True then
+                        putStringLn("Dung");
+                    else
+                        putStringLn("Sai");
+                    putStringLn("ket thuc if");
+                end
+        

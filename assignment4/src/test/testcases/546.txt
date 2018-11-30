@@ -1,0 +1,14 @@
+
+        procedure foo(a,b: integer; c:real);
+        var i, i1: integer;
+            f, f1: real;
+            b, b1: boolean;
+        begin
+            b := 1 <> 2 ;
+            putBool(b);
+        end
+        procedure main();
+            begin
+                foo(1,2,4.3);
+            end
+        

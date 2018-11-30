@@ -12,25 +12,19 @@ Label2:
 	iload_1
 	bipush 10
 	if_icmpgt Label4
-	iconst_1
-	goto Label5
-Label4:
-	iconst_0
-Label5:
-	ifle Label3
 	iload_1
 	invokestatic io/putInt(I)V
-Label6:
+Label3:
 	iload_1
 	iconst_1
 	iadd
 	istore_1
 	goto Label2
-Label3:
+Label4:
 	invokestatic io/putLn()V
 Label1:
 	return
-.limit stack 4
+.limit stack 2
 .limit locals 2
 .end method
 

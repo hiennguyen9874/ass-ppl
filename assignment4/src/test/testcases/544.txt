@@ -1,0 +1,16 @@
+
+        var n: integer;
+        function foo(a, b: integer): integer;
+        begin
+            n := 3;
+            putIntLn(a);
+            putInt(b);
+            return a*n + b;
+        end
+        procedure main();
+            var n: integer;
+            begin
+                n := foo(1,2);
+                putInt(n);
+            end
+        

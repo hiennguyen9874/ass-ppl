@@ -1,6 +1,3 @@
 
-            procedure main();
-                begin
-                    putInt(500);
-                end
+            var a:boolean; procedure main(); begin  if false then putInt(100);  putInt(10); end
         

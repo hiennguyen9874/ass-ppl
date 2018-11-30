@@ -5,6 +5,7 @@
                 for i := 10 downto 0 do 
                     begin
                         putInt(i);
+                        continue;
                     end
                 putLn();
             end

@@ -1,0 +1,12 @@
+
+        function foo(n: integer): integer;
+        var i: integer;
+            sum: integer;
+        begin
+            return 55;
+        end
+        procedure main();
+            begin
+                putInt(foo(10));
+            end
+        

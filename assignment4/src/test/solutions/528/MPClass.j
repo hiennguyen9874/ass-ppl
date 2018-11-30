@@ -5,19 +5,19 @@
 .method public static main([Ljava/lang/String;)V
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
 Label0:
-	iconst_0
-	ifgt Label2
 	iconst_1
+	ifle Label2
 	iconst_0
-	iand
+	ifle Label2
+	iconst_1
 	goto Label3
 Label2:
-	iconst_1
+	iconst_0
 Label3:
 	invokestatic io/putBool(Z)V
 Label1:
 	return
-.limit stack 4
+.limit stack 2
 .limit locals 1
 .end method
 

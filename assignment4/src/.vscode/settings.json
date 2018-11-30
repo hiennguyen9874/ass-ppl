@@ -3,6 +3,8 @@
     "python.autoComplete.extraPaths": [
         "${workspaceRoot}/main/mp/utils",
         "${workspaceRoot}/main/mp/codegen",
+        "${workspaceRoot}/main/mp/checker",
         "${workspaceRoot}/test"
     ],
+    "python.pythonPath": "/usr/bin/python3",
 }

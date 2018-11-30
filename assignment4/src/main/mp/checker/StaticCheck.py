@@ -294,10 +294,10 @@ class StaticChecker(BaseVisitor, Utils):
         left = self.visit(ast.left, (c[0], c[1], c[2]))
         right = self.visit(ast.right, (c[0], c[1], c[2]))
         if type(left) == type(right):
-            if type(left) is BoolType and ast.op in ['and', 'andthen', 'or', 'orelse']:
+            if type(left) is BoolType and ast.op.lower() in ['and', 'andthen', 'or', 'orelse']:
                 return BoolType()
             elif type(left) is IntType:
-                if ast.op in ['+', '-', '*', 'div', 'mod']:
+                if ast.op.lower() in ['+', '-', '*', 'div', 'mod']:
                     return IntType()
                 elif ast.op in ['<', '<=', '>', '>=', '<>', '=']:
                     return BoolType()

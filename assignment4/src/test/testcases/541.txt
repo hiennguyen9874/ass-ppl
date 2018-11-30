@@ -1,0 +1,8 @@
+
+        var a: integer;
+        procedure main();
+            var b: integer;
+            begin
+                putInt(6 mod 5);
+            end
+        

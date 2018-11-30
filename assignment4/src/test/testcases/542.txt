@@ -1,0 +1,8 @@
+
+        procedure main();
+            var b: integer;
+            begin
+                b := 1 + 2;
+                putInt(b);
+            end
+        

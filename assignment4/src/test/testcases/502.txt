@@ -1,1 +1,1 @@
-Program([FuncDecl(Id(main),[],VoidType(),[],[CallStmt(Id(putFloat),[FloatLiteral(5.0)])])])
+Program([VarDecl(Id(m),ArrayType(1,100,IntType)),FuncDecl(Id(main),[],VoidType(),[],[AssignStmt(ArrayCell(Id(m),IntLiteral(1)),IntLiteral(1)),CallStmt(Id(putInt),[ArrayCell(Id(m),IntLiteral(1))]),Return(None)])])

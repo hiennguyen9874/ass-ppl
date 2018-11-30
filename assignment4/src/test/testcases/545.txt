@@ -1,0 +1,12 @@
+
+        var n: integer;
+        procedure foo();
+        begin
+            n := 10;
+        end
+        procedure main();
+            begin
+                foo();
+                putIntLn(n);
+            end
+        

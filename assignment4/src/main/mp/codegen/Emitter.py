@@ -47,8 +47,8 @@ class Emitter():
         #in: Int or Sring
         #frame: Frame
         
-        frame.push()
         if type(in_) is int:
+            frame.push()
             i = in_
             if i >= -1 and i <=5:
                 return self.jvm.emitICONST(i)
@@ -98,7 +98,9 @@ class Emitter():
             raise IllegalOperandException(in_)
 
     ##############################################################
-
+    
+    ''' Load mot bien tu array
+    '''
     def emitALOAD(self, in_, frame):
         #in_: Type
         #frame: Frame
@@ -115,7 +117,8 @@ class Emitter():
             return self.jvm.emitAALOAD()
         else:
             raise IllegalOperandException(str(in_))
-
+    ''' Luu mot bien vao array
+    '''
     def emitASTORE(self, in_, frame):
         #in_: Type
         #frame: Frame
@@ -338,6 +341,7 @@ class Emitter():
         result.append(self.emitLABEL(label1, frame))
         result.append(self.emitPUSHCONST("false", in_, frame))
         result.append(self.emitLABEL(label2, frame))
+        frame.pop()
         return ''.join(result)
 
     '''
@@ -545,12 +549,14 @@ class Emitter():
         #frame: Frame
 
         frame.pop()
+        frame.pop()
         return self.jvm.emitIFICMPGT(label)
 
     def emitIFICMPLT(self, label, frame):
         #label: Int
         #frame: Frame
 
+        frame.pop()
         frame.pop()
         return self.jvm.emitIFICMPLT(label)    
 

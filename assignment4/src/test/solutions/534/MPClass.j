@@ -1,11 +1,17 @@
 .source MPClass.java
 .class public MPClass
 .super java.lang.Object
+.field static a Z
 
 .method public static main([Ljava/lang/String;)V
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
 Label0:
-	sipush 500
+	iconst_0
+	ifle Label2
+	bipush 100
+	invokestatic io/putInt(I)V
+Label2:
+	bipush 10
 	invokestatic io/putInt(I)V
 Label1:
 	return
