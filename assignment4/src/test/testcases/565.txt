@@ -1,0 +1,13 @@
+
+        procedure main();
+        var i: integer;
+        begin
+            i := 1;
+            with i: integer; do
+                begin
+                    i := 2;
+                    putIntLn(i);
+                end
+            putIntLn(i);
+        end
+        

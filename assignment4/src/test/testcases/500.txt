@@ -1,6 +1,6 @@
 
         procedure main(); 
         begin 
-            putInt(100); 
+            putInt(100);
         end
         

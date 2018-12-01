@@ -1,0 +1,6 @@
+
+        procedure main();
+        begin
+            putBool(not true);
+        end
+        

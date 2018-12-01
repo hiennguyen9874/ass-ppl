@@ -269,6 +269,7 @@ class Emitter():
     *   @param lexeme the qualified name of the method(i.e., class-name/method-name)
     *   @param in the type descriptor of the method.
     '''
+    
     def emitINVOKESTATIC(self, lexeme, in_, frame):
         #lexeme: String
         #in_: Type
@@ -430,6 +431,7 @@ class Emitter():
         #frame: Frame
         #..., value1, value2 -> ..., result
 
+
         result = list()
         labelF = frame.getNewLabel()
         labelO = frame.getNewLabel()
@@ -448,6 +450,50 @@ class Emitter():
             result.append(self.jvm.emitIFICMPEQ(labelF))
         elif op == "==":
             result.append(self.jvm.emitIFICMPNE(labelF))
+        result.append(self.emitPUSHCONST("1", IntType(), frame))
+        frame.pop()
+        result.append(self.emitGOTO(labelO, frame))
+        result.append(self.emitLABEL(labelF, frame))
+        result.append(self.emitPUSHCONST("0", IntType(), frame))
+        result.append(self.emitLABEL(labelO, frame))
+        return ''.join(result)
+
+    def emitFREOP(self, op, left, right, frame):
+        #op: String
+        #in_: Type
+        #frame: Frame
+        #..., value1, value2 -> ..., result
+        result = list()
+        labelF = frame.getNewLabel()
+        labelO = frame.getNewLabel()
+
+        frame.pop()
+        frame.pop()
+        if op == ">":
+            result.append(left + right)
+            result.append(self.jvm.emitFCMPL())
+            result.append(self.jvm.emitIFLE(labelF))
+        elif op == ">=":
+            result.append(left + right)
+            result.append(self.jvm.emitFCMPL())
+            result.append(self.jvm.emitIFLT(labelF))
+        elif op == "<":
+            result.append(right + left)
+            result.append(self.jvm.emitFCMPL())
+            result.append(self.jvm.emitIFLE(labelF))
+        elif op == "<=":
+            result.append(right + left)
+            result.append(self.jvm.emitFCMPL())
+            result.append(self.jvm.emitIFLT(labelF))
+        elif op == "!=":
+            result.append(left + right)
+            result.append(self.jvm.emitFCMPL())
+            result.append(self.jvm.emitIFEQ(labelF))
+        elif op == "==":
+            result.append(left + right)
+            result.append(self.jvm.emitFCMPL())
+            result.append(self.jvm.emitIFNE(labelF))
+
         result.append(self.emitPUSHCONST("1", IntType(), frame))
         frame.pop()
         result.append(self.emitGOTO(labelO, frame))
@@ -624,6 +670,8 @@ class Emitter():
             return self.jvm.emitFRETURN()
         elif type(in_) is VoidType:
             return self.jvm.emitRETURN()
+        else:
+            return self.jvm.emitARETURN()
 
     ''' generate code that represents a label	
     *   @param label the label

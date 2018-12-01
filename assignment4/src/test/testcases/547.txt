@@ -1,8 +1,15 @@
 
-        procedure main();
-        var a: integer;
+        function searchArr(d: array [1 .. 5] of integer; n: integer): array [1 .. 5] of integer;
+        var i: integer;
         begin
-            a :=(10 - 9*8) + (6 div 4);
-            putInt(a);
+            for i := 1 to n do begin
+                d[i] := i;
+            end
+            return d;
+        end
+        procedure main();
+        var arr: array [1 .. 5] of integer;
+        begin
+            putInt(searchArr(arr, 5)[1]);
         end
         

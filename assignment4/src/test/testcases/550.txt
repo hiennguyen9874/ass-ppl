@@ -1,16 +1,6 @@
 
-        function foo(): integer;
-        var a: integer;
-            b: boolean;
-        begin
-            b := true;
-            if b then 
-                return 1;
-            else
-                return 2;
-        end
         procedure main();
         begin
-            putInt(foo());
+            putBool( 1 >= 2.0 );
         end
         

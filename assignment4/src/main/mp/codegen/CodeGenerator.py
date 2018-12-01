@@ -86,10 +86,20 @@ class Access():
         self.isLeft = isLeft
         self.isFirst = isFirst
 
+class MyClass():
+    def __init__(self, sym, isGlobalArray, lstDeclArray):
+        #sym: List[Symbol]
+        #isGlobalArray: Boolean
+        #lstDeclArray: List[VarDecl]
+
+        self.sym = sym
+        self.isGlobalArray = isGlobalArray
+        self.lstDeclArray = lstDeclArray
+
 class Val(ABC):
     pass
 
-class Index(Val): # bien co value la chi muc
+class Index(Val):
     def __init__(self, value):
         #value: Int
 
@@ -113,15 +123,16 @@ class CodeGenVisitor(BaseVisitor, Utils):
         self.path = dir_
         self.emit = Emitter(self.path + "/" + self.className + ".j")
 
-    def genMETHOD(self, consdecl, o, frame):
+    def genMETHOD(self, consdecl, o:MyClass, frame):
         #consdecl: FuncDecl
         #o: Any
         #frame: Frame
         
-        isGlobalArray = o[1]
-        lstDeclArray = o[2]
+        isGlobalArray = o.isGlobalArray
+        lstDeclArray = o.lstDeclArray
 
         if isGlobalArray:
+            # Constructor cho khai bao bien global la array
             returnType = VoidType()
             methodName = "<clinit>"
             intype = list()
@@ -134,8 +145,8 @@ class CodeGenVisitor(BaseVisitor, Utils):
                 self.emit.printout(self.emit.emitINITARRAY(lexeme, x.varType, frame))
             self.emit.printout(self.emit.emitRETURN(returnType, frame))
             self.emit.printout(self.emit.emitENDMETHOD(frame))
-            if frame.getStackSize() != 0:
-                print(methodName)
+            # if frame.getStackSize() != 0:
+            #     print(methodName)
             frame.exitScope()
         else:
             isInit = consdecl.returnType is None
@@ -146,7 +157,7 @@ class CodeGenVisitor(BaseVisitor, Utils):
             mtype = MType(intype, returnType)
             self.emit.printout(self.emit.emitMETHOD(methodName, mtype, not isInit, frame))
             frame.enterScope(True)
-            glenv = o[0]
+            glenv = o.sym
             # Generate code for parameter declarations
             if isInit:
                 idx = frame.getNewIndex()
@@ -170,18 +181,19 @@ class CodeGenVisitor(BaseVisitor, Utils):
                     if type(x.varType) is ArrayType:
                         idx = glenv[0].value.value
                         self.emit.printout(self.emit.emitINITARRAY(idx, x.varType, frame))
+            e = SubBody(frame, glenv)
             body = consdecl.body
             self.emit.printout(self.emit.emitLABEL(frame.getStartLabel(), frame))
             # Generate code for statements
             if isInit:
                 self.emit.printout(self.emit.emitREADVAR("this", ClassType(self.className), 0, frame))
                 self.emit.printout(self.emit.emitINVOKESPECIAL(frame))
-            list(map(lambda x: self.visit(x, SubBody(frame, glenv)), body))
+            list(map(lambda x: self.visit(x, e), body))
             self.emit.printout(self.emit.emitLABEL(frame.getEndLabel(), frame))
             self.emit.printout(self.emit.emitRETURN(returnType, frame))
             self.emit.printout(self.emit.emitENDMETHOD(frame))
-            if frame.getStackSize() != 0:
-                print(methodName)
+            # if frame.getStackSize() != 0:
+            #     print(methodName)
             frame.exitScope()
 
     def visitProgram(self, ast, c):
@@ -190,31 +202,33 @@ class CodeGenVisitor(BaseVisitor, Utils):
         
         self.emit.printout(self.emit.emitPROLOG(self.className, "java.lang.Object"))
         e = SubBody(None, self.env)
-        ## Them global declarations vao self.env
-        
-        numArray = 0
+
+        ## List cac bien array trong global
         lstArray = list()
+
+        ## Them global declarations vao self.env
         for x in ast.decl:
             if type(x) is VarDecl:
                 e = self.visit(x,e)
                 self.env = e.sym
                 if type(x.varType) is ArrayType:
                     lstArray.append(x)
-                    numArray += 1
             else:
                 self.env.insert(0, Symbol(x.name.name, MType(list(map(lambda y: y.varType, x.param)) , x.returnType), CName(self.className)))
+        
         ## visit toi funcdecl
         for x in ast.decl:
             if type(x) is FuncDecl:
                 e = self.visit(x, e)
-        
-        self.genMETHOD(FuncDecl(Id("<init>"), list(), list(), list(), None), (c, False, list()), Frame("<init>", VoidType))
 
         # generate default constructor
-        if numArray > 0:
-            self.genMETHOD(FuncDecl(Id("<clinit>"), list(), list(), list(), None), (c, True, lstArray), Frame("<clinit>", VoidType))
+        self.genMETHOD(FuncDecl(Id("<init>"), list(), list(), list(), None), MyClass(c, False, list()), Frame("<init>", VoidType))
 
-        self.emit.emitEPILOG() ## ket thuc mot class
+        # Constructor cho array
+        if len(lstArray) > 0:
+            self.genMETHOD(FuncDecl(Id("<clinit>"), list(), list(), list(), None), MyClass(c, True, lstArray), Frame("<clinit>", VoidType))
+
+        self.emit.emitEPILOG()
         return c
 
     # Declaration
@@ -228,7 +242,7 @@ class CodeGenVisitor(BaseVisitor, Utils):
 
         subctxt = o
         frame = Frame(ast.name.name, ast.returnType)
-        self.genMETHOD(ast, (subctxt.sym, False, list()), frame)
+        self.genMETHOD(ast, MyClass(subctxt.sym, False, list()), frame)
         # return SubBody(None, [Symbol(ast.name, MType(list(), ast.returnType), CName(self.className))] + subctxt.sym)
         return SubBody(None, subctxt.sym)
     
@@ -244,30 +258,18 @@ class CodeGenVisitor(BaseVisitor, Utils):
         name = ast.variable.name
 
         if frame is None:
-            if type(mtype) is ArrayType:
-                # mtype = ArrayPointerType(mtype.eleType)
-                self.emit.printout(self.emit.emitATTRIBUTE(name, mtype, False, ""))
-                return SubBody(None, [Symbol(name, mtype, CName(self.className))] + subctxt.sym)
-            else:
-                self.emit.printout(self.emit.emitATTRIBUTE(name, mtype, False, ""))
-                return SubBody(None, [Symbol(name, mtype, CName(self.className))] + subctxt.sym)
+            self.emit.printout(self.emit.emitATTRIBUTE(name, mtype, False, ""))
+            return SubBody(None, [Symbol(name, mtype, CName(self.className))] + subctxt.sym)
         else:
             idx = frame.getNewIndex()
-            if type(mtype) is ArrayType:
-                # mtype = ArrayPointerType(mtype.eleType)
-                self.emit.printout(self.emit.emitVAR(idx, name, mtype, frame.getStartLabel(), frame.getEndLabel(), frame))
-                return SubBody(frame, [Symbol(name, mtype, Index(idx))] + subctxt.sym)
-            else:
-                self.emit.printout(self.emit.emitVAR(idx, name, mtype, frame.getStartLabel(), frame.getEndLabel(), frame))
-                return SubBody(frame, [Symbol(name, mtype, Index(idx))] + subctxt.sym)
-
+            self.emit.printout(self.emit.emitVAR(idx, name, mtype, frame.getStartLabel(), frame.getEndLabel(), frame))
+            return SubBody(frame, [Symbol(name, mtype, Index(idx))] + subctxt.sym)
 
     # Statement
     # o.frame: Frame
     # o.sym: List[Symbol]
     def visitAssign(self, ast, o):
         #o: Any
-        #ast: CallStmt
         #ast.lhs: Expr
         #ast.exp: Expr
 
@@ -307,12 +309,12 @@ class CodeGenVisitor(BaseVisitor, Utils):
         if len(ast.elseStmt) != 0:
             label2 = frame.getNewLabel()
         self.emit.printout(self.emit.emitIFFALSE(label1, frame))
-        list(map(lambda x: self.visit(x, SubBody(frame, nenv)), ast.thenStmt))
+        list(map(lambda x: self.visit(x, o), ast.thenStmt))
         if len(ast.elseStmt) != 0:
             self.emit.printout(self.emit.emitGOTO(label2, frame))
         self.emit.printout(self.emit.emitLABEL(label1,frame))
         if len(ast.elseStmt) != 0:
-            list(map(lambda x: self.visit(x, SubBody(frame, nenv)), ast.elseStmt))
+            list(map(lambda x: self.visit(x, o), ast.elseStmt))
             self.emit.printout(self.emit.emitLABEL(label2, frame))
 
     def visitWhile(self, ast, o):
@@ -323,6 +325,7 @@ class CodeGenVisitor(BaseVisitor, Utils):
         ctxt = o
         frame = ctxt.frame
         nenv = ctxt.sym
+        
         frame.enterLoop()
 
         labelContinue = frame.getContinueLabel()
@@ -332,7 +335,7 @@ class CodeGenVisitor(BaseVisitor, Utils):
         expr, _ = self.visit(ast.exp, Access(frame, nenv, False, True))
         self.emit.printout(expr)
         self.emit.printout(self.emit.emitIFFALSE(labelBreak, frame))
-        list(map(lambda x: self.visit(x, SubBody(frame, nenv)), ast.sl))
+        list(map(lambda x: self.visit(x, o), ast.sl))
 
         self.emit.printout(self.emit.emitGOTO(labelContinue, frame))
         self.emit.printout(self.emit.emitLABEL(labelBreak,frame))
@@ -353,11 +356,11 @@ class CodeGenVisitor(BaseVisitor, Utils):
         label1 = frame.getNewLabel()
 
         frame.enterLoop()
-
-
+        accessT = Access(frame, nenv, True, True)
+        accessF = Access(frame, nenv, False, True)
         # Gan gia tri expr1 cho id
-        expr1, _ = self.visit(ast.expr1, Access(frame, nenv, False, True))
-        id1, _ = self.visit(ast.id, Access(frame, nenv, True, True))
+        expr1, _ = self.visit(ast.expr1, accessF)
+        id1, _ = self.visit(ast.id, accessT)
         self.emit.printout(expr1)
         self.emit.printout(id1)
         # In ra label 1
@@ -367,38 +370,33 @@ class CodeGenVisitor(BaseVisitor, Utils):
         labelBreak = frame.getBreakLabel()
 
         if ast.up is True:
-            # expr2, _ = self.visit(BinaryOp('<=', ast.id, ast.expr2), Access(frame, nenv, False, True)) # ban dau
-            # self.emit.printout(expr2) # ban dau
-            id1, _ = self.visit(ast.id, Access(frame, nenv, False, True))
+            id1, _ = self.visit(ast.id, accessF)
             self.emit.printout(id1)
-            expr2, _ = self.visit(ast.expr2, Access(frame, nenv, False, True))
+            expr2, _ = self.visit(ast.expr2, accessF)
             self.emit.printout(expr2)
             self.emit.printout(self.emit.emitIFICMPGT(labelBreak, frame))
         else:
-            # expr2, _ = self.visit(BinaryOp('>=', ast.id, ast.expr2), Access(frame, nenv, False, True)) # ban dau
-            # self.emit.printout(expr2) # ban dau
-            id1, _ = self.visit(ast.id, Access(frame, nenv, False, True))
+            id1, _ = self.visit(ast.id, accessF)
             self.emit.printout(id1)
-            expr2, _ = self.visit(ast.expr2, Access(frame, nenv, False, True))
+            expr2, _ = self.visit(ast.expr2, accessF)
             self.emit.printout(expr2)
             self.emit.printout(self.emit.emitIFICMPLT(labelBreak, frame))
 
-        # self.emit.printout(self.emit.emitIFFALSE(labelBreak, frame))  # ban dau
-        list(map(lambda x: self.visit(x, SubBody(frame, nenv)), ast.loop))
+        list(map(lambda x: self.visit(x, o), ast.loop))
         self.emit.printout(self.emit.emitLABEL(labelContinue, frame))
 
         if ast.up is True:
             # i + 1 dat len stack
-            expr, _ = self.visit(BinaryOp('+', ast.id, IntLiteral(1)), Access(frame, nenv, False, True))
+            expr, _ = self.visit(BinaryOp('+', ast.id, IntLiteral(1)), accessF)
             # Gan gia tri tren stack vao Id
-            id2, _ = self.visit(ast.id, Access(frame, nenv, True, True))
+            id2, _ = self.visit(ast.id, accessT)
             self.emit.printout(expr)
             self.emit.printout(id2)
         else:
             # i - 1 dat len stack
-            expr, _ = self.visit(BinaryOp('-',ast.id,IntLiteral(1)), Access(frame, nenv, False, True))
+            expr, _ = self.visit(BinaryOp('-',ast.id,IntLiteral(1)), accessF)
             # Gan gia tri tren stack vao id
-            id2, _ = self.visit(ast.id, Access(frame, nenv, True, True))
+            id2, _ = self.visit(ast.id, accessT)
             self.emit.printout(expr)
             self.emit.printout(id2)
         # quay lai label1
@@ -433,7 +431,7 @@ class CodeGenVisitor(BaseVisitor, Utils):
             if type(typ1) is IntType and type(frame.returnType) is FloatType:
                 str1 += self.emit.emitI2F(frame)
             self.emit.printout(str1)
-        self.emit.printout(self.emit.emitGOTO(1, frame))
+        self.emit.printout(self.emit.emitGOTO(frame.getEndLabel(), frame))
 
     def visitWith(self, ast, o):
         #o:any
@@ -442,22 +440,17 @@ class CodeGenVisitor(BaseVisitor, Utils):
 
         ctxt = o
         frame = ctxt.frame
-        nenv = ctxt.sym
+        glenv = ctxt.sym
 
         frame.enterScope(False)
-
-        glenv = o.sym
-        
         e = SubBody(frame, glenv)
         for x in ast.decl:
             e = self.visit(x, e)
             glenv = e.sym
-            
+        e = SubBody(frame, glenv)
         body = ast.stmt
         self.emit.printout(self.emit.emitLABEL(frame.getStartLabel(), frame))
-
-        list(map(lambda x: self.visit(x, SubBody(frame, glenv)), body))
-
+        list(map(lambda x: self.visit(x, e), body))
         self.emit.printout(self.emit.emitLABEL(frame.getEndLabel(), frame))
         frame.exitScope()
 
@@ -469,19 +462,18 @@ class CodeGenVisitor(BaseVisitor, Utils):
         ctxt = o
         frame = ctxt.frame
         nenv = ctxt.sym
+
         sym = self.lookup(ast.method.name.lower(), nenv, lambda x: x.name.lower())
         cname = sym.value.value
-    
         ctype = sym.mtype
 
-        lst = list()
+        access = Access(frame, nenv, False, True)
 
         for i in range(len(ast.param)):
-            str1, typ1 = self.visit(ast.param[i], Access(frame, nenv, False, True))
+            str1, typ1 = self.visit(ast.param[i], access)
             if type(typ1) is IntType and type(sym.mtype.partype[i]) is FloatType:
                 str1 += self.emit.emitI2F(frame)
-            lst.append(str1)
-        self.emit.printout(''.join(lst))
+            self.emit.printout(str1)
         self.emit.printout(self.emit.emitINVOKESTATIC(cname + "/" + ast.method.name, ctype, frame))
 
     # Expression
@@ -508,7 +500,7 @@ class CodeGenVisitor(BaseVisitor, Utils):
                     return leftOprandstr + rightOperandstr + self.emit.emitANDOP(frame), BoolType()   
                 elif ast.op.lower() == 'or':
                     return leftOprandstr + rightOperandstr + self.emit.emitOROP(frame), BoolType()
-                elif ast.op == 'andthen':
+                elif ast.op.lower() == 'andthen':
                     # right, typR1 = self.visit(BooleanLiteral(False), o)
                     # lst = leftOprandstr + right + self.emit.emitREOP('==', IntType(), frame)
                     lst = list()
@@ -525,7 +517,7 @@ class CodeGenVisitor(BaseVisitor, Utils):
                     lst.append(self.emit.emitLABEL(label2,frame))
                     frame.pop()
                     return ''.join(lst), BoolType()
-                elif ast.op == 'orelse':
+                elif ast.op.lower() == 'orelse':
                     # right, typR1 = self.visit(BooleanLiteral(True), o)
                     # lst = leftOprandstr + right + self.emit.emitREOP('==', IntType(), frame)
                     lst = list()
@@ -569,11 +561,11 @@ class CodeGenVisitor(BaseVisitor, Utils):
                 elif ast.op == '/':
                     return leftOprandstr + rightOperandstr + self.emit.emitMULOP(ast.op, FloatType(), frame), FloatType()
                 elif ast.op in ['<', '<=', '>', '>=']:
-                    return leftOprandstr + rightOperandstr + self.emit.emitREOP(ast.op, FloatType(), frame), BoolType()
+                    return self.emit.emitFREOP(ast.op, leftOprandstr, rightOperandstr, frame), BoolType()
                 elif ast.op == '<>':
-                    return leftOprandstr + rightOperandstr + self.emit.emitREOP('!=', FloatType(), frame), BoolType()
+                    return self.emit.emitFREOP('!=', leftOprandstr, rightOperandstr, frame), BoolType()
                 elif ast.op == '=':
-                    return leftOprandstr + rightOperandstr + self.emit.emitREOP('==', FloatType(), frame), BoolType()
+                    return self.emit.emitFREOP('==', leftOprandstr, rightOperandstr, frame), BoolType()
         else:
             if ast.op in ['+', '-']:
                 if type(typL) is FloatType and type(typR) is IntType:
@@ -593,11 +585,11 @@ class CodeGenVisitor(BaseVisitor, Utils):
                 if ast.op == '/':
                     return leftOprandstr + rightOperandstr + self.emit.emitMULOP(ast.op, FloatType(), frame), FloatType()
                 elif ast.op in ['<', '<=', '>', '>=']:
-                    return leftOprandstr + rightOperandstr + self.emit.emitREOP(ast.op, FloatType(), frame), BoolType()
+                    return self.emit.emitFREOP(ast.op, leftOprandstr, rightOperandstr, frame), BoolType()
                 elif ast.op == '<>':
-                    return leftOprandstr + rightOperandstr + self.emit.emitREOP('!=', FloatType(), frame), BoolType()
+                    return self.emit.emitFREOP('!=', leftOprandstr, rightOperandstr, frame), BoolType()
                 elif ast.op == '=':
-                    return leftOprandstr + rightOperandstr + self.emit.emitREOP('==', FloatType(), frame), BoolType()
+                    return self.emit.emitFREOP('==', leftOprandstr, rightOperandstr, frame), BoolType()
 
     def visitUnaryOp(self, ast, o):
         #o:any
@@ -607,6 +599,7 @@ class CodeGenVisitor(BaseVisitor, Utils):
         ctxt = o
         frame = ctxt.frame
         nenv = ctxt.sym
+
         body, typ = self.visit(ast.body, Access(frame, nenv, False, True))
         if ast.op.lower() == 'not' and type(typ) is BoolType:
             return body + self.emit.emitNOT(IntType(), frame), BoolType()
@@ -625,12 +618,12 @@ class CodeGenVisitor(BaseVisitor, Utils):
         nenv = ctxt.sym
         sym = self.lookup(ast.method.name.lower(), nenv, lambda x: x.name.lower())
         cname = sym.value.value
-    
         ctype = sym.mtype
         
         lst = list()
+        access = Access(frame, nenv, False, True)
         for i in range(len(ast.param)):
-            str1, typ1 = self.visit(ast.param[i], Access(frame, nenv, False, True))
+            str1, typ1 = self.visit(ast.param[i], access)
             if type(typ1) is IntType and type(sym.mtype.partype[i]) is FloatType:
                 str1 += self.emit.emitI2F(frame)
             lst.append(str1)
@@ -668,7 +661,7 @@ class CodeGenVisitor(BaseVisitor, Utils):
 
         lst = list()
         arr, typeArr = self.visit(ast.arr, Access(frame, nenv, False, True))
-        idx, typeIdx = self.visit(ast.idx,Access(frame, nenv, False, True))
+        idx, typeIdx = self.visit(ast.idx, Access(frame, nenv, False, True))
         
         typ = typeArr.eleType
         lst.append(arr)

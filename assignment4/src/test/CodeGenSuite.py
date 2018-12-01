@@ -7,7 +7,7 @@ class CheckCodeGenSuite(unittest.TestCase):
         input = """
         procedure main(); 
         begin 
-            putInt(100); 
+            putInt(100);
         end
         """
         expect = "100"
@@ -143,7 +143,7 @@ class CheckCodeGenSuite(unittest.TestCase):
         expect = "1.0"
         self.assertTrue(TestCodeGen.test(input,expect,519))
 
-    def test_if(self):
+    def test_if5(self):
         input = """
         procedure main();
         var i: real;
@@ -364,7 +364,7 @@ class CheckCodeGenSuite(unittest.TestCase):
         expect = "bat dau if\nket thuc if\n"
         self.assertTrue(TestCodeGen.test(input,expect,536))
 
-    def test_if1(self):
+    def test_if4(self):
         input = """
             function foo():integer;
             begin
@@ -520,22 +520,405 @@ class CheckCodeGenSuite(unittest.TestCase):
         expect = "true"
         self.assertTrue(TestCodeGen.test(input, expect, 546))
 
-    def test_return_function(self):
+    def test_online_14(self):
         input = """
-        function foo(): integer;
-        var a: integer;
-            b: boolean;
+        function searchArr(d: array [1 .. 5] of integer; n: integer): array [1 .. 5] of integer;
+        var i: integer;
         begin
-            b := true;
-            if b then 
-                return 1;
-            else
-                return 2;
+            for i := 1 to n do begin
+                d[i] := i;
+            end
+            return d;
         end
         procedure main();
+        var arr: array [1 .. 5] of integer;
         begin
-            putInt(foo());
+            putInt(searchArr(arr, 5)[1]);
         end
         """
         expect = "1"
+        self.assertTrue(TestCodeGen.test(input, expect, 547))
+
+    def test_binaryop_float(self):
+        input = """
+        procedure main();
+        begin
+            putBool( 1 <> 2.0 );
+        end
+        """
+        expect = "true"
+        self.assertTrue(TestCodeGen.test(input, expect, 548))
+
+    def test_binaryop_float1(self):
+        input = """
+        procedure main();
+        begin
+            putBool( 1 = 2.0 );
+        end
+        """
+        expect = "false"
+        self.assertTrue(TestCodeGen.test(input, expect, 549))
+
+    def test_binaryop_float2(self):
+        input = """
+        procedure main();
+        begin
+            putBool( 1 >= 2.0 );
+        end
+        """
+        expect = "false"
         self.assertTrue(TestCodeGen.test(input, expect, 550))
+
+    def test_assignment_1(self):
+        input = """
+        procedure main();
+        var a: integer;
+        begin
+            a :=(10 - 9*8) + (6 div 4);
+            putInt(a);
+        end
+        """
+        expect = "-61"
+        self.assertTrue(TestCodeGen.test(input, expect, 551))
+   
+    def test_all(self):
+        input = Program([VarDecl(Id("a"),IntType()),
+        VarDecl(Id("b"),IntType()),
+        VarDecl(Id("c"),IntType()),
+        FuncDecl(Id("main"),[],[],
+        [Assign(Id("a"),IntLiteral(1)),
+        If(BinaryOp('=',Id("a"),IntLiteral(1)),
+        [With([VarDecl(Id("a"),IntType())],
+        [For(Id("a"),IntLiteral(2),IntLiteral(3),True,
+        [With([VarDecl(Id("b"),IntType())],
+        [CallStmt(Id("putIntLn"),[Id("a")])])])])],
+        [With([VarDecl(Id("a"),IntType())],
+        [For(Id("a"),IntLiteral(7),IntLiteral(8),True,
+        [With([VarDecl(Id("b"),IntType())],
+        [CallStmt(Id("putIntLn"),[Id("a")])])])])]),
+        With([VarDecl(Id("c"),IntType())],
+        [CallStmt(Id("putInt"),[Id("a")])]),
+        Return(None)],VoidType())])
+        expect = "2\n3\n1"
+        self.assertTrue(TestCodeGen.test(input, expect, 552))
+
+    def test_array_1(self):
+        input = """
+        var m: array [1 .. 10] of integer;
+        procedure main();
+        begin
+            m[1] := 5;
+            putInt(m[1]);
+        end"""
+        expect = "5"
+        self.assertTrue(TestCodeGen.test(input, expect, 553))
+    
+    def test_array_2(self):
+        input = """
+        function mean(size:integer): real;
+        var i,s: integer;
+            x: array [1 .. 3] of integer;
+        begin
+            x[3] := 1;
+            x[1] := 3;
+            x[2] := 5;
+            s := 0;
+            for i := 1 to size do
+                begin
+                    s := s + x[i];
+                end
+            return (s + 0.0 ) / size;
+        end
+        procedure main();
+        begin
+            putFloat(mean(3));
+        end
+        """
+        expect = "3.0"
+        self.assertTrue(TestCodeGen.test(input, expect, 554))
+
+    def test_array_3(self):
+        input = """
+        function searchArr(m: array [1 .. 5] of integer; a,n : integer): integer;
+        var i :integer;
+        begin
+            for i:=1 to n do begin
+                if m[i] = a then
+                    return i;
+            end
+            return -1;
+        end
+        procedure main();
+        var j,result: integer;
+            arr: array [1 .. 5] of integer;
+        begin
+            for j := 1 to 5 do
+            begin
+                arr[j] := j + 1;
+            end
+            result := searchArr(arr, 3, 5);
+            putInt(result);
+        end
+        """
+        expect = "2"
+        self.assertTrue(TestCodeGen.test(input, expect, 555))
+
+    def test_array_4(self):
+        input = """
+        var arr: array [1 .. 5] of integer;
+        function searchArr(d: array [1 .. 5] of integer; a, n: integer): integer;
+        var i: integer;
+        begin
+            for i := 1 to n do begin
+                d[i] := i;
+            end
+            return arr[1];
+        end
+        procedure main();
+        var j, result: integer;
+        begin
+            arr[1] := 5;
+            arr[2] := 3;
+            arr[3] := 11;
+            arr[4] := 19;
+            arr[5] := 20;
+            result := searchArr(arr, 3, 5);
+            putInt(result);
+        end
+        """
+        expect = "1"
+        self.assertTrue(TestCodeGen.test(input, expect, 556))
+    
+    def test_all1(self):
+        input = """
+        procedure main();
+        var a, b, Sum:integer;
+        begin
+            Sum := 0;
+            for a := 0 to 9 do
+            begin
+                if (a mod 2) = 0 then continue;
+                    Sum := Sum + a;
+            end
+            putInt(Sum);
+        end
+        """
+        expect = "25"
+        self.assertTrue(TestCodeGen.test(input,expect,557))
+
+    def test_assignment_2(self):
+        input = """
+        procedure main();
+        var a, b:integer;
+        begin
+            a := b := 1;
+            putInt(a*b);
+        end
+        """
+        expect = "1"
+        self.assertTrue(TestCodeGen.test(input,expect,558))
+
+    def test_while_1(self):
+        input = """
+        procedure main();
+        var i: integer;
+        begin
+            i := 0;
+            while i < 10 do
+            begin
+                putInt(i);
+                i := i + 1;
+            end
+        end
+        """
+        expect = "0123456789"
+        self.assertTrue(TestCodeGen.test(input,expect,559))
+
+    def test_while_2(self):
+        input = """
+        procedure main();
+        var i: integer;
+        begin
+            i := 0;
+            while true do
+            begin
+                putInt(i);
+                i := i + 1;
+                if i > 10 then
+                    break;
+            end
+        end
+        """
+        expect = "012345678910"
+        self.assertTrue(TestCodeGen.test(input,expect,560))
+
+    def test_for_1(self):
+        input = """
+        procedure main();
+        var i: integer;
+        begin
+            for i := 0 to 10 do
+                begin
+                    putInt(i);
+                    putString("->");
+                end
+        end
+        """
+        expect = "0->1->2->3->4->5->6->7->8->9->10->"
+        self.assertTrue(TestCodeGen.test(input, expect, 561))
+
+    def test_for_2(self):
+        input = """
+        procedure main();
+        var i: integer;
+        begin
+            for i := 0 to 10 do
+                begin
+                    putInt(i);
+                    putString("->");
+                    if i > 5 then
+                        break;
+                end
+        end
+        """
+        expect = "0->1->2->3->4->5->6->"
+        self.assertTrue(TestCodeGen.test(input, expect, 562))
+
+    def test_for_3(self):
+        input = """
+        procedure main();
+        var i: integer;
+        begin
+            for i := 0 to 10 do
+                begin
+                    putInt(i);
+                    if i > 5 then
+                        continue;
+                    putString("->");
+                end
+        end
+        """
+        expect = "0->1->2->3->4->5->678910"
+        self.assertTrue(TestCodeGen.test(input, expect, 563))
+
+    def test_for_4(self):
+        input = """
+        procedure main();
+        var i: integer;
+        begin
+            for i := 0 to 10 do
+                begin
+                    putInt(i);
+                    if i > 5 then
+                        return;
+                    putString("->");
+                end
+        end
+        """
+        expect = "0->1->2->3->4->5->6"
+        self.assertTrue(TestCodeGen.test(input, expect, 564))
+
+    def test_with_1(self):
+        input = """
+        procedure main();
+        var i: integer;
+        begin
+            i := 1;
+            with i: integer; do
+                begin
+                    i := 2;
+                    putIntLn(i);
+                end
+            putIntLn(i);
+        end
+        """
+        expect = "2\n1\n"
+        self.assertTrue(TestCodeGen.test(input, expect, 565))
+
+    def test_with_2(self):
+        input = """
+        procedure main();
+        var i: integer;
+        begin
+            i := 1;
+            with i: integer; do
+                begin
+                    i := 2;
+                    return;
+                    putIntLn(i);
+                end
+            putIntLn(i);
+        end
+        """
+        expect = "1\n"
+        self.assertTrue(TestCodeGen.test(input, expect, 566))
+
+    def test_binary_op_1(self):
+        input = """
+        procedure main();
+        begin
+            putFloat(1 + 1.2);
+        end
+        """
+        expect = "2.2"
+        self.assertTrue(TestCodeGen.test(input, expect, 567))
+
+    def test_binary_op_2(self):
+        input = """
+        procedure main();
+        begin
+            putFloat(1.2 - 1);
+        end
+        """
+        expect = "0.20000005"
+        self.assertTrue(TestCodeGen.test(input, expect, 568))
+
+    def test_binary_op_3(self):
+        input = """
+        procedure main();
+        begin
+            putFloat(3.5*2.2);
+        end
+        """
+        expect = "7.7000003"
+        self.assertTrue(TestCodeGen.test(input, expect, 569))
+
+    def test_binary_op_4(self):
+        input = """
+        procedure main();
+        begin
+            putFloat(1.2 / 2.1);
+        end
+        """
+        expect = "0.5714286"
+        self.assertTrue(TestCodeGen.test(input, expect, 570))
+        
+    def test_unary_op_1(self):
+        input = """
+        procedure main();
+        begin
+            putFloat(-2.1);
+        end
+        """
+        expect = "-2.1"
+        self.assertTrue(TestCodeGen.test(input, expect, 571))
+
+    def test_unary_op_2(self):
+        input = """
+        procedure main();
+        begin
+            putInt(-1);
+        end
+        """
+        expect = "-1"
+        self.assertTrue(TestCodeGen.test(input, expect, 572))
+
+    def test_unary_op_3(self):
+        input = """
+        procedure main();
+        begin
+            putBool(not true);
+        end
+        """
+        expect = "false"
+        self.assertTrue(TestCodeGen.test(input, expect, 573))

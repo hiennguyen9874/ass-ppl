@@ -2,21 +2,18 @@
 .class public MPClass
 .super java.lang.Object
 
-.method public static foo()I
-Label0:
-	iconst_1
-	goto Label1
-Label1:
-	ireturn
-.limit stack 1
-.limit locals 0
-.end method
-
 .method public static main([Ljava/lang/String;)V
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
 Label0:
-	invokestatic MPClass/foo()I
-	invokestatic io/putInt(I)V
+	ldc "bat dau if"
+	invokestatic io/putStringLn(Ljava/lang/String;)V
+	iconst_0
+	ifle Label2
+	ldc "Dung"
+	invokestatic io/putStringLn(Ljava/lang/String;)V
+Label2:
+	ldc "ket thuc if"
+	invokestatic io/putStringLn(Ljava/lang/String;)V
 Label1:
 	return
 .limit stack 1

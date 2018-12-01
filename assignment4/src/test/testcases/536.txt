@@ -1,10 +1,9 @@
 
-            function foo():integer;
-            begin
-                return 1;
-            end
             procedure main();
                 begin
-                    putInt(foo());
+                    putStringLn("bat dau if");
+                    if False then
+                        putStringLn("Dung");
+                    putStringLn("ket thuc if");
                 end
         

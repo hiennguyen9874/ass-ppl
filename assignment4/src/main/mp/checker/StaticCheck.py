@@ -253,8 +253,7 @@ class StaticChecker(BaseVisitor, Utils):
         isReturn = False
         isBreak = False
         for x in ast.stmt:
-            [isReturn, isBreak] = self.visit(
-                x, (lst + c[0], c[1], c[2], c[3], isReturn, isBreak))
+            [isReturn, isBreak] = self.visit(x, (lst + c[0], c[1], c[2], c[3], isReturn, isBreak))
         if c[4] or c[5]:
             raise UnreachableStatement(ast)
         return [isReturn, isBreak]
