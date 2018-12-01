@@ -117,65 +117,72 @@ class CodeGenVisitor(BaseVisitor, Utils):
         #consdecl: FuncDecl
         #o: Any
         #frame: Frame
+        
+        isGlobalArray = o[1]
+        lstDeclArray = o[2]
 
-        isInit = consdecl.returnType is None
-        isMain = consdecl.name.name == "main" and len(consdecl.param) == 0 and type(consdecl.returnType) is VoidType
-        returnType = VoidType() if isInit else consdecl.returnType
-        methodName = "<init>" if isInit else consdecl.name.name
-        intype = [ArrayPointerType(StringType())] if isMain else list(map(lambda x: x.varType, consdecl.param))
-        mtype = MType(intype, returnType)
-
-        self.emit.printout(self.emit.emitMETHOD(methodName, mtype, not isInit, frame))
-
-        frame.enterScope(True)
-
-        glenv = o
-
-        # Generate code for parameter declarations
-        if isInit:
-            idx = frame.getNewIndex()
-            self.emit.printout(self.emit.emitVAR(idx, "this", ClassType(self.className), frame.getStartLabel(), frame.getEndLabel(), frame))
-        elif isMain:
-            idx = frame.getNewIndex()
-            self.emit.printout(self.emit.emitVAR(idx, "args", ArrayPointerType(StringType()), frame.getStartLabel(), frame.getEndLabel(), frame))
-            glenv.insert(0, Symbol("args", ArrayPointerType(StringType()), Index(idx)))
+        if isGlobalArray:
+            returnType = VoidType()
+            methodName = "<clinit>"
+            intype = list()
+            mtype = MType(intype, returnType)
+            self.emit.printout(self.emit.emitMETHOD(methodName, mtype, True, frame))
+            frame.enterScope(True)
+            for x in lstDeclArray:
+                # self.emit.printout(self.emit.emitREADVAR("this", ClassType(self.className), 0, frame))
+                lexeme = self.className + "." + x.variable.name
+                self.emit.printout(self.emit.emitINITARRAY(lexeme, x.varType, frame))
+            self.emit.printout(self.emit.emitRETURN(returnType, frame))
+            self.emit.printout(self.emit.emitENDMETHOD(frame))
+            if frame.getStackSize() != 0:
+                print(methodName)
+            frame.exitScope()
         else:
-            # Sinh ma cho parameter declarations
-            e = SubBody(frame, glenv)
-            for x in consdecl.param:
-                e = self.visit(x, e)
-                glenv = e.sym
-
-        if not isInit:
-            # Sinh ma cho local declarations
-            e = SubBody(frame, glenv)
-            for x in consdecl.local:
-                e = self.visit(x, e)
-                glenv = e.sym
-
-        body = consdecl.body
-        self.emit.printout(self.emit.emitLABEL(frame.getStartLabel(), frame))
-
-        # Generate code for statements
-        if isInit:
-            self.emit.printout(self.emit.emitREADVAR("this", ClassType(self.className), 0, frame))
-            self.emit.printout(self.emit.emitINVOKESPECIAL(frame))
-        list(map(lambda x: self.visit(x, SubBody(frame, glenv)), body))
-        
-
-
-        self.emit.printout(self.emit.emitLABEL(frame.getEndLabel(), frame))
-        # if type(returnType) is VoidType:
-        #     self.emit.printout(self.emit.emitRETURN(VoidType(), frame))
-        #         
-        self.emit.printout(self.emit.emitRETURN(returnType, frame))
-        
-        self.emit.printout(self.emit.emitENDMETHOD(frame))
-
-        if frame.getStackSize() != 0:
-            print(methodName)
-        
-        frame.exitScope()
+            isInit = consdecl.returnType is None
+            isMain = consdecl.name.name == "main" and len(consdecl.param) == 0 and type(consdecl.returnType) is VoidType
+            returnType = VoidType() if isInit else consdecl.returnType
+            methodName = "<init>" if isInit else consdecl.name.name
+            intype = [ArrayPointerType(StringType())] if isMain else list(map(lambda x: x.varType, consdecl.param))
+            mtype = MType(intype, returnType)
+            self.emit.printout(self.emit.emitMETHOD(methodName, mtype, not isInit, frame))
+            frame.enterScope(True)
+            glenv = o[0]
+            # Generate code for parameter declarations
+            if isInit:
+                idx = frame.getNewIndex()
+                self.emit.printout(self.emit.emitVAR(idx, "this", ClassType(self.className), frame.getStartLabel(), frame.getEndLabel(), frame))
+            elif isMain:
+                idx = frame.getNewIndex()
+                self.emit.printout(self.emit.emitVAR(idx, "args", ArrayPointerType(StringType()), frame.getStartLabel(), frame.getEndLabel(), frame))
+                glenv.insert(0, Symbol("args", ArrayPointerType(StringType()), Index(idx)))
+            else:
+                # Sinh ma cho parameter declarations
+                e = SubBody(frame, glenv)
+                for x in consdecl.param:
+                    e = self.visit(x, e)
+                    glenv = e.sym
+            if not isInit:
+                # Sinh ma cho local declarations
+                e = SubBody(frame, glenv)
+                for x in consdecl.local:
+                    e = self.visit(x, e)
+                    glenv = e.sym
+                    if type(x.varType) is ArrayType:
+                        idx = glenv[0].value.value
+                        self.emit.printout(self.emit.emitINITARRAY(idx, x.varType, frame))
+            body = consdecl.body
+            self.emit.printout(self.emit.emitLABEL(frame.getStartLabel(), frame))
+            # Generate code for statements
+            if isInit:
+                self.emit.printout(self.emit.emitREADVAR("this", ClassType(self.className), 0, frame))
+                self.emit.printout(self.emit.emitINVOKESPECIAL(frame))
+            list(map(lambda x: self.visit(x, SubBody(frame, glenv)), body))
+            self.emit.printout(self.emit.emitLABEL(frame.getEndLabel(), frame))
+            self.emit.printout(self.emit.emitRETURN(returnType, frame))
+            self.emit.printout(self.emit.emitENDMETHOD(frame))
+            if frame.getStackSize() != 0:
+                print(methodName)
+            frame.exitScope()
 
     def visitProgram(self, ast, c):
         #ast: Program
@@ -184,18 +191,29 @@ class CodeGenVisitor(BaseVisitor, Utils):
         self.emit.printout(self.emit.emitPROLOG(self.className, "java.lang.Object"))
         e = SubBody(None, self.env)
         ## Them global declarations vao self.env
+        
+        numArray = 0
+        lstArray = list()
         for x in ast.decl:
             if type(x) is VarDecl:
                 e = self.visit(x,e)
                 self.env = e.sym
+                if type(x.varType) is ArrayType:
+                    lstArray.append(x)
+                    numArray += 1
             else:
                 self.env.insert(0, Symbol(x.name.name, MType(list(map(lambda y: y.varType, x.param)) , x.returnType), CName(self.className)))
         ## visit toi funcdecl
         for x in ast.decl:
             if type(x) is FuncDecl:
                 e = self.visit(x, e)
+        
+        self.genMETHOD(FuncDecl(Id("<init>"), list(), list(), list(), None), (c, False, list()), Frame("<init>", VoidType))
+
         # generate default constructor
-        self.genMETHOD(FuncDecl(Id("<init>"), list(), list(), list(),None), c, Frame("<init>", VoidType))
+        if numArray > 0:
+            self.genMETHOD(FuncDecl(Id("<clinit>"), list(), list(), list(), None), (c, True, lstArray), Frame("<clinit>", VoidType))
+
         self.emit.emitEPILOG() ## ket thuc mot class
         return c
 
@@ -210,7 +228,7 @@ class CodeGenVisitor(BaseVisitor, Utils):
 
         subctxt = o
         frame = Frame(ast.name.name, ast.returnType)
-        self.genMETHOD(ast, subctxt.sym, frame)
+        self.genMETHOD(ast, (subctxt.sym, False, list()), frame)
         # return SubBody(None, [Symbol(ast.name, MType(list(), ast.returnType), CName(self.className))] + subctxt.sym)
         return SubBody(None, subctxt.sym)
     
@@ -224,18 +242,25 @@ class CodeGenVisitor(BaseVisitor, Utils):
         frame = subctxt.frame
         mtype = ast.varType
         name = ast.variable.name
-        
-        if type(mtype) is ArrayType:
-            mtype = ArrayPointerType(mtype.eleType)
-            self.emit.printout(self.emit.emitATTRIBUTE(name, mtype, False, ""))
-            return SubBody(None, [Symbol(name, mtype, CName(self.className))] + subctxt.sym)
-        elif frame is None:
-            self.emit.printout(self.emit.emitATTRIBUTE(name, mtype, False, ""))
-            return SubBody(None, [Symbol(name, mtype, CName(self.className))] + subctxt.sym)
+
+        if frame is None:
+            if type(mtype) is ArrayType:
+                # mtype = ArrayPointerType(mtype.eleType)
+                self.emit.printout(self.emit.emitATTRIBUTE(name, mtype, False, ""))
+                return SubBody(None, [Symbol(name, mtype, CName(self.className))] + subctxt.sym)
+            else:
+                self.emit.printout(self.emit.emitATTRIBUTE(name, mtype, False, ""))
+                return SubBody(None, [Symbol(name, mtype, CName(self.className))] + subctxt.sym)
         else:
             idx = frame.getNewIndex()
-            self.emit.printout(self.emit.emitVAR(idx, name, mtype, frame.getStartLabel(), frame.getEndLabel(), frame))
-            return SubBody(frame, [Symbol(name, mtype, Index(idx))] + subctxt.sym)
+            if type(mtype) is ArrayType:
+                # mtype = ArrayPointerType(mtype.eleType)
+                self.emit.printout(self.emit.emitVAR(idx, name, mtype, frame.getStartLabel(), frame.getEndLabel(), frame))
+                return SubBody(frame, [Symbol(name, mtype, Index(idx))] + subctxt.sym)
+            else:
+                self.emit.printout(self.emit.emitVAR(idx, name, mtype, frame.getStartLabel(), frame.getEndLabel(), frame))
+                return SubBody(frame, [Symbol(name, mtype, Index(idx))] + subctxt.sym)
+
 
     # Statement
     # o.frame: Frame
@@ -249,11 +274,21 @@ class CodeGenVisitor(BaseVisitor, Utils):
         ctxt = o
         frame = ctxt.frame
         nenv = ctxt.sym
-        rc, rt = self.visit(ast.exp, Access(frame, nenv, False, True))
-        lc, lt = self.visit(ast.lhs, Access(frame, nenv, True, True))
-        if type(rt) is IntType and type(lt) is FloatType:
-            rc += self.emit.emitI2F(frame)
-        self.emit.printout(rc + lc)
+        
+        if type(ast.lhs) is ArrayCell:
+            lc, lt = self.visit(ast.lhs, Access(frame, nenv, True, True))
+            self.emit.printout(lc)
+            rc, rt = self.visit(ast.exp, Access(frame, nenv, False, True))
+            self.emit.printout(rc)
+            if type(lt) != type(rt):
+                self.emit.printout(self.emit.emitI2F(frame))
+            self.emit.printout(self.emit.emitASTORE(lt, frame))          
+        else:
+            rc, rt = self.visit(ast.exp, Access(frame, nenv, False, True))
+            lc, lt = self.visit(ast.lhs, Access(frame, nenv, True, True))
+            if type(rt) is IntType and type(lt) is FloatType:
+                rc += self.emit.emitI2F(frame)
+            self.emit.printout(rc + lc)
 
     def visitIf(self, ast, o):
         #o:any
@@ -456,7 +491,7 @@ class CodeGenVisitor(BaseVisitor, Utils):
     #o.isFirst: Boolean
     def visitBinaryOp(self, ast, o):
         #o: any
-        #op:string: AND THEN => andthen; OR ELSE => orelse; other => keep it
+        #ast.op:string: AND THEN => andthen; OR ELSE => orelse; other => keep it
         #ast.left:Expr
         #ast.right:Expr
 
@@ -573,7 +608,7 @@ class CodeGenVisitor(BaseVisitor, Utils):
         frame = ctxt.frame
         nenv = ctxt.sym
         body, typ = self.visit(ast.body, Access(frame, nenv, False, True))
-        if ast.op == 'not' and type(typ) is BoolType:
+        if ast.op.lower() == 'not' and type(typ) is BoolType:
             return body + self.emit.emitNOT(IntType(), frame), BoolType()
         elif ast.op == '-' and type(typ) is IntType:
             return body + self.emit.emitNEGOP(IntType(), frame), IntType()
@@ -626,19 +661,23 @@ class CodeGenVisitor(BaseVisitor, Utils):
         #o:any
         #ast.arr:Expr
         #ast.idx:Expr
+        
         ctxt = o
         frame = ctxt.frame
         nenv = ctxt.sym
 
         lst = list()
-
-        sym = self.lookup(ast.arr.name.lower(), nenv, lambda x: x.name.lower())
-
-        str1, _ = self.visit(ast.idx, frame)
-        lst.append(str1)
+        arr, typeArr = self.visit(ast.arr, Access(frame, nenv, False, True))
+        idx, typeIdx = self.visit(ast.idx,Access(frame, nenv, False, True))
         
-
-        return "", IntType()
+        typ = typeArr.eleType
+        lst.append(arr)
+        lst.append(idx)
+        lst.append(self.emit.emitPUSHICONST(typeArr.lower, frame))
+        lst.append(self.emit.emitADDOP('-', IntType(), frame))
+        if not o.isLeft:
+            lst.append(self.emit.emitALOAD(typ, frame))
+        return ''.join(lst), typ
 
     # Literal
     def visitIntLiteral(self, ast, o):
