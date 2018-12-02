@@ -4,6 +4,9 @@
 
 .method public static searchArr([II)[I
 .var 0 is d [I from Label0 to Label1
+	iconst_5
+	newarray int
+	astore_0
 .var 1 is n I from Label0 to Label1
 .var 2 is i I from Label0 to Label1
 Label0:

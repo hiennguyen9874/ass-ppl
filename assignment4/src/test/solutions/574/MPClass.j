@@ -5,6 +5,9 @@
 
 .method public static searchArr([III)I
 .var 0 is d [I from Label0 to Label1
+	iconst_5
+	newarray int
+	astore_0
 .var 1 is a I from Label0 to Label1
 .var 2 is n I from Label0 to Label1
 .var 3 is i I from Label0 to Label1

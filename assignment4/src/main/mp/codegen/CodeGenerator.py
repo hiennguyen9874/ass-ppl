@@ -171,6 +171,9 @@ class CodeGenVisitor(BaseVisitor, Utils):
                 for x in consdecl.param:
                     e = self.visit(x, e)
                     glenv = e.sym
+                    # if type(x.varType) is ArrayType:
+                    #     idx = glenv[0].value.value
+                    #     self.emit.printout(self.emit.emitCOPPYARRAY(idx, x.varType, frame))
             if not isInit:
                 # Sinh ma cho local declarations
                 e = SubBody(frame, glenv)
@@ -477,7 +480,7 @@ class CodeGenVisitor(BaseVisitor, Utils):
             if type(typ1) is IntType and type(sym.mtype.partype[i]) is FloatType:
                 str1 += self.emit.emitI2F(frame)
             self.emit.printout(str1)
-        self.emit.printout(self.emit.emitINVOKESTATIC(cname + "/" + ast.method.name, ctype, frame))
+        self.emit.printout(self.emit.emitINVOKESTATIC(cname + "/" + sym.name, ctype, frame))
 
     # Expression
     #o.frame: Frame
@@ -504,8 +507,6 @@ class CodeGenVisitor(BaseVisitor, Utils):
                 elif ast.op.lower() == 'or':
                     return leftOprandstr + rightOperandstr + self.emit.emitOROP(frame), BoolType()
                 elif ast.op.lower() == 'andthen':
-                    # right, typR1 = self.visit(BooleanLiteral(False), o)
-                    # lst = leftOprandstr + right + self.emit.emitREOP('==', IntType(), frame)
                     lst = list()
                     label1 = frame.getNewLabel()
                     label2 = frame.getNewLabel()
@@ -521,20 +522,20 @@ class CodeGenVisitor(BaseVisitor, Utils):
                     frame.pop()
                     return ''.join(lst), BoolType()
                 elif ast.op.lower() == 'orelse':
-                    # right, typR1 = self.visit(BooleanLiteral(True), o)
-                    # lst = leftOprandstr + right + self.emit.emitREOP('==', IntType(), frame)
                     lst = list()
                     label1 = frame.getNewLabel()
                     label2 = frame.getNewLabel()
+                    label3 = frame.getNewLabel()
                     lst.append(leftOprandstr)
-                    lst.append(self.emit.emitIFTRUE(label1, frame))
+                    lst.append(self.emit.emitIFNE(label1, frame))
                     lst.append(rightOperandstr)
-                    lst.append(self.emit.emitIFTRUE(label1, frame))
-                    lst.append(self.emit.emitPUSHICONST("false", frame))
-                    lst.append(self.emit.emitGOTO(label2,frame))
+                    lst.append(self.emit.emitIFEQ(label2, frame))
                     lst.append(self.emit.emitLABEL(label1,frame))
                     lst.append(self.emit.emitPUSHICONST("true", frame))
+                    lst.append(self.emit.emitGOTO(label3,frame))
                     lst.append(self.emit.emitLABEL(label2,frame))
+                    lst.append(self.emit.emitPUSHICONST("false", frame))                    
+                    lst.append(self.emit.emitLABEL(label3,frame))
                     frame.pop()
                     return ''.join(lst), BoolType()
             elif type(typL) is IntType:
@@ -630,7 +631,7 @@ class CodeGenVisitor(BaseVisitor, Utils):
             if type(typ1) is IntType and type(sym.mtype.partype[i]) is FloatType:
                 str1 += self.emit.emitI2F(frame)
             lst.append(str1)
-        lst.append(self.emit.emitINVOKESTATIC(cname + "/" + ast.method.name, ctype, frame))
+        lst.append(self.emit.emitINVOKESTATIC(cname + "/" + sym.name, ctype, frame))
         return ''.join(lst), sym.mtype.rettype
 
     # LHS

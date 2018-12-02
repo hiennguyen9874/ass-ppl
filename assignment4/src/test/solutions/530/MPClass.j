@@ -6,14 +6,15 @@
 .var 0 is args [Ljava/lang/String; from Label0 to Label1
 Label0:
 	iconst_1
-	ifgt Label2
+	ifne Label2
 	iconst_0
-	ifgt Label2
-	iconst_0
-	goto Label3
+	ifeq Label3
 Label2:
 	iconst_1
+	goto Label4
 Label3:
+	iconst_0
+Label4:
 	invokestatic io/putBool(Z)V
 Label1:
 	return

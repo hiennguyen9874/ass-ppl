@@ -51,33 +51,36 @@ Label0:
 	putstatic MPClass/a I
 	iconst_1
 	invokestatic MPClass/foo(I)Z
-	ifgt Label2
+	ifne Label2
 	iconst_2
 	invokestatic MPClass/foo(I)Z
-	ifgt Label2
-	iconst_0
-	goto Label3
+	ifeq Label3
 Label2:
 	iconst_1
+	goto Label4
 Label3:
-	ifgt Label4
+	iconst_0
+Label4:
+	ifne Label5
 	iconst_3
 	invokestatic MPClass/foo(I)Z
-	ifgt Label4
-	iconst_0
-	goto Label5
-Label4:
-	iconst_1
+	ifeq Label6
 Label5:
-	ifgt Label6
-	iconst_4
-	invokestatic MPClass/foo(I)Z
-	ifgt Label6
-	iconst_0
+	iconst_1
 	goto Label7
 Label6:
-	iconst_1
+	iconst_0
 Label7:
+	ifne Label8
+	iconst_4
+	invokestatic MPClass/foo(I)Z
+	ifeq Label9
+Label8:
+	iconst_1
+	goto Label10
+Label9:
+	iconst_0
+Label10:
 	invokestatic io/putBoolLn(Z)V
 	getstatic MPClass/a I
 	invokestatic io/putIntLn(I)V
@@ -104,24 +107,26 @@ Label7:
 	iconst_2
 	invokestatic MPClass/foo(I)Z
 	ior
-	ifgt Label8
+	ifne Label11
 	iconst_5
 	invokestatic MPClass/foo(I)Z
-	ifgt Label8
-	iconst_0
-	goto Label9
-Label8:
+	ifeq Label12
+Label11:
 	iconst_1
-Label9:
-	ifgt Label10
+	goto Label13
+Label12:
+	iconst_0
+Label13:
+	ifne Label14
 	bipush 7
 	invokestatic MPClass/foo(I)Z
-	ifgt Label10
-	iconst_0
-	goto Label11
-Label10:
+	ifeq Label15
+Label14:
 	iconst_1
-Label11:
+	goto Label16
+Label15:
+	iconst_0
+Label16:
 	invokestatic io/putBoolLn(Z)V
 	getstatic MPClass/a I
 	invokestatic io/putInt(I)V

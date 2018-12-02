@@ -1415,7 +1415,17 @@ class CheckCodeGenSuite(unittest.TestCase):
 
     def test_99(self):
         input = """
-            var a:boolean; procedure main(); begin  if false then putInt(100);  putInt(10); end
+            var i : integer;
+            procedure foo(i:integer);
+            begin
+                i := 1;
+            end
+            procedure main();
+            begin  
+                i := 2;
+                foo(i);
+                putInt(i);
+            end
         """
-        expect = "10"
+        expect = "2"
         self.assertTrue(TestCodeGen.test(input, expect, 599))

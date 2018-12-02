@@ -72,8 +72,8 @@ class Emitter():
         
         f = float(in_)
         frame.push()
-        # rst = "{0:.4f}".format(f)
-        rst = "{0:.1f}".format(f)
+        rst = "{0:.4f}".format(f)
+        # rst = "{0:.1f}".format(f)
         if rst == "0.0" or rst == "1.0" or rst == "2.0":
             return self.jvm.emitFCONST(rst)
         else:
@@ -571,7 +571,10 @@ class Emitter():
         size1 = typ.upper - typ.lower + 1
         eleType = typ.eleType
         buffer.append(self.emitPUSHICONST(size1, frame))
-        buffer.append(self.jvm.emitNEWARRAY(self.getFullType(eleType)))
+        if type(eleType) in [cgen.ArrayPointerType, cgen.ClassType, StringType, ArrayType]:
+            buffer.append(self.jvm.emitANEWARRAY(self.getFullType(eleType)))
+        else:
+            buffer.append(self.jvm.emitNEWARRAY(self.getFullType(eleType)))
         if type(in_) is str:
             buffer.append(self.jvm.emitPUTSTATIC(in_, self.getJVMType(cgen.ArrayPointerType(typ.eleType))))
             frame.pop()
@@ -579,6 +582,48 @@ class Emitter():
             buffer.append(self.jvm.emitASTORE(in_))
             frame.pop()
         return ''.join(buffer)
+
+    # def emitCOPPYARRAY(self, in_, typ, frame):
+    #     # in_: int or string
+    #     # typ: type
+    #     # frame: Frame
+
+    #     size1 = typ.upper - typ.lower + 1
+
+    #     buffer = list()
+    #     buffer.append(self.emitINITARRAY(in_, typ, frame))
+    #     label0 = frame.getNewLabel()
+    #     label1 = frame.getNewLabel()
+    #     label2 = frame.getNewLabel()
+    #     idx = frame.getNewIndex()
+    #     buffer.append(self.jvm.emitVAR(idx, "i", "I", label0, label2))
+    #     buffer.append(self.jvm.emitLABEL(label0))
+    #     buffer.append(self.emitPUSHICONST(0, frame))
+    #     frame.pop()
+    #     buffer.append(self.jvm.emitISTORE(idx))
+    #     buffer.append(self.jvm.emitLABEL(label1))
+    #     frame.push()
+    #     buffer.append(self.jvm.emitILOAD(idx))
+    #     buffer.append(self.emitPUSHICONST(size1, frame))
+    #     buffer.append(self.jvm.emitIFICMPGE(label2))
+    #     frame.push()
+    #     buffer.append(self.jvm.emitDUP())
+    #     frame.push()
+    #     buffer.append(self.jvm.emitILOAD(idx))
+    #     buffer.append(self.emitALOAD(typ.eleType, frame))
+    #     frame.push()
+    #     buffer.append(self.jvm.emitILOAD(idx))
+    #     buffer.append(self.emitALOAD(typ.eleType, frame))
+    #     buffer.append(self.emitASTORE(typ.eleType, frame))
+    #     frame.push()
+    #     buffer.append(self.jvm.emitILOAD(idx))
+    #     buffer.append(self.emitPUSHICONST(1, frame))
+    #     frame.pop()
+    #     buffer.append(self.jvm.emitIADD())
+    #     buffer.append(self.jvm.emitGOTO(label1))
+    #     buffer.append(self.jvm.emitLABEL(label2))
+    #     return ''.join(buffer)
+
 
     '''   generate code to initialize local array variables.
     *   @param in the list of symbol entries corresponding to local array variable.    
@@ -594,6 +639,20 @@ class Emitter():
 
         frame.pop()
         return self.jvm.emitIFGT(label)
+
+    def emitIFNE(self, label, frame):
+        #label: Int
+        #frame: Frame
+
+        frame.pop()
+        return self.jvm.emitIFNE(label)
+
+    def emitIFEQ(self, label, frame):
+        #label: Int
+        #frame: Frame
+
+        frame.pop()
+        return self.jvm.emitIFEQ(label)
 
     '''
     *   generate code to jump to label if the value on top of operand stack is false.<p>

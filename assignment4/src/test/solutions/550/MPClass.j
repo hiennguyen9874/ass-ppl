@@ -7,7 +7,7 @@
 Label0:
 	iconst_1
 	i2f
-	fconst_2
+	ldc 2.0
 	fcmpl
 	iflt Label2
 	iconst_1

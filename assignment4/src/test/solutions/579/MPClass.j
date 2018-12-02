@@ -54,7 +54,7 @@ Label3:
 Label4:
 	iload_2
 	i2f
-	fconst_0
+	ldc 0.0
 	fadd
 	iload_0
 	i2f
