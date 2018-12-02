@@ -113,7 +113,7 @@ class Emitter():
             return self.jvm.emitBALOAD()
         elif type(in_) is FloatType:
             return self.jvm.emitFALOAD()
-        elif type(in_) is cgen.ArrayPointerType or type(in_) is cgen.ClassType or type(in_) is StringType or type(in_) is ArrayType:
+        elif type(in_) in [cgen.ArrayPointerType, cgen.ClassType, StringType, ArrayType]:
             return self.jvm.emitAALOAD()
         else:
             raise IllegalOperandException(str(in_))
@@ -133,7 +133,7 @@ class Emitter():
             return self.jvm.emitBASTORE()
         elif type(in_) is FloatType:
             return self.jvm.emitFASTORE()
-        elif type(in_) is cgen.ArrayPointerType or type(in_) is cgen.ClassType or type(in_) is StringType or type(in_) is ArrayType:
+        elif type(in_) in [cgen.ArrayPointerType, cgen.ClassType, StringType, ArrayType]:
             return self.jvm.emitAASTORE()
         else:
             raise IllegalOperandException(str(in_))
@@ -167,7 +167,7 @@ class Emitter():
             return self.jvm.emitILOAD(index)
         elif type(inType) is FloatType:
             return self.jvm.emitFLOAD(index)
-        elif type(inType) is cgen.ArrayPointerType or type(inType) is cgen.ClassType or type(inType) is StringType or type(inType) is ArrayType:
+        elif type(inType) in [cgen.ArrayPointerType, cgen.ClassType, StringType, ArrayType]:
             return self.jvm.emitALOAD(index)
         else:
             raise IllegalOperandException(name)
@@ -201,7 +201,7 @@ class Emitter():
             return self.jvm.emitISTORE(index)
         elif type(inType) is FloatType:
             return self.jvm.emitFSTORE(index)
-        elif type(inType) is cgen.ArrayPointerType or type(inType) is cgen.ClassType or type(inType) is StringType or type(in_) is ArrayType:
+        elif type(inType) in [cgen.ArrayPointerType, cgen.ClassType, StringType, ArrayType]:
             return self.jvm.emitASTORE(index)
         else:
             raise IllegalOperandException(name)
