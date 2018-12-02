@@ -1,0 +1,22 @@
+
+        var arr: array [1 .. 5] of integer;
+        function searchArr(d: array [1 .. 5] of integer; a, n: integer): integer;
+        var i: integer;
+        begin
+            for i := 1 to n do begin
+                d[i] := i;
+            end
+            return arr[1];
+        end
+        procedure main();
+        var j, result: integer;
+        begin
+            arr[1] := 5;
+            arr[2] := 3;
+            arr[3] := 11;
+            arr[4] := 19;
+            arr[5] := 20;
+            result := searchArr(arr, 3, 5);
+            putInt(result);
+        end
+        

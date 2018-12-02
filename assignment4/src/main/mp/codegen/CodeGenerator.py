@@ -3,7 +3,7 @@
  *   @version 1.0
  *   23/10/2015
  *   This file provides a simple version of code generator
- *
+ *   Nguyễn Xuân Hiến - 1652192
 '''
 from Utils import *
 from StaticCheck import *
@@ -105,7 +105,7 @@ class Index(Val):
 
         self.value = value
 
-class CName(Val): # toan cuc
+class CName(Val):
     def __init__(self, value):
         #value: String
 
@@ -140,7 +140,6 @@ class CodeGenVisitor(BaseVisitor, Utils):
             self.emit.printout(self.emit.emitMETHOD(methodName, mtype, True, frame))
             frame.enterScope(True)
             for x in lstDeclArray:
-                # self.emit.printout(self.emit.emitREADVAR("this", ClassType(self.className), 0, frame))
                 lexeme = self.className + "." + x.variable.name
                 self.emit.printout(self.emit.emitINITARRAY(lexeme, x.varType, frame))
             self.emit.printout(self.emit.emitRETURN(returnType, frame))
@@ -278,6 +277,7 @@ class CodeGenVisitor(BaseVisitor, Utils):
         nenv = ctxt.sym
         
         if type(ast.lhs) is ArrayCell:
+            # gan mot gia tri cho mot index expression.
             lc, lt = self.visit(ast.lhs, Access(frame, nenv, True, True))
             self.emit.printout(lc)
             rc, rt = self.visit(ast.exp, Access(frame, nenv, False, True))
@@ -286,6 +286,7 @@ class CodeGenVisitor(BaseVisitor, Utils):
                 self.emit.printout(self.emit.emitI2F(frame))
             self.emit.printout(self.emit.emitASTORE(lt, frame))          
         else:
+            # gan mot gia tri cho mot bien
             rc, rt = self.visit(ast.exp, Access(frame, nenv, False, True))
             lc, lt = self.visit(ast.lhs, Access(frame, nenv, True, True))
             if type(rt) is IntType and type(lt) is FloatType:
@@ -301,13 +302,16 @@ class CodeGenVisitor(BaseVisitor, Utils):
         ctxt = o
         frame = ctxt.frame
         nenv = ctxt.sym
-
+        # Kiem tra dieu kien
         expr, _ = self.visit(ast.expr, Access(frame, nenv, False, True))
         self.emit.printout(expr)
+        # label sai
         label1 = frame.getNewLabel()
+        # label dung
         label2 = None
         if len(ast.elseStmt) != 0:
             label2 = frame.getNewLabel()
+        # Neu dieu kien sai thi nhay toi label1
         self.emit.printout(self.emit.emitIFFALSE(label1, frame))
         list(map(lambda x: self.visit(x, o), ast.thenStmt))
         if len(ast.elseStmt) != 0:
@@ -468,7 +472,6 @@ class CodeGenVisitor(BaseVisitor, Utils):
         ctype = sym.mtype
 
         access = Access(frame, nenv, False, True)
-
         for i in range(len(ast.param)):
             str1, typ1 = self.visit(ast.param[i], access)
             if type(typ1) is IntType and type(sym.mtype.partype[i]) is FloatType:

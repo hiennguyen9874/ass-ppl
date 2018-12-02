@@ -4,13 +4,30 @@ from AST import *
 
 class ASTGenSuite(unittest.TestCase):
     def test_call_without_parameter(self):
-        """More complex program"""
-        input = """procedure main (); begin
-            getIntLn();
+        input = """
+        var a, b, c: integer;
+        function foo(i: integer): boolean;
+        begin
+            a := a + i;
+            return i >= 5;
         end
-        function foo ():INTEGER; begin
-            putIntLn(4);
-        end"""
-        expect = str(Program([FuncDecl(Id(mean),[VarDecl(Id(size),IntType)],FloatType,[VarDecl(Id(i),IntType),VarDecl(Id(s),IntType),VarDecl(Id(x),ArrayType(1,3,IntType))],[AssignStmt(ArrayCell(Id(x),IntLiteral(3)),IntLiteral(1)),AssignStmt(ArrayCell(Id(x),IntLiteral(1)),IntLiteral(3)),AssignStmt(ArrayCell(Id(x),IntLiteral(2)),IntLiteral(5)),AssignStmt(Id(s),IntLiteral(0)),For(Id(i)IntLiteral(1),Id(size),True,[AssignStmt(Id(s),BinaryOp(+,Id(s),ArrayCell(Id(x),Id(i))))]),Return(Some(BinaryOp(/,BinaryOp(+,Id(s),FloatLiteral(0.0)),Id(size))))]),FuncDecl(Id(main),[],VoidType(),[],[CallStmt(Id(putFloat),[CallExpr(Id(mean),[IntLiteral(3)])]),Return(None)])]))
+        procedure main();
+        var x: boolean;
+        begin
+            a := 0;
+            putBoolLn(( (foo(1) or foo(2)) or foo(3)) or foo(7));
+            putIntLn(a);
+            a := 0;
+            putBoolLn(( (foo(1) or else foo(2)) or else foo(3)) or else foo(4));
+            putIntLn(a);
+            a := 0;
+            putBoolLn(( (foo(1) or foo(2)) or foo(3)) or foo(7));
+            putIntLn(a);
+            a := 0;
+            putBoolLn(( (foo(1) or foo(2)) or else foo(3)) or else foo(4));
+            putIntLn(a);
+        end
+        """
+        expect = str()
         self.assertTrue(TestAST.test(input,expect,302))
    

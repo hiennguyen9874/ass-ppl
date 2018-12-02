@@ -23,9 +23,7 @@ class Emitter():
             return "Ljava/lang/String;"
         elif typeIn is VoidType:
             return "V"
-        elif typeIn is ArrayType:
-            return "[" + self.getJVMType(inType.eleType)
-        elif typeIn is cgen.ArrayPointerType:
+        elif typeIn in [cgen.ArrayPointerType, ArrayType]:
             return "[" + self.getJVMType(inType.eleType)
         elif typeIn is MType:
             return "(" + "".join(list(map(lambda x: self.getJVMType(x), inType.partype))) + ")" + self.getJVMType(inType.rettype)
@@ -115,7 +113,7 @@ class Emitter():
             return self.jvm.emitBALOAD()
         elif type(in_) is FloatType:
             return self.jvm.emitFALOAD()
-        elif type(in_) is cgen.ArrayPointerType or type(in_) is cgen.ClassType or type(in_) is StringType:
+        elif type(in_) is cgen.ArrayPointerType or type(in_) is cgen.ClassType or type(in_) is StringType or type(in_) is ArrayType:
             return self.jvm.emitAALOAD()
         else:
             raise IllegalOperandException(str(in_))

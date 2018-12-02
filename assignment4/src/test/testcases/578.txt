@@ -1,0 +1,7 @@
+
+        var m: array [1 .. 10] of integer;
+        procedure main();
+        begin
+            m[1] := 5;
+            putInt(m[1]);
+        end

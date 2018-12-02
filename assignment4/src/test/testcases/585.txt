@@ -1,0 +1,17 @@
+ 
+            procedure main();
+            var i,j,k:integer;
+            begin
+                i:=0;
+                j:=0;
+                k:=0;
+                while i <= 10.0 do
+                    while j <= 10 do
+                        while k <> 10 do
+                        begin
+                            k:= k + 2;
+                            j:= j + 1;
+                            i:= j + k;
+                            putFloat(i);
+                        end
+            end
