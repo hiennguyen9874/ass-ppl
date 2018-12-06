@@ -562,7 +562,7 @@ class Emitter():
     *   @param index the index of the local variable.
     *   @param in the type of the local array variable.
     '''
-    def emitINITARRAY(self, in_, typ, frame):
+    def emitINITARRAY(self, in_, typ, frame, cop=None):
         # in_: int or string
         # typ: type
         # frame: Frame
@@ -575,6 +575,10 @@ class Emitter():
             buffer.append(self.jvm.emitANEWARRAY(self.getFullType(eleType)))
         else:
             buffer.append(self.jvm.emitNEWARRAY(self.getFullType(eleType)))
+
+        if cop == True:
+            return ''.join(buffer)
+
         if type(in_) is str:
             buffer.append(self.jvm.emitPUTSTATIC(in_, self.getJVMType(cgen.ArrayPointerType(typ.eleType))))
             frame.pop()
@@ -582,47 +586,61 @@ class Emitter():
             buffer.append(self.jvm.emitASTORE(in_))
             frame.pop()
         return ''.join(buffer)
+    '''
+    Ly do co doan code nay: Trong MP array truyen kieu value, sau khi truyen array khong thay doi
+    Code tao mot array moi tu array truyen vao mot ham
+    '''
+    def emitCOPPYARRAY(self, in_, typ, frame):
+        # in_: int or string
+        # typ: type
+        # frame: Frame
 
-    # def emitCOPPYARRAY(self, in_, typ, frame):
-    #     # in_: int or string
-    #     # typ: type
-    #     # frame: Frame
-
-    #     size1 = typ.upper - typ.lower + 1
-
-    #     buffer = list()
-    #     buffer.append(self.emitINITARRAY(in_, typ, frame))
-    #     label0 = frame.getNewLabel()
-    #     label1 = frame.getNewLabel()
-    #     label2 = frame.getNewLabel()
-    #     idx = frame.getNewIndex()
-    #     buffer.append(self.jvm.emitVAR(idx, "i", "I", label0, label2))
-    #     buffer.append(self.jvm.emitLABEL(label0))
-    #     buffer.append(self.emitPUSHICONST(0, frame))
-    #     frame.pop()
-    #     buffer.append(self.jvm.emitISTORE(idx))
-    #     buffer.append(self.jvm.emitLABEL(label1))
-    #     frame.push()
-    #     buffer.append(self.jvm.emitILOAD(idx))
-    #     buffer.append(self.emitPUSHICONST(size1, frame))
-    #     buffer.append(self.jvm.emitIFICMPGE(label2))
-    #     frame.push()
-    #     buffer.append(self.jvm.emitDUP())
-    #     frame.push()
-    #     buffer.append(self.jvm.emitILOAD(idx))
-    #     buffer.append(self.emitALOAD(typ.eleType, frame))
-    #     frame.push()
-    #     buffer.append(self.jvm.emitILOAD(idx))
-    #     buffer.append(self.emitALOAD(typ.eleType, frame))
-    #     buffer.append(self.emitASTORE(typ.eleType, frame))
-    #     frame.push()
-    #     buffer.append(self.jvm.emitILOAD(idx))
-    #     buffer.append(self.emitPUSHICONST(1, frame))
-    #     frame.pop()
-    #     buffer.append(self.jvm.emitIADD())
-    #     buffer.append(self.jvm.emitGOTO(label1))
-    #     buffer.append(self.jvm.emitLABEL(label2))
-    #     return ''.join(buffer)
+        size1 = typ.upper - typ.lower + 1
+        buffer = list()
+        label0 = frame.getNewLabel()
+        label1 = frame.getNewLabel()
+        label2 = frame.getNewLabel()
+        # Tao bien i de chay tren vong for
+        idx = frame.getNewIndex()
+        buffer.append(self.jvm.emitVAR(idx, "i", "I", label0, label2))
+        buffer.append(self.jvm.emitLABEL(label0))
+        # Tao mot array moi co cung kich thuoc voi array truyen vao
+        # Sau lenh nay tren stack se co mot dia chi cua newarray
+        buffer.append(self.emitINITARRAY(in_, typ, frame, True))
+        # i = 0
+        buffer.append(self.emitPUSHICONST(0, frame))
+        buffer.append(self.emitWRITEVAR('i', IntType(), idx, frame))
+        # bat dau for
+        buffer.append(self.jvm.emitLABEL(label1))
+        # load i
+        buffer.append(self.emitREADVAR('i', IntType(), idx, frame))
+        # load size
+        buffer.append(self.emitPUSHICONST(size1, frame))
+        # if i > size then goto label2
+        frame.pop()
+        frame.pop()
+        buffer.append(self.jvm.emitIFICMPGE(label2))
+        # Nhan doi dia chi cua newarray tren stack
+        buffer.append(self.emitDUP(frame))
+        buffer.append(self.emitREADVAR('i', IntType(), idx, frame))
+        # Load newarray[i]
+        buffer.append(self.emitREADVAR('arr', typ, in_, frame))
+        buffer.append(self.emitREADVAR('i', IntType(), idx, frame))
+        buffer.append(self.emitALOAD(typ.eleType, frame))
+        # Luu vao newarray
+        buffer.append(self.emitASTORE(typ.eleType, frame))
+        # i + 1, de tren stack
+        buffer.append(self.emitREADVAR('i', IntType(), idx, frame))
+        buffer.append(self.emitPUSHICONST(1, frame))
+        buffer.append(self.emitADDOP('+', IntType(), frame))
+        # Luu i+1 vao i
+        buffer.append(self.emitWRITEVAR('i', IntType(), idx, frame))
+        # Nhay toi label1
+        buffer.append(self.jvm.emitGOTO(label1))
+        buffer.append(self.jvm.emitLABEL(label2))
+        # Luu dia chi cua newarray vao bien truyen vao
+        buffer.append(self.emitWRITEVAR('arr', typ, in_, frame))
+        return ''.join(buffer)
 
 
     '''   generate code to initialize local array variables.

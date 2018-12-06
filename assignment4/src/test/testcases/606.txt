@@ -1,0 +1,42 @@
+
+            procedure foo(x: integer; y: string; z: real; t: boolean);
+            begin
+                if t then
+                begin 
+                    putStringLN(y);
+                    putIntLn(x);
+                    putFloatLN(z);
+                end
+                i := i + 1;
+                if i = 110 then 
+                    return;
+                else 
+                    foo(x+1, "PPL", z + 1.5, not t);
+            end
+
+            procedure foo1(x: array [1 .. 10] of real; y: array [1 .. 10] of integer);
+            var i: integer; res: array [1 .. 10] of real;
+            begin
+                for i := 1 to 10 do 
+                    res[i] := x[i] + y[i];
+                for i := 10 downto 1 do
+                    putFloatLn(res[i]);
+            end
+
+            var x: array [1 .. 10] of integer; j,i: integer;
+
+            procedure main();
+            begin 
+                i := 100;
+                foo(10,"ppl",1.23,true);
+                with y: array [1 .. 10] of real; do
+                begin
+                    for j := 10 downto 1 do
+                    begin
+                        x[j] := j*j;
+                        y[j] := j;
+                    end
+                    foo1(y,x);
+                end
+            end 
+        

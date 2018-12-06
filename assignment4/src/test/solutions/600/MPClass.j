@@ -6,27 +6,29 @@
 .var 0 is x [I from Label0 to Label1
 .var 1 is i I from Label0 to Label1
 Label0:
-	iconst_1
-	istore_1
+.var 2 is i I from Label2 to Label4
 Label2:
-	iload_1
 	iconst_5
-	if_icmpgt Label4
-	aload_0
-	iload_1
-	iconst_1
-	isub
-	iload_1
-	iload_1
-	imul
-	iastore
+	newarray int
+	iconst_0
+	istore_2
 Label3:
-	iload_1
+	iload_2
+	iconst_5
+	if_icmpge Label4
+	dup
+	iload_2
+	aload_0
+	iload_2
+	iaload
+	iastore
+	iload_2
 	iconst_1
 	iadd
-	istore_1
-	goto Label2
+	istore_2
+	goto Label3
 Label4:
+	astore_0
 	iconst_1
 	istore_1
 Label5:
@@ -37,8 +39,10 @@ Label5:
 	iload_1
 	iconst_1
 	isub
-	iaload
-	invokestatic io/putIntLn(I)V
+	iload_1
+	iload_1
+	imul
+	iastore
 Label6:
 	iload_1
 	iconst_1
@@ -46,10 +50,29 @@ Label6:
 	istore_1
 	goto Label5
 Label7:
+	iconst_1
+	istore_1
+Label8:
+	iload_1
+	iconst_5
+	if_icmpgt Label10
+	aload_0
+	iload_1
+	iconst_1
+	isub
+	iaload
+	invokestatic io/putIntLn(I)V
+Label9:
+	iload_1
+	iconst_1
+	iadd
+	istore_1
+	goto Label8
+Label10:
 Label1:
 	return
-.limit stack 4
-.limit locals 2
+.limit stack 5
+.limit locals 3
 .end method
 
 .method public static main([Ljava/lang/String;)V

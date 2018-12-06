@@ -137,7 +137,7 @@ class StaticChecker(BaseVisitor, Utils):
         for x in ast.body:
             [isReturn, isBreak] = self.visit(x, (lst + c[0], c[1], False, ast, isReturn, isBreak))
         if not isReturn and not type(ast.returnType) is VoidType:
-            raise FunctionNotReturn(ast.name.name)
+            raise FunctionNotReturn(ast.name.name)  
 
     # in c
     # c[0]: list -> Environment
@@ -321,7 +321,7 @@ class StaticChecker(BaseVisitor, Utils):
         # op: string
         # body: Expr
         expr = self.visit(ast.body, (c[0], c[1], c[2]))
-        if ast.op == 'not' and type(expr) is BoolType:
+        if ast.op.lower() == 'not' and type(expr) is BoolType:
             return BoolType()
         elif ast.op == '-' and type(expr) is IntType:
             return IntType()
@@ -333,8 +333,7 @@ class StaticChecker(BaseVisitor, Utils):
         # method: Id
         # param: list(Expr)
         at = [self.visit(x, (c[0], c[1], c[2])) for x in ast.param]
-        res = self.lookup(ast.method.name.lower(),
-                          c[0], lambda x: x.name.lower())
+        res = self.lookup(ast.method.name.lower(),c[0], lambda x: x.name.lower())
         if res is None or not type(res.mtype) is MType or type(res.mtype.rettype) is VoidType:
             raise Undeclared(Function(), ast.method.name)
         elif len(res.mtype.partype) != len(at):

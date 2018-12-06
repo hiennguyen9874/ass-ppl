@@ -4,37 +4,57 @@
 
 .method public static searchArr([II)[I
 .var 0 is d [I from Label0 to Label1
-	iconst_5
-	newarray int
-	astore_0
 .var 1 is n I from Label0 to Label1
 .var 2 is i I from Label0 to Label1
 Label0:
+.var 3 is i I from Label2 to Label4
+Label2:
+	iconst_5
+	newarray int
+	iconst_0
+	istore_3
+Label3:
+	iload_3
+	iconst_5
+	if_icmpge Label4
+	dup
+	iload_3
+	aload_0
+	iload_3
+	iaload
+	iastore
+	iload_3
+	iconst_1
+	iadd
+	istore_3
+	goto Label3
+Label4:
+	astore_0
 	iconst_1
 	istore_2
-Label2:
+Label5:
 	iload_2
 	iload_1
-	if_icmpgt Label4
+	if_icmpgt Label7
 	aload_0
 	iload_2
 	iconst_1
 	isub
 	iload_2
 	iastore
-Label3:
+Label6:
 	iload_2
 	iconst_1
 	iadd
 	istore_2
-	goto Label2
-Label4:
+	goto Label5
+Label7:
 	aload_0
 	goto Label1
 Label1:
 	areturn
-.limit stack 3
-.limit locals 3
+.limit stack 5
+.limit locals 4
 .end method
 
 .method public static main([Ljava/lang/String;)V

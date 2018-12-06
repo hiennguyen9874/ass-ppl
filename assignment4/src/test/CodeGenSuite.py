@@ -686,7 +686,7 @@ class CheckCodeGenSuite(unittest.TestCase):
             putInt(result);
         end
         """
-        expect = "1"
+        expect = "5"
         self.assertTrue(TestCodeGen.test(input, expect, 556))
     
     def test_all1(self):
@@ -946,7 +946,7 @@ class CheckCodeGenSuite(unittest.TestCase):
             putInt(result);
         end
         """
-        expect = "1"
+        expect = "5"
         self.assertTrue(TestCodeGen.test(input, expect, 574))
 
     def test_75(self):
@@ -1141,7 +1141,7 @@ class CheckCodeGenSuite(unittest.TestCase):
         Assign(ArrayCell(Id("arr"),IntLiteral(5)),IntLiteral(20)),
         Assign(Id("result"),CallExpr(Id("searchArr"),[Id("arr"),IntLiteral(3),IntLiteral(5)])),
         CallStmt(Id("putInt"),[Id("result")]),Return(None)],VoidType())])
-        expect = "1"
+        expect = "5"
         self.assertTrue(TestCodeGen.test(input, expect, 584))
 
     def test_85(self):
@@ -1421,11 +1421,407 @@ class CheckCodeGenSuite(unittest.TestCase):
                 i := 1;
             end
             procedure main();
-            begin  
+            var b : boolean;
+            begin
+                b := true;
+                putBoolLn(b);
                 i := 2;
                 foo(i);
                 putInt(i);
             end
         """
-        expect = "2"
+        expect = "true\n2"
         self.assertTrue(TestCodeGen.test(input, expect, 599))
+
+    def test_pass_by_value_array_1(self):
+        input = """
+            procedure foo(x: array [1 .. 5] of integer);
+            var i: integer;
+            begin
+                for i := 1 to 5 do
+                    x[i] := i * i;
+                for i := 1 to 5 do
+                   putIntLn(x[i]);
+            end
+            procedure main();
+            var i: integer; c: array [1 .. 5] of integer;
+            begin
+                for i:=1 to 5 do
+                    c[i] := i;
+                for i := 1 to 5 do
+                   putIntLn(c[i]);
+                foo(c);
+                for i := 1 to 5 do
+                   putIntLn(c[i]);
+            end
+        """
+        expect = "1\n2\n3\n4\n5\n1\n4\n9\n16\n25\n1\n2\n3\n4\n5\n"
+        self.assertTrue(TestCodeGen.test(input, expect, 600))
+
+    def test_pass_by_value_array_2(self):
+        input = """
+            function foo(x: array [1 .. 5] of integer): integer;
+            var i: integer;
+            begin
+                for i := 1 to 5 do
+                    x[i] := i * i;
+                for i := 1 to 5 do
+                   putIntLn(x[i]);
+                return 1;
+            end
+
+            procedure main();
+            var i, res: integer; c: array [1 .. 5] of integer;
+            begin
+                for i:= 1 to 5 do
+                    c[i] := i;
+                for i := 1 to 5 do
+                   putIntLn(c[i]);
+                res := foo(c);
+                for i := 1 to 5 do
+                   putIntLn(c[i]);
+            end
+        """
+        expect = "1\n2\n3\n4\n5\n1\n4\n9\n16\n25\n1\n2\n3\n4\n5\n"
+        self.assertTrue(TestCodeGen.test(input,expect,601))
+
+    def test_pass_by_value_array_type_in_call_express(self):
+        input = """
+            function foo(a: array [1 .. 3] of real): boolean;
+            var i: integer;
+            begin
+                for i := 1 to 3 do 
+                    putFloatLn(a[i]);
+                for i := 1 to 3 do 
+                    a[i] := 444;
+                for i := 1 to 3 do 
+                    putFloatLn(a[i]);
+                return true;
+            end
+            
+            var x: array [1 .. 3] of real;
+
+            procedure main();
+            var i: integer; z: boolean;
+            begin
+                for i := 1 to 3 do 
+                    x[i] := 10;
+                for i := 1 to 3 do 
+                    putFloatLn(x[i]);
+                z := foo(x);
+                for i := 1 to 3 do 
+                    putFloatLn(x[i]);  
+            end
+        """
+        expect = """10.0\n10.0\n10.0\n10.0\n10.0\n10.0\n444.0\n444.0\n444.0\n10.0\n10.0\n10.0\n"""
+        self.assertTrue(TestCodeGen.test(input,expect,602))
+
+    def test_pass_by_value_array_type_in_call_stmt(self):
+        input = """
+            procedure foo(a: array [1 .. 3] of integer);
+            var i: integer;
+            begin
+                for i := 1 to 3 do 
+                    putFloatLn(a[i]);
+                for i := 1 to 3 do 
+                    a[i] := 444;
+                for i := 1 to 3 do 
+                    putFloatLn(a[i]);
+            end
+            
+            var x: array [1 .. 3] of integer;
+
+            procedure main();
+            var i: integer; z: boolean;
+            begin
+                for i := 1 to 3 do 
+                    x[i] := 10;
+                for i := 1 to 3 do 
+                    putFloatLn(x[i]);
+                foo(x);
+                for i := 1 to 3 do 
+                    putFloatLn(x[i]);  
+            end
+        """
+        expect = """10.0\n10.0\n10.0\n10.0\n10.0\n10.0\n444.0\n444.0\n444.0\n10.0\n10.0\n10.0\n"""
+        self.assertTrue(TestCodeGen.test(input,expect,603))
+
+
+    def test_return_array_1(self):
+        input = """
+            function foo1(a: array [1 .. 3] of integer): array [1 .. 3] of integer;
+            var i: integer;
+            begin
+                for i := 1 to 3 do 
+                    a[i] := 444;
+                return a;
+            end
+
+            function foo2(a: array [1 .. 3] of real): array [1 .. 3] of real;
+            var i: integer;
+            begin
+                for i := 1 to 3 do 
+                    a[i] := 555;
+                return a;
+            end
+
+            function foo3(a: array [1 .. 3] of boolean): array [1 .. 3] of boolean;
+            var i: integer;
+            begin
+                for i := 1 to 3 do 
+                    a[i] := i mod 2 = 0;
+                return a;
+            end
+
+            procedure printArrayBoolean(a: array [1 .. 3] of boolean);
+            var i: integer;
+            begin
+                for i := 1 to 3 do 
+                    putBoolLn(a[i]);
+            end
+
+            procedure printArrayInteger(a: array [1 .. 3] of integer);
+            var i: integer;
+            begin
+                for i := 1 to 3 do 
+                    putIntLn(a[i]);
+            end
+
+            procedure printArrayFloat(a: array [1 .. 3] of real);
+            var i: integer;
+            begin
+                for i := 1 to 3 do 
+                    putFloatLn(a[i]);
+            end
+
+            var z: array [1 .. 3] of integer;
+
+            procedure main();
+            var x: array [1 .. 3] of real; i: integer;
+            begin
+                with x: array [1 .. 3] of boolean; do
+                begin
+                    for i := 1 to 3 do
+                        x[i] := TRue;
+                    printArrayBoolean(x);
+                    printArrayBoolean(foo3(x)); 
+                end
+                
+                for i := 1 to 3 do 
+                begin
+                    x[i] := 10.0;
+                    z[i] := 20;
+                end
+                printArrayFloat(x);
+                printArrayFloat(foo2(x));
+                printArrayInteger(z);
+                printArrayInteger(foo1(z));
+            end
+        """
+        expect = """true
+true
+true
+false
+true
+false
+10.0
+10.0
+10.0
+555.0
+555.0
+555.0
+20
+20
+20
+444
+444
+444
+"""
+        self.assertTrue(TestCodeGen.test(input,expect,604))
+
+
+    def test_array_decla_in_with_stmt(self):
+            input = """
+                procedure main();
+                var i: integer;
+                begin
+                    with 
+                         x: array [-1 .. 3] of integer;
+                         y: array [-1 .. 3] of real;
+                         z: array [-1 .. 3] of boolean;
+                         t: array [-1 .. 3] of string;
+                    do 
+                    begin
+                        for i := -1 to 3 do 
+                        begin
+                            putIntLn(x[i]);
+                            putFloatLn(y[i]);
+                            putBoolLn(z[i]);
+                            putStringLn(t[i]);
+                        end   
+                    end
+                end
+            """
+            expect = """0
+0.0
+false
+null
+0
+0.0
+false
+null
+0
+0.0
+false
+null
+0
+0.0
+false
+null
+0
+0.0
+false
+null
+"""
+            self.assertTrue(TestCodeGen.test(input,expect,604))
+
+
+    def test_complex_with_with_stmt(self):
+        input = """
+            function printAString(x: array [1 .. 3] of string): integer;
+            var I: integer;
+            begin
+                for i := 1 to 3 do 
+                    putSTRINGLN(x[i]);
+                return 1;
+            end
+
+            function printAInt(x: array [1 .. 3] of integer): integer;
+            var I: integer;
+            begin
+                for i := 1 to 3 do 
+                    putINtLN(x[i]);
+                return 1;
+            end
+
+            function printAFloat(x: array [1 .. 3] of Real): integer;
+            var I: integer;
+            begin
+                for i := 1 to 3 do 
+                    putFloatLN(x[i]);
+                return 1;
+            end
+
+            function printABoolean(x: array [1 .. 3] of boolean): integer;
+            var I: integer;
+            begin
+                for i := 1 to 3 do 
+                    putBoolLN(x[i]);
+                return 1;
+            end
+
+            procedure main();
+            var i: integer;
+            begin 
+                with x: array [1 .. 3] of boolean; do
+                begin
+                    with x: array [1 .. 3] of integer; do
+                    begin
+                        with x: array [1 .. 3] of real; do
+                        begin
+                            i := printAFloaT(x);
+                        end
+                        i := printAInt(x);
+                    end
+                    i := printABoolean(x);
+                end
+                i := printAString(x);
+            end
+            var x: array [1 .. 3] of string;
+        """
+        expect = """0.0
+0.0
+0.0
+0
+0
+0
+false
+false
+false
+null
+null
+null
+"""
+        self.assertTrue(TestCodeGen.test(input,expect,605))
+
+
+    def test_call_stmt_complex(self):
+        input = """
+            procedure foo(x: integer; y: string; z: real; t: boolean);
+            begin
+                if t then
+                begin 
+                    putStringLN(y);
+                    putIntLn(x);
+                    putFloatLN(z);
+                end
+                i := i + 1;
+                if i = 110 then 
+                    return;
+                else 
+                    foo(x+1, "PPL", z + 1.5, not t);
+            end
+
+            procedure foo1(x: array [1 .. 10] of real; y: array [1 .. 10] of integer);
+            var i: integer; res: array [1 .. 10] of real;
+            begin
+                for i := 1 to 10 do 
+                    res[i] := x[i] + y[i];
+                for i := 10 downto 1 do
+                    putFloatLn(res[i]);
+            end
+
+            var x: array [1 .. 10] of integer; j,i: integer;
+
+            procedure main();
+            begin 
+                i := 100;
+                foo(10,"ppl",1.23,true);
+                with y: array [1 .. 10] of real; do
+                begin
+                    for j := 10 downto 1 do
+                    begin
+                        x[j] := j*j;
+                        y[j] := j;
+                    end
+                    foo1(y,x);
+                end
+            end 
+        """
+        expect = """ppl
+10
+1.23
+PPL
+12
+4.23
+PPL
+14
+7.23
+PPL
+16
+10.23
+PPL
+18
+13.23
+110.0
+90.0
+72.0
+56.0
+42.0
+30.0
+20.0
+12.0
+6.0
+2.0
+"""
+        self.assertTrue(TestCodeGen.test(input,expect,606))

@@ -158,6 +158,10 @@ class CodeGenVisitor(BaseVisitor, Utils):
             frame.enterScope(True)
             glenv = o.sym
             # Generate code for parameter declarations
+            
+            # danh sach cac array trong parameter declarations
+            lstArrayParam = list()
+
             if isInit:
                 idx = frame.getNewIndex()
                 self.emit.printout(self.emit.emitVAR(idx, "this", ClassType(self.className), frame.getStartLabel(), frame.getEndLabel(), frame))
@@ -171,9 +175,8 @@ class CodeGenVisitor(BaseVisitor, Utils):
                 for x in consdecl.param:
                     e = self.visit(x, e)
                     glenv = e.sym
-                    # if type(x.varType) is ArrayType:
-                    #     idx = glenv[0].value.value
-                    #     self.emit.printout(self.emit.emitCOPPYARRAY(idx, x.varType, frame))
+                    if type(x.varType) is ArrayType:
+                        lstArrayParam.append(glenv[0])
             if not isInit:
                 # Sinh ma cho local declarations
                 e = SubBody(frame, glenv)
@@ -183,14 +186,19 @@ class CodeGenVisitor(BaseVisitor, Utils):
                     if type(x.varType) is ArrayType:
                         idx = glenv[0].value.value
                         self.emit.printout(self.emit.emitINITARRAY(idx, x.varType, frame))
-            e = SubBody(frame, glenv)
-            body = consdecl.body
+
             self.emit.printout(self.emit.emitLABEL(frame.getStartLabel(), frame))
-            # Generate code for statements
+            
+            # Sao chep array tu param vao mot array moi
+            for x in lstArrayParam:
+                self.emit.printout(self.emit.emitCOPPYARRAY(x.value.value, x.mtype, frame))
+
             if isInit:
                 self.emit.printout(self.emit.emitREADVAR("this", ClassType(self.className), 0, frame))
                 self.emit.printout(self.emit.emitINVOKESPECIAL(frame))
-            list(map(lambda x: self.visit(x, e), body))
+            
+            # visit than ham
+            list(map(lambda x: self.visit(x, SubBody(frame, glenv)), consdecl.body))
             self.emit.printout(self.emit.emitLABEL(frame.getEndLabel(), frame))
             self.emit.printout(self.emit.emitRETURN(returnType, frame))
             self.emit.printout(self.emit.emitENDMETHOD(frame))
@@ -260,9 +268,11 @@ class CodeGenVisitor(BaseVisitor, Utils):
         name = ast.variable.name
 
         if frame is None:
+            # Decl mot bien global
             self.emit.printout(self.emit.emitATTRIBUTE(name, mtype, False, ""))
             return SubBody(None, [Symbol(name, mtype, CName(self.className))] + subctxt.sym)
         else:
+            # Decl mot bien local hoac param
             idx = frame.getNewIndex()
             self.emit.printout(self.emit.emitVAR(idx, name, mtype, frame.getStartLabel(), frame.getEndLabel(), frame))
             return SubBody(frame, [Symbol(name, mtype, Index(idx))] + subctxt.sym)
@@ -454,6 +464,9 @@ class CodeGenVisitor(BaseVisitor, Utils):
         for x in ast.decl:
             e = self.visit(x, e)
             glenv = e.sym
+            if type(x.varType) is ArrayType:
+                idx = glenv[0].value.value
+                self.emit.printout(self.emit.emitINITARRAY(idx, x.varType, frame))
         e = SubBody(frame, glenv)
         body = ast.stmt
         self.emit.printout(self.emit.emitLABEL(frame.getStartLabel(), frame))

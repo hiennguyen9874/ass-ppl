@@ -5,7 +5,10 @@
                 i := 1;
             end
             procedure main();
-            begin  
+            var b : boolean;
+            begin
+                b := true;
+                putBoolLn(b);
                 i := 2;
                 foo(i);
                 putInt(i);

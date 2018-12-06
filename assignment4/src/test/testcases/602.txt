@@ -1,0 +1,27 @@
+
+            function foo(a: array [1 .. 3] of real): boolean;
+            var i: integer;
+            begin
+                for i := 1 to 3 do 
+                    putFloatLn(a[i]);
+                for i := 1 to 3 do 
+                    a[i] := 444;
+                for i := 1 to 3 do 
+                    putFloatLn(a[i]);
+                return true;
+            end
+            
+            var x: array [1 .. 3] of real;
+
+            procedure main();
+            var i: integer; z: boolean;
+            begin
+                for i := 1 to 3 do 
+                    x[i] := 10;
+                for i := 1 to 3 do 
+                    putFloatLn(x[i]);
+                z := foo(x);
+                for i := 1 to 3 do 
+                    putFloatLn(x[i]);  
+            end
+        

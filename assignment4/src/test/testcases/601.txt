@@ -1,17 +1,23 @@
 
-        procedure main();
-        var a, b, res:integer;
-        begin
-            a := 1;
-            b := 1;
-            res := foo(a, b);
-            putIntLn(res);
-        end
-        
-        function foo(a:integer; b:integer):integer;
-        begin
-            if a=b
-                then return 111;
-                else return 222;
-        end
+            function foo(x: array [1 .. 5] of integer): integer;
+            var i: integer;
+            begin
+                for i := 1 to 5 do
+                    x[i] := i * i;
+                for i := 1 to 5 do
+                   putIntLn(x[i]);
+                return 1;
+            end
+
+            procedure main();
+            var i, res: integer; c: array [1 .. 5] of integer;
+            begin
+                for i:= 1 to 5 do
+                    c[i] := i;
+                for i := 1 to 5 do
+                   putIntLn(c[i]);
+                res := foo(c);
+                for i := 1 to 5 do
+                   putIntLn(c[i]);
+            end
         
