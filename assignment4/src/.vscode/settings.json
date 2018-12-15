@@ -6,4 +6,5 @@
         "${workspaceRoot}/main/mp/checker",
         "${workspaceRoot}/test"
     ],
+    "python.pythonPath": "C:\\Program Files (x86)\\Python37-32\\python.exe",
 }
