@@ -18,9 +18,9 @@ Conventionally, the sequence ’\n’ must be used as a new line character in MP
     + ```cd /usr/local/lib```
     + ```sudo wget https://www.antlr.org/download/antlr-4.7.1-complete.jar```
 * **3.** Thêm hai biến môi trường ~/.bashrc
-    + echo "ANTLR_LIB='/usr/local/lib/antlr-4.7.1-complete.jar'" >> ~/.bashrc
-    + echo "export ANTLR_LIB" >> ~/.bashrc
-    + source ~/.bashrc
+    + ```echo "ANTLR_LIB='/usr/local/lib/antlr-4.7.1-complete.jar'" >> ~/.bashrc```
+    + ```echo "export ANTLR_LIB" >> ~/.bashrc```
+    + ```source ~/.bashrc```
 * **4.** Chạy hai lệnh sau:
     + ```sudo apt-get update```
     + ```sudo apt install -y build-essential```
