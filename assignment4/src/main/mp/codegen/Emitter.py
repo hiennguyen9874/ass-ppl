@@ -587,7 +587,7 @@ class Emitter():
             frame.pop()
         return ''.join(buffer)
     '''
-    Ly do co doan code nay: Trong MP array truyen kieu value, sau khi truyen array khong thay doi
+    Ly do co doan code nay: Trong MP array truyen tham so kieu value, sau khi truyen array khong thay doi
     Code tao mot array moi tu array truyen vao mot ham
     '''
     def emitCOPPYARRAY(self, in_, typ, frame):
