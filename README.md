@@ -1,4 +1,4 @@
-# Bài tập lớn môn Nguyên lý nguôn ngữ lập trình
+# Assignment PPL
 ## Introduction
 MP (Mini Pascal) is a language which consists of a subset of Pascal plus some Java language features.
 
